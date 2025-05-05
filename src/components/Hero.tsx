@@ -15,16 +15,18 @@ export const Hero = () => {
             <p className="text-xl mb-8">
               Embark on a journey to master new skills and advance your career with our expert-led courses and personalized learning paths.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="journey-button create-journey-button">
-                Create Journey <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="lg" className="journey-button view-journey-button">
-                View my journey
-              </Button>
-              <Button variant="outline" size="lg" className="watch-button">
+            <div className="flex flex-col gap-4">
+              <Button variant="outline" size="lg" className="watch-button mb-2">
                 <Play className="mr-2 h-4 w-4" /> Watch how it works
               </Button>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button size="lg" className="journey-button create-journey-button">
+                  Create Journey <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+                <Button variant="outline" size="lg" className="journey-button view-journey-button">
+                  View my journey
+                </Button>
+              </div>
             </div>
           </div>
           <div className="md:w-1/2">
