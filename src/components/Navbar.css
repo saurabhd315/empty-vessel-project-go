@@ -1,7 +1,8 @@
 
 .navbar-container {
   font-family: 'Noto Sans', sans-serif;
-  background-color: #ffffff;
+  background-color: #FFF8F0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .skill-journey-logo {
@@ -37,5 +38,31 @@
 }
 
 .primary-button-outline:hover {
+  background-color: rgba(7, 120, 182, 0.1);
+}
+
+.journey-button {
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 0 1rem;
+  height: 2.25rem;
+}
+
+.create-journey-button {
+  background-color: #0778b6;
+  color: white;
+}
+
+.create-journey-button:hover {
+  background-color: #056a9d;
+}
+
+.view-journey-button {
+  border: 1px solid #0778b6;
+  color: #0778b6;
+}
+
+.view-journey-button:hover {
   background-color: rgba(7, 120, 182, 0.1);
 }

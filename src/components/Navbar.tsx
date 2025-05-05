@@ -10,7 +10,12 @@ export const Navbar = () => {
     <header className="border-b navbar-container">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center">
-          <a href="/" className="text-xl font-bold skill-journey-logo">
+          <a href="/" className="text-xl font-bold skill-journey-logo flex items-center">
+            <img 
+              src="/lovable-uploads/5f225727-b0b4-4f71-b591-42987c615598.png" 
+              alt="Skill Journey Logo" 
+              className="h-10 mr-2"
+            />
             SkillJourney
           </a>
         </div>
@@ -21,20 +26,31 @@ export const Navbar = () => {
             Home
           </a>
           <a href="#" className="nav-link">
-            Courses
+            Portfolio
           </a>
           <a href="#" className="nav-link">
-            Resources
+            Resume Builder
           </a>
           <a href="#" className="nav-link">
-            About Us
+            Trainings
           </a>
-          <Button variant="outline" size="sm" className="primary-button-outline">
-            Sign In
-          </Button>
-          <Button size="sm" className="primary-button">
-            Get Started
-          </Button>
+          <a href="#" className="nav-link">
+            Counselling
+          </a>
+          <a href="#" className="nav-link">
+            Blog
+          </a>
+          <a href="#" className="nav-link">
+            About
+          </a>
+          <div className="flex space-x-3 ml-2">
+            <Button size="sm" className="journey-button create-journey-button">
+              Create Journey
+            </Button>
+            <Button size="sm" variant="outline" className="journey-button view-journey-button">
+              View my journey
+            </Button>
+          </div>
         </nav>
         
         {/* Mobile menu button */}
@@ -66,19 +82,28 @@ export const Navbar = () => {
             Home
           </a>
           <a href="#" className="nav-link">
-            Courses
+            Portfolio
           </a>
           <a href="#" className="nav-link">
-            Resources
+            Resume Builder
           </a>
           <a href="#" className="nav-link">
-            About Us
+            Trainings
           </a>
-          <Button variant="outline" size="sm" className="primary-button-outline w-full">
-            Sign In
+          <a href="#" className="nav-link">
+            Counselling
+          </a>
+          <a href="#" className="nav-link">
+            Blog
+          </a>
+          <a href="#" className="nav-link">
+            About
+          </a>
+          <Button size="sm" className="journey-button create-journey-button w-full">
+            Create Journey
           </Button>
-          <Button size="sm" className="primary-button w-full">
-            Get Started
+          <Button size="sm" variant="outline" className="journey-button view-journey-button w-full mt-2">
+            View my journey
           </Button>
         </nav>
       )}
