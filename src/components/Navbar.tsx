@@ -1,34 +1,39 @@
 
 import { Button } from "@/components/ui/button";
-import { Github } from "lucide-react";
 import { useState } from "react";
+import "./Navbar.css";
 
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="border-b">
+    <header className="border-b navbar-container">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center">
-          <a href="/" className="text-xl font-bold">
-            BlankProject
+          <a href="/" className="text-xl font-bold skill-journey-logo">
+            SkillJourney
           </a>
         </div>
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
-          <a href="#" className="text-sm font-medium hover:text-primary transition-colors">
+          <a href="#" className="nav-link">
             Home
           </a>
-          <a href="#" className="text-sm font-medium hover:text-primary transition-colors">
-            Features
+          <a href="#" className="nav-link">
+            Courses
           </a>
-          <a href="#" className="text-sm font-medium hover:text-primary transition-colors">
-            Documentation
+          <a href="#" className="nav-link">
+            Resources
           </a>
-          <Button variant="outline" size="sm" className="flex items-center">
-            <Github className="mr-2 h-4 w-4" />
-            GitHub
+          <a href="#" className="nav-link">
+            About Us
+          </a>
+          <Button variant="outline" size="sm" className="primary-button-outline">
+            Sign In
+          </Button>
+          <Button size="sm" className="primary-button">
+            Get Started
           </Button>
         </nav>
         
@@ -57,18 +62,23 @@ export const Navbar = () => {
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
         <nav className="md:hidden px-4 py-4 border-t flex flex-col space-y-4">
-          <a href="#" className="text-sm font-medium hover:text-primary transition-colors">
+          <a href="#" className="nav-link">
             Home
           </a>
-          <a href="#" className="text-sm font-medium hover:text-primary transition-colors">
-            Features
+          <a href="#" className="nav-link">
+            Courses
           </a>
-          <a href="#" className="text-sm font-medium hover:text-primary transition-colors">
-            Documentation
+          <a href="#" className="nav-link">
+            Resources
           </a>
-          <Button variant="outline" size="sm" className="flex items-center justify-center w-full">
-            <Github className="mr-2 h-4 w-4" />
-            GitHub
+          <a href="#" className="nav-link">
+            About Us
+          </a>
+          <Button variant="outline" size="sm" className="primary-button-outline w-full">
+            Sign In
+          </Button>
+          <Button size="sm" className="primary-button w-full">
+            Get Started
           </Button>
         </nav>
       )}

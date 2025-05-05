@@ -1,25 +1,53 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import "./Hero.css";
 
 export const Hero = () => {
   return (
-    <section className="bg-gradient-to-b from-slate-50 to-white">
-      <div className="container mx-auto px-4 py-16 md:py-24 text-center">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600">
-          Your Blank Canvas
-        </h1>
-        <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-          Start building your next amazing web application with this
-          clean, modern, and customizable project template.
-        </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Button size="lg">
-            Get Started <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-          <Button variant="outline" size="lg">
-            Learn More
-          </Button>
+    <section className="hero-section">
+      <div className="container mx-auto px-4 py-16 md:py-24">
+        <div className="flex flex-col md:flex-row items-center">
+          <div className="md:w-1/2 text-left mb-8 md:mb-0 md:pr-8">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-transparent bg-clip-text skill-journey-gradient">
+              Skill Journey
+            </h1>
+            <p className="text-xl mb-8">
+              Embark on a journey to master new skills and advance your career with our expert-led courses and personalized learning paths.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button size="lg" className="skill-journey-button">
+                Explore Courses <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              <Button variant="outline" size="lg">
+                Learn More
+              </Button>
+            </div>
+          </div>
+          <div className="md:w-1/2">
+            <div className="relative">
+              <div className="hero-image-container">
+                <img 
+                  src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&q=80&w=1000" 
+                  alt="Student learning online" 
+                  className="rounded-lg shadow-xl"
+                />
+              </div>
+              <div className="absolute -bottom-5 -left-5 bg-white dark:bg-slate-800 p-4 rounded-lg shadow-lg">
+                <div className="flex items-center gap-3">
+                  <div className="bg-green-100 dark:bg-green-900 p-2 rounded-full">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20 6L9 17L4 12" stroke="#0778b6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-bold">10,000+</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Successful learners</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
