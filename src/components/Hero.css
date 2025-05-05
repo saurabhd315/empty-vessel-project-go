@@ -35,3 +35,41 @@
 .hero-image-container:hover img {
   transform: scale(1.03);
 }
+
+.journey-button {
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.create-journey-button {
+  background-color: #0778b6;
+  color: white;
+}
+
+.create-journey-button:hover {
+  background-color: #056a9d;
+}
+
+.view-journey-button {
+  border: 1px solid #0778b6;
+  color: #0778b6;
+}
+
+.view-journey-button:hover {
+  background-color: rgba(7, 120, 182, 0.1);
+}
+
+.watch-button {
+  border: 1px solid #0778b6;
+  color: #0778b6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.watch-button:hover {
+  background-color: rgba(7, 120, 182, 0.1);
+}

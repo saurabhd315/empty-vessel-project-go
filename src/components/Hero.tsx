@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import "./Hero.css";
 
 export const Hero = () => {
@@ -16,11 +16,14 @@ export const Hero = () => {
               Embark on a journey to master new skills and advance your career with our expert-led courses and personalized learning paths.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="skill-journey-button">
-                Explore Courses <ArrowRight className="ml-2 h-4 w-4" />
+              <Button size="lg" className="journey-button create-journey-button">
+                Create Journey <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <Button variant="outline" size="lg">
-                Learn More
+              <Button variant="outline" size="lg" className="journey-button view-journey-button">
+                View my journey
+              </Button>
+              <Button variant="outline" size="lg" className="watch-button">
+                <Play className="mr-2 h-4 w-4" /> Watch how it works
               </Button>
             </div>
           </div>

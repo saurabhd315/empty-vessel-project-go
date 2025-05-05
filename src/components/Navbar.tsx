@@ -43,14 +43,6 @@ export const Navbar = () => {
           <a href="#" className="nav-link">
             About
           </a>
-          <div className="flex space-x-3 ml-2">
-            <Button size="sm" className="journey-button create-journey-button">
-              Create Journey
-            </Button>
-            <Button size="sm" variant="outline" className="journey-button view-journey-button">
-              View my journey
-            </Button>
-          </div>
         </nav>
         
         {/* Mobile menu button */}
@@ -99,12 +91,6 @@ export const Navbar = () => {
           <a href="#" className="nav-link">
             About
           </a>
-          <Button size="sm" className="journey-button create-journey-button w-full">
-            Create Journey
-          </Button>
-          <Button size="sm" variant="outline" className="journey-button view-journey-button w-full mt-2">
-            View my journey
-          </Button>
         </nav>
       )}
     </header>
