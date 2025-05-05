@@ -36,40 +36,90 @@
   transform: scale(1.03);
 }
 
+/* Updated Button Styles */
 .journey-button {
   font-size: 0.95rem;
-  font-weight: 500;
-  border-radius: 4px;
+  font-weight: 600;
+  border-radius: 8px;
   transition: all 0.3s ease;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  letter-spacing: 0.025em;
 }
 
 .create-journey-button {
   background-color: #0778b6;
   color: white;
+  position: relative;
+  overflow: hidden;
 }
 
 .create-journey-button:hover {
   background-color: #056a9d;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.create-journey-button:active {
+  transform: translateY(0);
+}
+
+.button-icon {
+  transition: transform 0.3s ease;
+}
+
+.create-journey-button:hover .button-icon {
+  transform: translateX(4px);
 }
 
 .view-journey-button {
-  border: 1px solid #0778b6;
+  border: 2px solid #0778b6;
   color: #0778b6;
+  background-color: transparent;
 }
 
 .view-journey-button:hover {
-  background-color: rgba(7, 120, 182, 0.1);
+  background-color: rgba(7, 120, 182, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.view-journey-button:active {
+  transform: translateY(0);
 }
 
 .watch-button {
-  border: 1px solid #0778b6;
+  border: 2px solid #0778b6;
   color: #0778b6;
+  background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 0.75rem 1.5rem;
+  letter-spacing: 0.025em;
 }
 
 .watch-button:hover {
+  background-color: rgba(7, 120, 182, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.watch-button:active {
+  transform: translateY(0);
+}
+
+.watch-icon {
   background-color: rgba(7, 120, 182, 0.1);
+  border-radius: 50%;
+  padding: 2px;
+  transition: all 0.3s ease;
+}
+
+.watch-button:hover .watch-icon {
+  transform: scale(1.2);
 }

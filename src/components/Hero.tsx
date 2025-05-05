@@ -17,11 +17,11 @@ export const Hero = () => {
             </p>
             <div className="flex flex-col gap-4">
               <Button variant="outline" size="lg" className="watch-button mb-2">
-                <Play className="mr-2 h-4 w-4" /> Watch how it works
+                <Play className="mr-2 h-4 w-4 watch-icon" /> Watch how it works
               </Button>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button size="lg" className="journey-button create-journey-button">
-                  Create Journey <ArrowRight className="ml-2 h-4 w-4" />
+                  Create Journey <ArrowRight className="ml-2 h-4 w-4 button-icon" />
                 </Button>
                 <Button variant="outline" size="lg" className="journey-button view-journey-button">
                   View my journey
