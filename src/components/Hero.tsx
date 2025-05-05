@@ -16,9 +16,9 @@ export const Hero = () => {
               Embark on a journey to master new skills and advance your career with our expert-led courses and personalized learning paths.
             </p>
             <div className="flex flex-col gap-4">
-              <Button variant="outline" size="lg" className="watch-button mb-2">
+              <div className="watch-link mb-2">
                 <Play className="mr-2 h-4 w-4 watch-icon" /> Watch how it works
-              </Button>
+              </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button size="lg" className="journey-button create-journey-button">
                   Create Journey <ArrowRight className="ml-2 h-4 w-4 button-icon" />
