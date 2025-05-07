@@ -16,13 +16,6 @@ export const Testimonials = () => {
       title: "Marketing Manager",
       company: "BrandGrowth",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200"
-    },
-    {
-      quote: "The mentor matching on SkillJourney is incredible. My mentor has been instrumental in helping me navigate my career transitions and growth.",
-      author: "Daniel Kim",
-      title: "Product Manager",
-      company: "InnovateTech",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200"
     }
   ];
 
@@ -37,7 +30,7 @@ export const Testimonials = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {testimonials.map((testimonial, index) => (
             <div key={index} className="testimonial-card">
               <div className="quote-mark">"</div>
@@ -64,7 +57,6 @@ export const Testimonials = () => {
             <div className="company-logo">Microsoft</div>
             <div className="company-logo">Amazon</div>
             <div className="company-logo">Meta</div>
-            <div className="company-logo">Apple</div>
           </div>
         </div>
       </div>
