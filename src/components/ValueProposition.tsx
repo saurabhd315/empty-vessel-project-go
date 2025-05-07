@@ -15,7 +15,7 @@ export const ValueProposition = () => {
     description: "Get feedback and mentoring throughout your professional journey."
   }];
   return <section className="value-prop-section">
-      <div className="container mx-auto px-4 md:py-20">
+      <div className="container mx-auto md:py-20">
         <div className="text-center ">
           <span className="text-sm uppercase tracking-wider text-primary-badge font-semibold">Why Choose SkillJourney</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-4">Your Path to Professional Success</h2>
