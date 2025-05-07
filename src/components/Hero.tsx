@@ -6,6 +6,7 @@ import "./Hero.css";
 export const Hero = () => {
   return (
     <section className="hero-section">
+      <div className="hero-background"></div>
       <div className="container mx-auto px-4 py-16 md:py-24">
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 text-left mb-8 md:mb-0 md:pr-8">
@@ -16,17 +17,12 @@ export const Hero = () => {
             <p className="text-xl mb-8">
               Embark on a personalized journey to master in-demand skills, connect with industry experts, and unlock your professional potential.
             </p>
-            <div className="flex flex-col gap-4">
-              <div className="watch-link mb-2">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button size="lg" className="journey-button create-journey-button">
+                Start Your Journey <ArrowRight className="ml-2 h-4 w-4 button-icon" />
+              </Button>
+              <div className="watch-link">
                 <Play className="mr-2 h-4 w-4 watch-icon" /> Watch how it works
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="journey-button create-journey-button">
-                  Create Journey <ArrowRight className="ml-2 h-4 w-4 button-icon" />
-                </Button>
-                <Button variant="outline" size="lg" className="journey-button view-journey-button">
-                  View my journey
-                </Button>
               </div>
             </div>
           </div>
@@ -34,8 +30,8 @@ export const Hero = () => {
             <div className="relative">
               <div className="hero-image-container">
                 <img 
-                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1000" 
-                  alt="Student building career skills" 
+                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1000" 
+                  alt="Students collaborating on career skills" 
                   className="rounded-lg shadow-xl"
                 />
               </div>
