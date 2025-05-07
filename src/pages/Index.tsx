@@ -4,7 +4,7 @@ import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Features } from "@/components/Features";
 import { Testimonials } from "@/components/Testimonials";
-import { CounsellorsGrid } from "@/components/CounsellorsGrid";
+import { CounsellorCarousel } from "@/components/CounsellorCarousel";
 import { CTA } from "@/components/CTA";
 import { Footer } from "@/components/Footer";
 import "./Index.css";
@@ -17,7 +17,7 @@ const Index = () => {
       <Hero />
       <HowItWorks />
       <Features />
-      <CounsellorsGrid />
+      <CounsellorCarousel />
       <Testimonials />
       <CTA />
       <Footer />
