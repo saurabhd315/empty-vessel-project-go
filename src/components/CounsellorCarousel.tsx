@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -10,6 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import "./CounsellorCarousel.css";
 
 type Counsellor = {
@@ -24,7 +25,12 @@ type Counsellor = {
 
 export const CounsellorCarousel = () => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [api, setApi] = useState<any>(null);
   const navigate = useNavigate();
+  
+  // Media queries for responsive design
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const isTablet = useMediaQuery("(min-width: 640px) and (max-width: 1023px)");
 
   const counsellors = [
     {
@@ -94,17 +100,26 @@ export const CounsellorCarousel = () => {
   const handleViewProfile = (slug: string) => {
     navigate(`/profile/${slug}`);
   };
-
-  // Fix: Changed from using onSelect which was causing the TypeScript error
-  // to using a CarouselApi state and watching for selection changes
-  const [api, setApi] = useState<any>(null);
-
+  
+  // Set up autoplay
+  useEffect(() => {
+    if (!api) return;
+    
+    const interval = setInterval(() => {
+      api.scrollNext();
+    }, 4000);
+    
+    return () => clearInterval(interval);
+  }, [api]);
+  
   // When the API is available, we'll set up an event listener for selection changes
-  if (api) {
+  useEffect(() => {
+    if (!api) return;
+    
     api.on("select", () => {
       setCurrentPage(api.selectedScrollSnap());
     });
-  }
+  }, [api]);
 
   return (
     <section id="counsellors" className="counsellor-carousel-section">
@@ -121,10 +136,19 @@ export const CounsellorCarousel = () => {
           <Carousel 
             className="w-full"
             setApi={setApi}
+            opts={{
+              align: "start",
+              loop: true,
+            }}
           >
             <CarouselContent>
               {counsellors.map((counsellor: Counsellor) => (
-                <CarouselItem key={counsellor.id} className="h-[400px] md:h-[500px]">
+                <CarouselItem 
+                  key={counsellor.id} 
+                  className={`${
+                    isDesktop ? 'basis-1/3' : isTablet ? 'basis-1/2' : 'basis-full'
+                  } h-[400px] md:h-[500px]`}
+                >
                   <div className="counsellor-slide" style={{ backgroundImage: `url(${counsellor.image})` }}>
                     <div className="counsellor-overlay">
                       <div className="slide-content">
@@ -169,4 +193,3 @@ export const CounsellorCarousel = () => {
     </section>
   );
 };
-
