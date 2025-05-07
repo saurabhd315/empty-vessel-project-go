@@ -1,13 +1,10 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 import "./Hero.css";
-
 export const Hero = () => {
-  return (
-    <section className="hero-section">
+  return <section className="hero-section">
       <div className="hero-background"></div>
-      <div className="container mx-auto px-4 py-16 md:py-24">
+      <div className="container mx-auto px-4 md:py-24">
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 text-left mb-8 md:mb-0 md:pr-8">
             <span className="text-sm uppercase tracking-wider text-primary-badge font-semibold">Your Career Advancement Platform</span>
@@ -29,17 +26,13 @@ export const Hero = () => {
           <div className="md:w-1/2">
             <div className="relative">
               <div className="hero-image-container">
-                <img 
-                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1000" 
-                  alt="Students collaborating on career skills" 
-                  className="rounded-lg shadow-xl"
-                />
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1000" alt="Students collaborating on career skills" className="rounded-lg shadow-xl" />
               </div>
               <div className="absolute -bottom-5 -left-5 bg-white dark:bg-slate-800 p-4 rounded-lg shadow-lg">
                 <div className="flex items-center gap-3">
                   <div className="bg-green-100 dark:bg-green-900 p-2 rounded-full">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M20 6L9 17L4 12" stroke="#0778b6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M20 6L9 17L4 12" stroke="#0778b6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </div>
                   <div>
@@ -60,6 +53,5 @@ export const Hero = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
