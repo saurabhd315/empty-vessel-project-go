@@ -1,17 +1,18 @@
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 import "./Hero.css";
 export const Hero = () => {
   return <section className="hero-section">
       <div className="hero-background"></div>
-      <div className="container mx-auto px-4 md:py-24">
+      <div className="container mx-auto px-4 md:py-16">
         <div className="flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 text-left mb-8 md:mb-0 md:pr-8">
+          <div className="md:w-1/2 text-left mb-6 md:mb-0 md:pr-8">
             <span className="text-sm uppercase tracking-wider text-primary-badge font-semibold">Your Career Advancement Platform</span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-transparent bg-clip-text skill-journey-gradient">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-transparent bg-clip-text skill-journey-gradient">
               Build Your Dream Career
             </h1>
-            <p className="text-xl mb-8">
+            <p className="text-xl mb-6">
               Embark on a personalized journey to master in-demand skills, connect with industry experts, and unlock your professional potential.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">

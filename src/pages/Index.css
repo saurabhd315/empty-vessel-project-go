@@ -8,6 +8,8 @@ body {
 section {
   position: relative;
   overflow: hidden;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
 .container {
@@ -61,14 +63,14 @@ section {
   border-radius: 9999px;
 }
 
-/* Responsive spacing utilities */
+/* Responsive spacing utilities - REDUCED */
 .section-spacing {
-  padding: 3rem 0;
+  padding: 1.5rem 0;
 }
 
 @media (min-width: 768px) {
   .section-spacing {
-    padding: 5rem 0;
+    padding: 2.5rem 0;
   }
 }
 
@@ -88,6 +90,6 @@ section {
   }
   
   .touch-spacing > * + * {
-    margin-top: 1rem;
+    margin-top: 0.75rem;
   }
 }

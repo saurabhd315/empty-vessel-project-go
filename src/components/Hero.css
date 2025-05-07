@@ -4,7 +4,7 @@
   font-family: 'Noto Sans', sans-serif;
   overflow: hidden;
   position: relative;
-  padding: 2rem 0;
+  padding: 1rem 0;
 }
 
 .hero-background {
@@ -151,7 +151,7 @@
 /* Mobile responsive adjustments */
 @media (max-width: 767px) {
   .hero-section {
-    padding: 1rem 0 2rem;
+    padding: 0.5rem 0 1rem;
   }
   
   .hero-heading {
@@ -169,7 +169,7 @@
   }
   
   .hero-image-container {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     transform: none;
   }
   
