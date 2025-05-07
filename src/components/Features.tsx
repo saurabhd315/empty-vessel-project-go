@@ -1,30 +1,22 @@
-
 import { User, Search, Briefcase } from "lucide-react";
 import "./Features.css";
-
 export const Features = () => {
-  const features = [
-    {
-      icon: <User />,
-      title: "Personalized Career Plans",
-      description: "Receive a customized roadmap based on your unique skills, experiences, and career aspirations."
-    },
-    {
-      icon: <Search />,
-      title: "Skill Gap Analysis",
-      description: "Identify your strengths and improvement areas through comprehensive assessment tools."
-    },
-    {
-      icon: <Briefcase />,
-      title: "Industry-Aligned Guidance",
-      description: "Get advice that's relevant to current market demands and future industry trends."
-    }
-  ];
-
-  return (
-    <section className="features-section">
-      <div className="container mx-auto px-4 py-16 md:py-24">
-        <div className="text-center mb-16">
+  const features = [{
+    icon: <User />,
+    title: "Personalized Career Plans",
+    description: "Receive a customized roadmap based on your unique skills, experiences, and career aspirations."
+  }, {
+    icon: <Search />,
+    title: "Skill Gap Analysis",
+    description: "Identify your strengths and improvement areas through comprehensive assessment tools."
+  }, {
+    icon: <Briefcase />,
+    title: "Industry-Aligned Guidance",
+    description: "Get advice that's relevant to current market demands and future industry trends."
+  }];
+  return <section className="features-section">
+      <div className="container mx-auto px-4 md:py-24">
+        <div className="text-center ">
           <span className="text-sm uppercase tracking-wider text-primary-badge font-semibold">What We Offer</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-6">Tools For Your Success</h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-12">
@@ -32,24 +24,18 @@ export const Features = () => {
           </p>
             
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {features.map((feature, index) => (
-              <div key={index} className="feature-card">
+            {features.map((feature, index) => <div key={index} className="feature-card">
                 <div className="feature-icon-container">
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
           
         <div className="features-image-container mt-16">
-          <img 
-            src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=800" 
-            alt="SkillJourney platform interface" 
-            className="rounded-lg shadow-xl features-image"
-          />
+          <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=800" alt="SkillJourney platform interface" className="rounded-lg shadow-xl features-image" />
           <div className="feature-stat-card feature-stat-card-1">
             <div className="text-center">
               <h4 className="text-2xl font-bold text-blue-600">93%</h4>
@@ -64,6 +50,5 @@ export const Features = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
