@@ -134,7 +134,7 @@ export const CounsellorCarousel = () => {
                       
                       <p className="counsellor-bio">{counsellor.bio}</p>
                       
-                      <Button onClick={() => handleViewProfile(counsellor.slug)} className="view-profile-btn color-[#0778b6]">
+                      <Button onClick={() => handleViewProfile(counsellor.slug)} className="view-profile-btn color-[#0778b6] bg-[#0778b6]">
                         View Profile <ArrowRight size={16} />
                       </Button>
                     </div>
