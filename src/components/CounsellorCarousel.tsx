@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { Star } from "lucide-react";
+import { Star, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import {
   Carousel,
@@ -21,6 +21,7 @@ type Counsellor = {
   bio: string;
   image: string;
   slug: string;
+  quote?: string;
 };
 
 export const CounsellorCarousel = () => {
@@ -38,51 +39,57 @@ export const CounsellorCarousel = () => {
       name: "Dr. Sarah Johnson",
       expertise: "Career Development",
       rating: 5,
+      quote: "Your career should reflect your passion",
       bio: "With over 15 years of experience in career coaching, Dr. Johnson specializes in helping professionals navigate career transitions.",
       image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?auto=format&fit=crop&q=80&w=800&h=500",
       slug: "sarah-johnson"
     },
     {
       id: 2,
-      name: "Michael Chen, MBA",
-      expertise: "Business Leadership",
-      rating: 5,
-      bio: "Former Fortune 500 executive with expertise in leadership development, strategic planning, and organizational growth.",
+      name: "Michael Chang",
+      expertise: "Educational Pathways",
+      rating: 4,
+      quote: "Learning is a lifelong journey",
+      bio: "As a former university dean, Michael provides guidance on educational pathways, academic planning, and scholarship opportunities for students.",
       image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?auto=format&fit=crop&q=80&w=800&h=500",
-      slug: "michael-chen"
+      slug: "michael-chang"
     },
     {
       id: 3,
-      name: "Dr. Priya Patel",
-      expertise: "Tech Career Advisor",
+      name: "Dr. Emily Rodriguez",
+      expertise: "Mental Health",
       rating: 5,
-      bio: "Experienced tech industry veteran helping professionals navigate the complex landscape of technology careers.",
+      quote: "Balance is the key to mental health",
+      bio: "A licensed psychologist with expertise in stress management, anxiety, and work-life balance. Dr. Rodriguez utilizes evidence-based approaches.",
       image: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?auto=format&fit=crop&q=80&w=800&h=500",
-      slug: "priya-patel"
+      slug: "emily-rodriguez"
     },
     {
       id: 4,
       name: "James Wilson",
       expertise: "Creative Industries",
       rating: 5,
+      quote: "Creativity is intelligence having fun",
       bio: "Award-winning creative director specializing in guiding careers in design, marketing, and creative leadership roles.",
       image: "https://images.unsplash.com/photo-1501286353178-1ec871214838?auto=format&fit=crop&q=80&w=800&h=500",
       slug: "james-wilson"
     },
     {
       id: 5,
-      name: "Emma Rodriguez",
+      name: "Emma Henderson",
       expertise: "Personal Development",
       rating: 5,
+      quote: "Growth happens outside your comfort zone",
       bio: "Certified life coach with a passion for helping individuals achieve their personal and professional goals.",
       image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=800&h=500",
-      slug: "emma-rodriguez"
+      slug: "emma-henderson"
     },
     {
       id: 6,
       name: "Dr. Alex Thompson",
       expertise: "Health & Wellness",
       rating: 5,
+      quote: "Wellness is a state of body and mind",
       bio: "Health and wellness expert focused on helping professionals maintain work-life balance and prevent burnout.",
       image: "https://images.unsplash.com/photo-1508341591423-4347099e1f19?auto=format&fit=crop&q=80&w=800&h=500",
       slug: "alex-thompson"
@@ -90,10 +97,13 @@ export const CounsellorCarousel = () => {
   ];
 
   const renderRatingStars = (rating: number) => {
-    return Array(rating)
+    return Array(5)
       .fill(0)
       .map((_, i) => (
-        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+        <Star 
+          key={i} 
+          className={`w-4 h-4 ${i < rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`} 
+        />
       ));
   };
 
@@ -147,27 +157,32 @@ export const CounsellorCarousel = () => {
                   key={counsellor.id} 
                   className={`${
                     isDesktop ? 'basis-1/3' : isTablet ? 'basis-1/2' : 'basis-full'
-                  } h-[400px] md:h-[500px]`}
+                  } p-2`}
                 >
-                  <div className="counsellor-slide" style={{ backgroundImage: `url(${counsellor.image})` }}>
-                    <div className="counsellor-overlay">
-                      <div className="slide-content">
-                        <h3 className="text-2xl md:text-3xl font-bold mb-2">{counsellor.name}</h3>
-                        <p className="text-lg md:text-xl font-medium mb-3 text-primary-200">{counsellor.expertise}</p>
-                        
-                        <p className="bio-excerpt mb-4">{counsellor.bio.slice(0, 100)}...</p>
-                        
-                        <div className="flex items-center mb-4">
-                          {renderRatingStars(counsellor.rating)}
-                        </div>
-                        
-                        <Button 
-                          className="view-profile-btn"
-                          onClick={() => handleViewProfile(counsellor.slug)}
-                        >
-                          View Profile
-                        </Button>
+                  <div className={`counsellor-card ${currentPage === counsellors.indexOf(counsellor) ? 'active' : ''}`}>
+                    <div className="counsellor-image">
+                      <img src={counsellor.image} alt={counsellor.name} />
+                    </div>
+                    <div className="counsellor-content">
+                      <h3 className="counsellor-name">{counsellor.name}</h3>
+                      <div className="counsellor-underline"></div>
+                      
+                      <div className="counsellor-rating">
+                        {renderRatingStars(counsellor.rating)}
                       </div>
+                      
+                      {counsellor.quote && (
+                        <p className="counsellor-quote">"{counsellor.quote}"</p>
+                      )}
+                      
+                      <p className="counsellor-bio">{counsellor.bio}</p>
+                      
+                      <Button 
+                        className="view-profile-btn"
+                        onClick={() => handleViewProfile(counsellor.slug)}
+                      >
+                        View Profile <ArrowRight size={16} />
+                      </Button>
                     </div>
                   </div>
                 </CarouselItem>
