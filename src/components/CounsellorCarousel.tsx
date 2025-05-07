@@ -95,6 +95,17 @@ export const CounsellorCarousel = () => {
     navigate(`/profile/${slug}`);
   };
 
+  // Fix: Changed from using onSelect which was causing the TypeScript error
+  // to using a CarouselApi state and watching for selection changes
+  const [api, setApi] = useState<any>(null);
+
+  // When the API is available, we'll set up an event listener for selection changes
+  if (api) {
+    api.on("select", () => {
+      setCurrentPage(api.selectedScrollSnap());
+    });
+  }
+
   return (
     <section id="counsellors" className="counsellor-carousel-section">
       <div className="container mx-auto px-4 py-12">
@@ -109,7 +120,7 @@ export const CounsellorCarousel = () => {
         <div className="carousel-container">
           <Carousel 
             className="w-full"
-            onSelect={(index) => setCurrentPage(index)}
+            setApi={setApi}
           >
             <CarouselContent>
               {counsellors.map((counsellor: Counsellor) => (
@@ -149,7 +160,7 @@ export const CounsellorCarousel = () => {
                 key={index}
                 aria-label={`Go to slide ${index + 1}`}
                 className={`pagination-dot ${currentPage === index ? 'active' : ''}`}
-                onClick={() => setCurrentPage(index)}
+                onClick={() => api?.scrollTo(index)}
               />
             ))}
           </div>
@@ -158,3 +169,4 @@ export const CounsellorCarousel = () => {
     </section>
   );
 };
+
