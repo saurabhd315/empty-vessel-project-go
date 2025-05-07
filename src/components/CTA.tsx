@@ -1,12 +1,9 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import "./CTA.css";
-
 export const CTA = () => {
-  return (
-    <section className="cta-section">
-      <div className="container mx-auto px-4 py-16 md:py-24">
+  return <section className="cta-section">
+      <div className="container mx-auto px-4 md:py-24">
         <div className="cta-container">
           <div className="cta-content">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white cta-heading">Start Your SkillJourney Today!</h2>
@@ -23,15 +20,9 @@ export const CTA = () => {
             </div>
           </div>
           <div className="hidden md:block cta-image-container">
-            <img 
-              src="https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?auto=format&fit=crop&q=80&w=500" 
-              alt="Career growth" 
-              className="cta-image"
-              loading="lazy"
-            />
+            <img src="https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?auto=format&fit=crop&q=80&w=500" alt="Career growth" className="cta-image" loading="lazy" />
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
