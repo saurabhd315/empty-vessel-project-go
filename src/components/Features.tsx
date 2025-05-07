@@ -1,5 +1,5 @@
 
-import { User, Search, Briefcase } from "lucide-react";
+import { User, Search, Briefcase, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import "./Features.css";
 
