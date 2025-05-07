@@ -12,8 +12,7 @@ export const Navbar = () => {
         <div className="flex items-center justify-between ">
           <div className="flex items-center">
             <a href="/" className="text-xl font-bold skill-journey-logo flex items-center">
-              <img src="/lovable-uploads/57a7e9ce-01cc-4075-8145-56b269c7f4a7.png" alt="Skill Journey Logo" className="h-10 mr-2" loading="lazy" />
-              SkillJourney
+              <img src="/lovable-uploads/57a7e9ce-01cc-4075-8145-56b269c7f4a7.png" alt="Skill Journey Logo" className="h-10" loading="lazy" />
             </a>
           </div>
           

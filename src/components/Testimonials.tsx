@@ -1,4 +1,8 @@
+
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 import "./Testimonials.css";
+
 export const Testimonials = () => {
   const testimonials = [{
     quote: "SkillJourney helped me transition from a junior developer to a senior role in just 8 months. The personalized roadmap and mentor guidance made all the difference.",
@@ -14,7 +18,7 @@ export const Testimonials = () => {
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200"
   }];
   return <section className="testimonials-section">
-      <div className="container mx-auto px-4 md:py-24">
+      <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="text-center">
           <span className="text-sm uppercase tracking-wider text-primary-badge font-semibold">Success Stories</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-4">What Our Users Say</h2>
@@ -23,7 +27,7 @@ export const Testimonials = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
           {testimonials.map((testimonial, index) => <div key={index} className="testimonial-card">
               <div className="quote-mark">"</div>
               <p className="testimonial-quote">{testimonial.quote}</p>
@@ -36,8 +40,12 @@ export const Testimonials = () => {
               </div>
             </div>)}
         </div>
-
         
+        <div className="text-center">
+          <Button variant="outline" className="read-more-testimonials-button">
+            Read More Testimonials <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+        </div>
       </div>
     </section>;
 };

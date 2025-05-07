@@ -1,0 +1,64 @@
+
+.how-it-works-section {
+  background-color: #ffffff;
+  font-family: 'Noto Sans', sans-serif;
+  position: relative;
+  padding: 2rem 0;
+}
+
+.text-primary-badge {
+  color: #0778b6;
+}
+
+.step-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.step-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.step-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: rgba(7, 120, 182, 0.1);
+  line-height: 1;
+}
+
+.learn-more-button {
+  border-color: #0778b6;
+  color: #0778b6;
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  min-height: 44px;
+}
+
+.learn-more-button:hover {
+  background-color: rgba(7, 120, 182, 0.1);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 767px) {
+  .how-it-works-section {
+    padding: 1.5rem 0;
+  }
+  
+  .step-card {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .step-number {
+    font-size: 2rem;
+  }
+}

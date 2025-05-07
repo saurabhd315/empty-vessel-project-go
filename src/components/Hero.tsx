@@ -2,10 +2,11 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 import "./Hero.css";
+
 export const Hero = () => {
   return <section className="hero-section">
       <div className="hero-background"></div>
-      <div className="container mx-auto px-4 md:py-16">
+      <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 text-left mb-6 md:mb-0 md:pr-8">
             <span className="text-sm uppercase tracking-wider text-primary-badge font-semibold">Your Career Advancement Platform</span>

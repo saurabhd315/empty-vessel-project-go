@@ -1,5 +1,8 @@
+
 import { User, Search, Briefcase } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import "./Features.css";
+
 export const Features = () => {
   const features = [{
     icon: <User />,
@@ -14,10 +17,11 @@ export const Features = () => {
     title: "Industry-Aligned Guidance",
     description: "Get advice that's relevant to current market demands and future industry trends."
   }];
+
   return <section className="features-section">
-      <div className="container mx-auto px-4 md:py-24">
+      <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="text-center ">
-          <span className="text-sm uppercase tracking-wider text-primary-badge font-semibold">What We Offer</span>
+          <span className="text-sm uppercase tracking-wider text-primary-badge font-semibold">Key Features</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-6">Tools For Your Success</h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-12">
             Our platform provides everything you need to navigate your career journey with confidence and clarity.
@@ -31,6 +35,12 @@ export const Features = () => {
                 <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
               </div>)}
+          </div>
+
+          <div className="mt-10">
+            <Button className="explore-features-button">
+              Explore Features <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
           </div>
         </div>
           

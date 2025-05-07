@@ -2,7 +2,7 @@
 .testimonials-section {
   background-color: #ffffff;
   font-family: 'Noto Sans', sans-serif;
-  padding: 4rem 0;
+  padding: 2rem 0;
 }
 
 .text-primary-badge {
@@ -69,6 +69,20 @@
   color: #6b7280;
 }
 
+.read-more-testimonials-button {
+  border-color: #0778b6;
+  color: #0778b6;
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  min-height: 44px;
+}
+
+.read-more-testimonials-button:hover {
+  background-color: rgba(7, 120, 182, 0.1);
+  transform: translateY(-2px);
+}
+
 .companies-container {
   margin-top: 5rem;
   text-align: center;
@@ -96,7 +110,7 @@
 /* Mobile responsive adjustments */
 @media (max-width: 767px) {
   .testimonials-section {
-    padding: 2rem 0;
+    padding: 1.5rem 0;
   }
   
   .testimonials-heading {
@@ -119,17 +133,5 @@
   
   .quote-mark {
     font-size: 3.5rem;
-  }
-  
-  .companies-container {
-    margin-top: 3rem;
-  }
-  
-  .companies-logos {
-    gap: 1.5rem;
-  }
-  
-  .company-logo {
-    font-size: 1.1rem;
   }
 }
