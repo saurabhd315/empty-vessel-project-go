@@ -1,40 +1,34 @@
 
-.course-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  overflow: hidden;
+body {
   font-family: 'Noto Sans', sans-serif;
 }
 
-.course-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-}
-
-.course-image-container {
-  height: 200px;
+section {
+  position: relative;
   overflow: hidden;
 }
 
-.course-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
+.container {
+  position: relative;
+  z-index: 1;
 }
 
-.course-card:hover .course-image {
-  transform: scale(1.05);
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
 }
 
-.course-button {
-  color: #0778b6;
-  border-color: #0778b6;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.course-button:hover {
-  background-color: rgba(7, 120, 182, 0.1);
-}
-
+/* For all primary colored buttons */
 .primary-button {
   background-color: #0778b6;
   transition: background-color 0.3s ease;
@@ -42,39 +36,4 @@
 
 .primary-button:hover {
   background-color: #056a9d;
-}
-
-.stat-card {
-  background-color: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.stat-number {
-  color: #0778b6;
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.stat-label {
-  color: #4b5563;
-  font-size: 0.875rem;
-}
-
-.feature-item {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-}
-
-.feature-icon {
-  background-color: rgba(7, 120, 182, 0.1);
-  padding: 0.75rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

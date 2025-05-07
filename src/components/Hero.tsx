@@ -9,11 +9,12 @@ export const Hero = () => {
       <div className="container mx-auto px-4 py-16 md:py-24">
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 text-left mb-8 md:mb-0 md:pr-8">
+            <span className="text-sm uppercase tracking-wider text-primary-badge font-semibold">Your Career Advancement Platform</span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-transparent bg-clip-text skill-journey-gradient">
-              Skill Journey
+              Build Your Dream Career
             </h1>
             <p className="text-xl mb-8">
-              Embark on a journey to master new skills and advance your career with our expert-led courses and personalized learning paths.
+              Embark on a personalized journey to master in-demand skills, connect with industry experts, and unlock your professional potential.
             </p>
             <div className="flex flex-col gap-4">
               <div className="watch-link mb-2">
@@ -33,8 +34,8 @@ export const Hero = () => {
             <div className="relative">
               <div className="hero-image-container">
                 <img 
-                  src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&q=80&w=1000" 
-                  alt="Student learning online" 
+                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1000" 
+                  alt="Student building career skills" 
                   className="rounded-lg shadow-xl"
                 />
               </div>
@@ -47,7 +48,15 @@ export const Hero = () => {
                   </div>
                   <div>
                     <p className="font-bold">10,000+</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Successful learners</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Success stories</p>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute -top-5 -right-5 bg-white dark:bg-slate-800 p-3 rounded-lg shadow-lg">
+                <div className="flex items-center justify-center">
+                  <div className="text-center">
+                    <p className="font-bold text-sm">Trusted by</p>
+                    <p className="font-bold text-blue-600">500+ Companies</p>
                   </div>
                 </div>
               </div>

@@ -1,0 +1,36 @@
+
+.value-prop-section {
+  background-color: #ffffff;
+  font-family: 'Noto Sans', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.text-primary-badge {
+  color: #0778b6;
+}
+
+.benefit-card {
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.benefit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.benefit-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0778b6, #044e7c);
+  margin-bottom: 1rem;
+}

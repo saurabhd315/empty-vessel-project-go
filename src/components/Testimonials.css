@@ -1,0 +1,91 @@
+
+.testimonials-section {
+  background-color: #ffffff;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.text-primary-badge {
+  color: #0778b6;
+}
+
+.testimonial-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.quote-mark {
+  font-size: 4rem;
+  position: absolute;
+  top: 0;
+  left: 1rem;
+  line-height: 1;
+  color: rgba(7, 120, 182, 0.1);
+  font-family: Georgia, serif;
+}
+
+.testimonial-quote {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #4b5563;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-author-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.testimonial-author-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.testimonial-author-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #1f2937;
+}
+
+.testimonial-author-title {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.companies-container {
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.companies-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.company-logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #9ca3af;
+  transition: color 0.3s ease;
+}
+
+.company-logo:hover {
+  color: #0778b6;
+}

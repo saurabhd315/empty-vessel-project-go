@@ -2,10 +2,40 @@
 .hero-section {
   background-color: #f8fafc;
   font-family: 'Noto Sans', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background-color: rgba(7, 120, 182, 0.05);
+  top: -150px;
+  left: -150px;
+  z-index: 0;
+}
+
+.hero-section::after {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background-color: rgba(7, 120, 182, 0.05);
+  bottom: -200px;
+  right: -200px;
+  z-index: 0;
 }
 
 .skill-journey-gradient {
   background-image: linear-gradient(135deg, #0778b6, #044e7c);
+}
+
+.text-primary-badge {
+  color: #0778b6;
 }
 
 .skill-journey-button {
@@ -23,6 +53,12 @@
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: perspective(1000px) rotateY(-5deg);
+  transition: transform 0.5s ease;
+}
+
+.hero-image-container:hover {
+  transform: perspective(1000px) rotateY(0);
 }
 
 .hero-image-container img {
