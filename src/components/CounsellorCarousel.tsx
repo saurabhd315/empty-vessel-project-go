@@ -146,9 +146,7 @@ export const CounsellorCarousel = () => {
             <CarouselNext className="carousel-next-btn" />
           </Carousel>
           
-          <div className="pagination-dots mt-6 flex justify-center">
-            {counsellors.map((_, index) => <button key={index} aria-label={`Go to slide ${index + 1}`} className={`pagination-dot ${currentPage === index ? 'active' : ''}`} onClick={() => api?.scrollTo(index)} />)}
-          </div>
+          
         </div>
       </div>
     </section>;
