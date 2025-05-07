@@ -1,0 +1,85 @@
+
+.counsellors-section {
+  font-family: 'Noto Sans', sans-serif;
+  padding: 3rem 1rem;
+  background-color: #f9fafb;
+}
+
+.counsellors-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.counsellors-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.counsellors-title {
+  color: #0778b6;
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.counsellors-subtitle {
+  color: #6b7280;
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.125rem;
+}
+
+.counsellors-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.counsellor-grid-item {
+  height: 100%;
+  display: flex;
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 768px) {
+  .counsellors-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Desktop: 3 columns */
+@media (min-width: 1024px) {
+  .counsellors-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Mobile scroll functionality */
+@media (max-width: 767px) {
+  .counsellors-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  .counsellor-grid-item {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+  }
+  
+  .counsellors-grid::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  .counsellors-grid::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+  }
+  
+  .counsellors-grid::-webkit-scrollbar-thumb {
+    background-color: #0778b6;
+    border-radius: 10px;
+  }
+}
