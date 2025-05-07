@@ -4,6 +4,7 @@
   font-family: 'Noto Sans', sans-serif;
   overflow: hidden;
   position: relative;
+  padding: 2rem 0;
 }
 
 .hero-background {
@@ -119,6 +120,7 @@
   padding: 0.75rem 1.5rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   letter-spacing: 0.025em;
+  min-height: 44px; /* Touch-friendly height */
 }
 
 .create-journey-button {
@@ -144,4 +146,42 @@
 
 .create-journey-button:hover .button-icon {
   transform: translateX(4px);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 767px) {
+  .hero-section {
+    padding: 1rem 0 2rem;
+  }
+  
+  .hero-heading {
+    font-size: 2.25rem !important;
+    line-height: 1.2;
+  }
+  
+  .hero-subtext {
+    font-size: 1rem !important;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .hero-image-container {
+    margin-top: 2rem;
+    transform: none;
+  }
+  
+  .hero-image-container:hover {
+    transform: none;
+  }
+  
+  .stat-card {
+    padding: 0.75rem !important;
+  }
+  
+  .stat-card-text {
+    font-size: 0.75rem !important;
+  }
 }

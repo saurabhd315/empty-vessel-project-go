@@ -6,93 +6,102 @@ import "./Navbar.css";
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <header className="border-b navbar-container">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="flex items-center">
-          <a href="/" className="text-xl font-bold skill-journey-logo flex items-center">
-            <img 
-              src="/lovable-uploads/5f225727-b0b4-4f71-b591-42987c615598.png" 
-              alt="Skill Journey Logo" 
-              className="h-10 mr-2"
-            />
-            SkillJourney
-          </a>
+      <div className="container mx-auto navbar-inner">
+        <div className="flex items-center justify-between py-4">
+          <div className="flex items-center">
+            <a href="/" className="text-xl font-bold skill-journey-logo flex items-center">
+              <img 
+                src="/lovable-uploads/5f225727-b0b4-4f71-b591-42987c615598.png" 
+                alt="Skill Journey Logo" 
+                className="h-10 mr-2"
+                loading="lazy"
+              />
+              SkillJourney
+            </a>
+          </div>
+          
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-4">
+            <a href="#" className="nav-link active">
+              Home
+            </a>
+            <a href="#" className="nav-link">
+              Portfolio
+            </a>
+            <a href="#" className="nav-link">
+              Resume Builder
+            </a>
+            <a href="#" className="nav-link">
+              Trainings
+            </a>
+            <a href="#" className="nav-link">
+              Counselling
+            </a>
+            <a href="#" className="nav-link">
+              Blog
+            </a>
+            <a href="#" className="nav-link">
+              About
+            </a>
+          </nav>
+          
+          {/* Mobile menu button */}
+          <button 
+            className="md:hidden mobile-menu-button"
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor" 
+              className="h-6 w-6"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} 
+              />
+            </svg>
+          </button>
         </div>
         
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6">
-          <a href="#" className="nav-link">
-            Home
-          </a>
-          <a href="#" className="nav-link">
-            Portfolio
-          </a>
-          <a href="#" className="nav-link">
-            Resume Builder
-          </a>
-          <a href="#" className="nav-link">
-            Trainings
-          </a>
-          <a href="#" className="nav-link">
-            Counselling
-          </a>
-          <a href="#" className="nav-link">
-            Blog
-          </a>
-          <a href="#" className="nav-link">
-            About
-          </a>
-        </nav>
-        
-        {/* Mobile menu button */}
-        <button 
-          className="md:hidden p-2"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor" 
-            className="h-6 w-6"
-          >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={2} 
-              d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} 
-            />
-          </svg>
-        </button>
+        {/* Mobile Navigation */}
+        {isMobileMenuOpen && (
+          <nav className="md:hidden py-2 px-4 border-t flex flex-col space-y-0 mobile-menu">
+            <a href="#" className="mobile-nav-link nav-link active">
+              Home
+            </a>
+            <a href="#" className="mobile-nav-link nav-link">
+              Portfolio
+            </a>
+            <a href="#" className="mobile-nav-link nav-link">
+              Resume Builder
+            </a>
+            <a href="#" className="mobile-nav-link nav-link">
+              Trainings
+            </a>
+            <a href="#" className="mobile-nav-link nav-link">
+              Counselling
+            </a>
+            <a href="#" className="mobile-nav-link nav-link">
+              Blog
+            </a>
+            <a href="#" className="mobile-nav-link nav-link">
+              About
+            </a>
+          </nav>
+        )}
       </div>
-      
-      {/* Mobile Navigation */}
-      {isMobileMenuOpen && (
-        <nav className="md:hidden px-4 py-4 border-t flex flex-col space-y-4">
-          <a href="#" className="nav-link">
-            Home
-          </a>
-          <a href="#" className="nav-link">
-            Portfolio
-          </a>
-          <a href="#" className="nav-link">
-            Resume Builder
-          </a>
-          <a href="#" className="nav-link">
-            Trainings
-          </a>
-          <a href="#" className="nav-link">
-            Counselling
-          </a>
-          <a href="#" className="nav-link">
-            Blog
-          </a>
-          <a href="#" className="nav-link">
-            About
-          </a>
-        </nav>
-      )}
     </header>
   );
 };

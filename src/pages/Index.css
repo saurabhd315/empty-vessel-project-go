@@ -1,6 +1,8 @@
 
 body {
   font-family: 'Noto Sans', sans-serif;
+  color: #333333;
+  background-color: #ffffff;
 }
 
 section {
@@ -11,8 +13,11 @@ section {
 .container {
   position: relative;
   z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
+/* Animation */
 .animate-fade-in {
   animation: fadeIn 0.5s ease-out forwards;
 }
@@ -28,12 +33,61 @@ section {
   }
 }
 
+/* Color palette */
+:root {
+  --sky-blue: #0778b6;
+  --sky-blue-dark: #056a9d;
+  --soft-gray: #F1F0FB;
+  --white: #FFFFFF;
+}
+
 /* For all primary colored buttons */
 .primary-button {
-  background-color: #0778b6;
+  background-color: var(--sky-blue);
+  color: var(--white);
   transition: background-color 0.3s ease;
 }
 
 .primary-button:hover {
-  background-color: #056a9d;
+  background-color: var(--sky-blue-dark);
+}
+
+/* Rounded corners */
+.rounded-soft {
+  border-radius: 8px;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+/* Responsive spacing utilities */
+.section-spacing {
+  padding: 3rem 0;
+}
+
+@media (min-width: 768px) {
+  .section-spacing {
+    padding: 5rem 0;
+  }
+}
+
+/* Touch-friendly adjustments */
+@media (max-width: 767px) {
+  button, 
+  a.button,
+  .interactive-element {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  input,
+  select,
+  textarea {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+  
+  .touch-spacing > * + * {
+    margin-top: 1rem;
+  }
 }

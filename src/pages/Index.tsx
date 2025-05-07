@@ -7,6 +7,7 @@ import { Testimonials } from "@/components/Testimonials";
 import { CTA } from "@/components/CTA";
 import { Footer } from "@/components/Footer";
 import "./Index.css";
+import "../styles/responsive.css";
 
 const Index = () => {
   return (

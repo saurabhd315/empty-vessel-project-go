@@ -1,13 +1,19 @@
 
 .navbar-container {
   font-family: 'Noto Sans', sans-serif;
-  background-color: #FFF8F0;
+  background-color: #FFFFFF;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 0.75rem 0;
 }
 
 .skill-journey-logo {
   color: #0778b6;
   font-weight: 700;
+  display: flex;
+  align-items: center;
 }
 
 .nav-link {
@@ -15,10 +21,18 @@
   font-weight: 500;
   color: #333;
   transition: color 0.3s ease;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
 }
 
 .nav-link:hover {
   color: #0778b6;
+  background-color: rgba(7, 120, 182, 0.05);
+}
+
+.nav-link.active {
+  color: #0778b6;
+  font-weight: 600;
 }
 
 .primary-button {
@@ -65,4 +79,42 @@
 
 .view-journey-button:hover {
   background-color: rgba(7, 120, 182, 0.1);
+}
+
+/* Mobile menu styles */
+.mobile-menu-button {
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  color: #333;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.mobile-menu-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.mobile-menu {
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-nav-link {
+  display: block;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-bottom: 1px solid #F1F0FB;
+}
+
+.mobile-nav-link:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 767px) {
+  .navbar-inner {
+    padding: 0 1rem;
+  }
 }
