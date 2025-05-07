@@ -16,7 +16,7 @@ export const Testimonials = () => {
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200"
   }];
   return <section className="testimonials-section">
-      <div className="container mx-auto px-4  md:py-7\n">
+      <div className="container mx-auto px-4  md:py-7">
         <div className="text-center">
           <span className="text-sm uppercase tracking-wider text-primary-badge font-semibold">Success Stories</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-4">What Our Users Say</h2>
