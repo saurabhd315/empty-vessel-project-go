@@ -7,6 +7,8 @@
 
 .text-primary-badge {
   color: #0778b6;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .counsellor-card {
@@ -14,11 +16,15 @@
   transition: all 0.3s ease;
   border: 1px solid rgba(0, 0, 0, 0.05);
   overflow: hidden;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  padding: 0.5rem;
 }
 
 .counsellor-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: translateY(-10px);
+  box-shadow: 0 22px 30px -5px rgba(7, 120, 182, 0.15), 0 10px 15px -5px rgba(0, 0, 0, 0.08);
 }
 
 .counsellor-avatar-container {
@@ -26,12 +32,14 @@
   padding: 3px;
   border-radius: 50%;
   background: linear-gradient(45deg, #0778b6, #56CCF2);
+  margin-bottom: 0.5rem;
 }
 
 .counsellor-avatar {
-  height: 120px;
-  width: 120px;
+  height: 130px;
+  width: 130px;
   border: 4px solid white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .know-more-button {
@@ -39,10 +47,12 @@
   border-color: #0778b6;
   font-weight: 500;
   transition: all 0.3s ease;
+  margin-top: 0.75rem;
 }
 
 .know-more-button:hover {
-  background-color: rgba(7, 120, 182, 0.1);
+  background-color: #0778b6;
+  color: white;
   transform: translateY(-2px);
 }
 
@@ -54,11 +64,12 @@
 .carousel-arrow {
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(7, 120, 182, 0.15);
   opacity: 0.9;
   transition: all 0.2s ease;
-  height: 40px;
-  width: 40px;
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
 }
 
 .carousel-arrow:hover {
@@ -69,20 +80,50 @@
 }
 
 .carousel-arrow-prev {
-  left: 0px;
+  left: 5px;
 }
 
 .carousel-arrow-next {
-  right: 0px;
+  right: 5px;
+}
+
+.counsellor-name {
+  color: #333;
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.counsellor-expertise {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.counsellor-bio {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0.75rem 0;
+}
+
+.rating-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
 }
 
 @media (max-width: 767px) {
   .counsellor-avatar {
-    height: 100px;
-    width: 100px;
+    height: 110px;
+    width: 110px;
   }
   
   .counsellors-carousel {
     padding: 0 30px;
+  }
+  
+  .carousel-arrow {
+    height: 40px;
+    width: 40px;
   }
 }
