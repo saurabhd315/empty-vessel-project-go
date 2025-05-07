@@ -1,0 +1,88 @@
+
+.counsellors-section {
+  background-color: #f9f9f9;
+  font-family: 'Noto Sans', sans-serif;
+  padding: 2rem 0;
+}
+
+.text-primary-badge {
+  color: #0778b6;
+}
+
+.counsellor-card {
+  height: 100%;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.counsellor-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.counsellor-avatar-container {
+  position: relative;
+  padding: 3px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #0778b6, #56CCF2);
+}
+
+.counsellor-avatar {
+  height: 120px;
+  width: 120px;
+  border: 4px solid white;
+}
+
+.know-more-button {
+  color: #0778b6;
+  border-color: #0778b6;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.know-more-button:hover {
+  background-color: rgba(7, 120, 182, 0.1);
+  transform: translateY(-2px);
+}
+
+.counsellors-carousel {
+  position: relative;
+  padding: 0 40px;
+}
+
+.carousel-arrow {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  opacity: 0.9;
+  transition: all 0.2s ease;
+  height: 40px;
+  width: 40px;
+}
+
+.carousel-arrow:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  background-color: #0778b6;
+  color: white;
+}
+
+.carousel-arrow-prev {
+  left: 0px;
+}
+
+.carousel-arrow-next {
+  right: 0px;
+}
+
+@media (max-width: 767px) {
+  .counsellor-avatar {
+    height: 100px;
+    width: 100px;
+  }
+  
+  .counsellors-carousel {
+    padding: 0 30px;
+  }
+}
