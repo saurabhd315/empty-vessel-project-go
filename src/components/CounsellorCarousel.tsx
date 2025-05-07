@@ -21,7 +21,7 @@ type Counsellor = {
   bio: string;
   image: string;
   slug: string;
-  quote?: string;
+  quote?: string; // Keep this as optional
 };
 
 export const CounsellorCarousel = () => {
@@ -33,7 +33,7 @@ export const CounsellorCarousel = () => {
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const isTablet = useMediaQuery("(min-width: 640px) and (max-width: 1023px)");
 
-  const counsellors = [
+  const counsellors: Counsellor[] = [
     {
       id: 1,
       name: "Dr. Sarah Johnson",
