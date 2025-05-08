@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Star, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +5,6 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Button } from "@/components/ui/button";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import "./CounsellorCarousel.css";
-
 type Counsellor = {
   id: number;
   name: string;
@@ -17,7 +15,6 @@ type Counsellor = {
   slug: string;
   quote?: string; // Make quote optional to avoid TypeScript errors
 };
-
 export const CounsellorCarousel = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [api, setApi] = useState<any>(null);
@@ -27,7 +24,6 @@ export const CounsellorCarousel = () => {
   // Media queries for responsive design
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const isTablet = useMediaQuery("(min-width: 640px) and (max-width: 1023px)");
-  
   const counsellors: Counsellor[] = [{
     id: 1,
     name: "Dr. Sarah Johnson",
@@ -83,17 +79,10 @@ export const CounsellorCarousel = () => {
     image: "https://images.unsplash.com/photo-1508341591423-4347099e1f19?auto=format&fit=crop&q=80&w=800&h=500",
     slug: "alex-thompson"
   }];
-  
   const renderRatingStars = (rating: number) => {
-    return Array(5).fill(0).map((_, i) => (
-      <Star 
-        key={i} 
-        className={`w-4 h-4 transition-all duration-300 
-          ${i < rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`}
-      />
-    ));
+    return Array(5).fill(0).map((_, i) => <Star key={i} className={`w-4 h-4 transition-all duration-300 
+          ${i < rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`} />);
   };
-  
   const handleViewProfile = (slug: string) => {
     navigate(`/profile/${slug}`);
   };
@@ -101,27 +90,22 @@ export const CounsellorCarousel = () => {
   // Set up autoplay with pause on hover
   useEffect(() => {
     if (!api) return;
-    
     const interval = setInterval(() => {
       if (hoveredCard === null) {
         api.scrollNext();
       }
     }, 4000);
-    
     return () => clearInterval(interval);
   }, [api, hoveredCard]);
 
   // When the API is available, set up an event listener for selection changes
   useEffect(() => {
     if (!api) return;
-    
     api.on("select", () => {
       setCurrentPage(api.selectedScrollSnap());
     });
   }, [api]);
-
-  return (
-    <section id="counsellors" className="counsellor-carousel-section">
+  return <section id="counsellors" className="counsellor-carousel-section">
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-8 md:mb-12 animate-fade-in">
           <span className="text-sm uppercase tracking-wider carousel-badge">Expert Guidance</span>
@@ -132,25 +116,13 @@ export const CounsellorCarousel = () => {
         </div>
 
         <div className="carousel-container">
-          <Carousel 
-            className="w-full" 
-            setApi={setApi} 
-            opts={{
-              align: "start",
-              loop: true
-            }}
-          >
+          <Carousel className="w-full" setApi={setApi} opts={{
+          align: "start",
+          loop: true
+        }}>
             <CarouselContent>
-              {counsellors.map((counsellor: Counsellor, index) => (
-                <CarouselItem 
-                  key={counsellor.id} 
-                  className={`${isDesktop ? 'basis-1/3' : isTablet ? 'basis-1/2' : 'basis-full'} p-2`}
-                >
-                  <div 
-                    className={`counsellor-card ${currentPage === counsellors.indexOf(counsellor) ? 'active' : ''}`}
-                    onMouseEnter={() => setHoveredCard(index)}
-                    onMouseLeave={() => setHoveredCard(null)}
-                  >
+              {counsellors.map((counsellor: Counsellor, index) => <CarouselItem key={counsellor.id} className={`${isDesktop ? 'basis-1/3' : isTablet ? 'basis-1/2' : 'basis-full'} p-2`}>
+                  <div className={`counsellor-card ${currentPage === counsellors.indexOf(counsellor) ? 'active' : ''}`} onMouseEnter={() => setHoveredCard(index)} onMouseLeave={() => setHoveredCard(null)}>
                     <div className="counsellor-image">
                       <div className="counsellor-expertise-badge">
                         {counsellor.expertise}
@@ -165,22 +137,16 @@ export const CounsellorCarousel = () => {
                         {renderRatingStars(counsellor.rating)}
                       </div>
                       
-                      {counsellor.quote && (
-                        <p className="counsellor-quote">"{counsellor.quote}"</p>
-                      )}
+                      {counsellor.quote && <p className="counsellor-quote">"{counsellor.quote}"</p>}
                       
                       <p className="counsellor-bio">{counsellor.bio}</p>
                       
-                      <Button 
-                        onClick={() => handleViewProfile(counsellor.slug)} 
-                        className={`view-profile-btn ${hoveredCard === index ? 'pulse' : ''}`}
-                      >
+                      <Button onClick={() => handleViewProfile(counsellor.slug)} className={`view-profile-btn ${hoveredCard === index ? 'pulse' : ''}`}>
                         View Profile <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
                       </Button>
                     </div>
                   </div>
-                </CarouselItem>
-              ))}
+                </CarouselItem>)}
             </CarouselContent>
             
             <CarouselPrevious className="carousel-prev-btn">
@@ -192,17 +158,9 @@ export const CounsellorCarousel = () => {
           </Carousel>
           
           <div className="pagination-dots">
-            {counsellors.map((_, index) => (
-              <button
-                key={index}
-                aria-label={`Go to slide ${index + 1}`}
-                className={`pagination-dot ${currentPage === index ? 'active' : ''}`}
-                onClick={() => api?.scrollTo(index)}
-              />
-            ))}
+            {counsellors.map((_, index) => {})}
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
