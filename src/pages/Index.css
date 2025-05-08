@@ -3,13 +3,15 @@ body {
   font-family: 'Noto Sans', sans-serif;
   color: #333333;
   background-color: #ffffff;
+  scroll-behavior: smooth;
 }
 
 section {
   position: relative;
   overflow: hidden;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  transition: background-color 0.5s ease;
 }
 
 .container {
@@ -35,23 +37,43 @@ section {
   }
 }
 
+/* Scroll reveal animation */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.scroll-reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Color palette */
 :root {
   --sky-blue: #0778b6;
   --sky-blue-dark: #056a9d;
+  --sky-blue-light: #3498db;
   --soft-gray: #F1F0FB;
   --white: #FFFFFF;
+}
+
+/* Section background alternating */
+section:nth-of-type(even) {
+  background-color: var(--soft-gray);
 }
 
 /* For all primary colored buttons */
 .primary-button {
   background-color: var(--sky-blue);
   color: var(--white);
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .primary-button:hover {
   background-color: var(--sky-blue-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(7, 120, 182, 0.2);
 }
 
 /* Rounded corners */
@@ -63,15 +85,37 @@ section {
   border-radius: 9999px;
 }
 
-/* Responsive spacing utilities - REDUCED */
+/* Responsive spacing utilities */
 .section-spacing {
-  padding: 1rem 0;
+  padding: 4rem 0;
 }
 
 @media (min-width: 768px) {
   .section-spacing {
-    padding: 1.5rem 0;
+    padding: 6rem 0;
   }
+}
+
+/* Enhanced section headers */
+.section-title {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: var(--sky-blue);
+  transition: width 0.3s ease;
+}
+
+.section-title:hover::after {
+  width: 150px;
 }
 
 /* Touch-friendly adjustments */
@@ -90,6 +134,47 @@ section {
   }
   
   .touch-spacing > * + * {
-    margin-top: 0.75rem;
+    margin-top: 1rem;
   }
+}
+
+/* Interactive element highlight */
+.highlight-on-hover {
+  transition: all 0.3s ease;
+}
+
+.highlight-on-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(7, 120, 182, 0.15);
+}
+
+/* Scroll to top button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background-color: var(--sky-blue);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-to-top:hover {
+  background-color: var(--sky-blue-dark);
+  transform: translateY(-3px);
 }

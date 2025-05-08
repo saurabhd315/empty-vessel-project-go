@@ -3,7 +3,7 @@
   background-color: #f8fafc;
   font-family: 'Noto Sans', sans-serif;
   overflow: hidden;
-  padding: 2rem 0;
+  padding: 3rem 0;
 }
 
 .cta-container {
@@ -15,6 +15,12 @@
   gap: 2rem;
   position: relative;
   overflow: hidden;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.cta-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 @media (min-width: 768px) {
@@ -38,6 +44,11 @@
   background-color: rgba(255, 255, 255, 0.05);
   top: -150px;
   right: -150px;
+  transition: all 0.8s ease;
+}
+
+.cta-container:hover::before {
+  transform: scale(1.2) rotate(10deg);
 }
 
 .cta-container::after {
@@ -49,6 +60,11 @@
   background-color: rgba(255, 255, 255, 0.05);
   bottom: -100px;
   left: -100px;
+  transition: all 0.8s ease;
+}
+
+.cta-container:hover::after {
+  transform: scale(1.2) rotate(-10deg);
 }
 
 .cta-content {
@@ -56,9 +72,26 @@
   z-index: 1;
 }
 
+.cta-heading {
+  transition: transform 0.3s ease;
+}
+
+.cta-container:hover .cta-heading {
+  transform: translateY(-3px);
+}
+
+.cta-text {
+  transition: transform 0.4s ease;
+}
+
+.cta-container:hover .cta-text {
+  transform: translateY(-2px);
+}
+
 .cta-image-container {
   position: relative;
   z-index: 1;
+  perspective: 1000px;
 }
 
 .cta-image {
@@ -67,10 +100,12 @@
   max-width: 100%;
   transform: rotate(3deg);
   transition: transform 0.5s ease;
+  filter: brightness(1);
 }
 
 .cta-image:hover {
-  transform: rotate(0);
+  transform: rotate(0) translateZ(20px);
+  filter: brightness(1.05);
 }
 
 .cta-button {
@@ -85,8 +120,8 @@
 
 .cta-button:hover {
   background-color: rgba(255, 255, 255, 0.9);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.2);
 }
 
 .cta-button-outline {
@@ -100,14 +135,14 @@
 
 .cta-button-outline:hover {
   background-color: rgba(255, 255, 255, 0.1);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.2);
 }
 
 /* Mobile responsive adjustments */
 @media (max-width: 767px) {
   .cta-section {
-    padding: 1.5rem 0;
+    padding: 2rem 0;
   }
   
   .cta-container {
