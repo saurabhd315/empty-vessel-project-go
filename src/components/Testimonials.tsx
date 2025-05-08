@@ -26,7 +26,7 @@ export const Testimonials = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-          {testimonials.map((testimonial, index) => <div key={index} className="testimonial-card">
+          {testimonials.map((testimonial, index) => <div key={index} className="testimonial-card my-[15px]">
               <div className="quote-mark">"</div>
               <p className="testimonial-quote">{testimonial.quote}</p>
               <div className="testimonial-author-container">
