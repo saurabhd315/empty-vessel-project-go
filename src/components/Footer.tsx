@@ -1,18 +1,14 @@
-
 import { Github, Twitter, Linkedin, Instagram, FacebookIcon } from "lucide-react";
 import "./Footer.css";
-
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
-  
-  return (
-    <footer className="footer-section">
+  return <footer className="footer-section">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 footer-grid">
           <div className="col-span-1 md:col-span-2 footer-brand">
             <div className="flex items-center mb-4">
               <img src="/lovable-uploads/57a7e9ce-01cc-4075-8145-56b269c7f4a7.png" alt="SkillJourney Logo" className="h-10 mr-2" />
-              <h3 className="text-2xl font-bold text-blue-logo">SkillJourney</h3>
+              
             </div>
             <p className="text-gray-600 mb-6 max-w-md">
               Building the bridge between your potential and professional success through personalized career development.
@@ -69,6 +65,5 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
