@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Star } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import {
   Carousel,
@@ -95,6 +95,11 @@ export const CounsellorCarousel = () => {
     navigate(`/profile/${slug}`);
   };
 
+  // Fix the onSelect handler to properly update the current page
+  const handleCarouselSelect = (index: number) => {
+    setCurrentPage(index);
+  };
+
   return (
     <section id="counsellors" className="counsellor-carousel-section">
       <div className="container mx-auto px-4 py-12">
@@ -106,28 +111,33 @@ export const CounsellorCarousel = () => {
           </p>
         </div>
 
-        <div className="carousel-container">
+        <div className="carousel-container relative">
           <Carousel 
             className="w-full"
-            onSelect={(index) => setCurrentPage(index)}
+            opts={{
+              align: "start",
+              loop: true,
+              slidesToScroll: 1,
+            }}
+            onSelect={handleCarouselSelect}
           >
-            <CarouselContent>
+            <CarouselContent className="-ml-4 md:-ml-6">
               {counsellors.map((counsellor: Counsellor) => (
-                <CarouselItem key={counsellor.id} className="h-[400px] md:h-[500px]">
+                <CarouselItem key={counsellor.id} className="pl-4 md:pl-6 md:basis-1/3">
                   <div className="counsellor-slide" style={{ backgroundImage: `url(${counsellor.image})` }}>
                     <div className="counsellor-overlay">
                       <div className="slide-content">
-                        <h3 className="text-2xl md:text-3xl font-bold mb-2">{counsellor.name}</h3>
-                        <p className="text-lg md:text-xl font-medium mb-3 text-primary-200">{counsellor.expertise}</p>
+                        <h3 className="text-xl md:text-2xl font-bold mb-1">{counsellor.name}</h3>
+                        <p className="text-sm md:text-base font-medium mb-2 text-primary-200">{counsellor.expertise}</p>
                         
-                        <p className="bio-excerpt mb-4">{counsellor.bio.slice(0, 100)}...</p>
+                        <p className="bio-excerpt mb-3 text-sm">{counsellor.bio.slice(0, 80)}...</p>
                         
-                        <div className="flex items-center mb-4">
+                        <div className="flex items-center mb-3">
                           {renderRatingStars(counsellor.rating)}
                         </div>
                         
                         <Button 
-                          className="view-profile-btn"
+                          className="view-profile-btn text-sm py-1 px-3"
                           onClick={() => handleViewProfile(counsellor.slug)}
                         >
                           View Profile
@@ -139,8 +149,12 @@ export const CounsellorCarousel = () => {
               ))}
             </CarouselContent>
             
-            <CarouselPrevious className="carousel-prev-btn" />
-            <CarouselNext className="carousel-next-btn" />
+            <CarouselPrevious className="carousel-prev-btn left-0 md:-left-12">
+              <ChevronLeft className="h-4 w-4" />
+            </CarouselPrevious>
+            <CarouselNext className="carousel-next-btn right-0 md:-right-12">
+              <ChevronRight className="h-4 w-4" />
+            </CarouselNext>
           </Carousel>
           
           <div className="pagination-dots mt-6 flex justify-center">
