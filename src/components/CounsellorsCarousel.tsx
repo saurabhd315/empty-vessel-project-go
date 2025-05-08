@@ -1,16 +1,17 @@
 
-import { useState } from "react";
-import { Star } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
   CarouselPrevious,
+  CarouselNext,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import "./CounsellorCarousel.css";
+import { useMediaQuery } from "@/hooks/use-media-query";
+import "./CounsellorsCarousel.css";
 
 type Counsellor = {
   id: number;
@@ -22,10 +23,15 @@ type Counsellor = {
   slug: string;
 };
 
-export const CounsellorCarousel = () => {
-  const [currentPage, setCurrentPage] = useState(0);
+export const CounsellorsCarousel = () => {
+  const [api, setApi] = React.useState<any>();
+  const [currentPage, setCurrentPage] = React.useState(0);
   const navigate = useNavigate();
-
+  
+  // Media queries for responsive design
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const isTablet = useMediaQuery("(min-width: 640px) and (max-width: 1023px)");
+  
   const counsellors = [
     {
       id: 1,
@@ -95,8 +101,35 @@ export const CounsellorCarousel = () => {
     navigate(`/profile/${slug}`);
   };
 
+  // Set up autoplay
+  useEffect(() => {
+    if (!api) return;
+    
+    const interval = setInterval(() => {
+      api.scrollNext();
+    }, 4000);
+    
+    return () => clearInterval(interval);
+  }, [api]);
+  
+  // Update current page when carousel scrolls
+  useEffect(() => {
+    if (!api) return;
+    
+    api.on("select", () => {
+      setCurrentPage(api.selectedScrollSnap());
+    });
+  }, [api]);
+  
+  // Determine how many items to show based on screen size
+  const getOptionsPerView = () => {
+    if (isDesktop) return 3;
+    if (isTablet) return 2;
+    return 1;
+  };
+
   return (
-    <section id="counsellors" className="counsellor-carousel-section">
+    <section id="counsellors-carousel" className="counsellors-carousel-section">
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-8 md:mb-12">
           <span className="text-sm uppercase tracking-wider carousel-badge">Expert Guidance</span>
@@ -108,30 +141,43 @@ export const CounsellorCarousel = () => {
 
         <div className="carousel-container">
           <Carousel 
+            setApi={setApi}
             className="w-full"
-            onSelect={(index) => setCurrentPage(index)}
+            opts={{
+              align: "start",
+              loop: true,
+              slidesToScroll: 1,
+              skipSnaps: false,
+            }}
           >
-            <CarouselContent>
-              {counsellors.map((counsellor: Counsellor) => (
-                <CarouselItem key={counsellor.id} className="h-[400px] md:h-[500px]">
-                  <div className="counsellor-slide" style={{ backgroundImage: `url(${counsellor.image})` }}>
-                    <div className="counsellor-overlay">
-                      <div className="slide-content">
-                        <h3 className="text-2xl md:text-3xl font-bold mb-2">{counsellor.name}</h3>
-                        <p className="text-lg md:text-xl font-medium mb-3 text-primary-200">{counsellor.expertise}</p>
-                        
-                        <p className="bio-excerpt mb-4">{counsellor.bio.slice(0, 100)}...</p>
-                        
-                        <div className="flex items-center mb-4">
-                          {renderRatingStars(counsellor.rating)}
+            <CarouselContent className="-ml-4">
+              {counsellors.map((counsellor) => (
+                <CarouselItem 
+                  key={counsellor.id} 
+                  className={`pl-4 ${
+                    isDesktop ? 'basis-1/3' : isTablet ? 'basis-1/2' : 'basis-full'
+                  }`}
+                >
+                  <div className={`counsellor-slide ${currentPage === counsellors.indexOf(counsellor) ? 'active' : ''}`}>
+                    <div className="counsellor-slide-inner h-[400px]" style={{ backgroundImage: `url(${counsellor.image})` }}>
+                      <div className="counsellor-overlay">
+                        <div className="slide-content">
+                          <h3 className="text-2xl md:text-3xl font-bold mb-2">{counsellor.name}</h3>
+                          <p className="text-lg md:text-xl font-medium mb-3 text-primary-200">{counsellor.expertise}</p>
+                          
+                          <p className="bio-excerpt mb-4">{counsellor.bio.slice(0, 100)}...</p>
+                          
+                          <div className="flex items-center mb-4">
+                            {renderRatingStars(counsellor.rating)}
+                          </div>
+                          
+                          <Button 
+                            className="view-profile-btn"
+                            onClick={() => handleViewProfile(counsellor.slug)}
+                          >
+                            View Profile
+                          </Button>
                         </div>
-                        
-                        <Button 
-                          className="view-profile-btn"
-                          onClick={() => handleViewProfile(counsellor.slug)}
-                        >
-                          View Profile
-                        </Button>
                       </div>
                     </div>
                   </div>
@@ -139,17 +185,21 @@ export const CounsellorCarousel = () => {
               ))}
             </CarouselContent>
             
-            <CarouselPrevious className="carousel-prev-btn" />
-            <CarouselNext className="carousel-next-btn" />
+            <CarouselPrevious className="carousel-prev-btn">
+              <ChevronLeft className="h-6 w-6" />
+            </CarouselPrevious>
+            <CarouselNext className="carousel-next-btn">
+              <ChevronRight className="h-6 w-6" />
+            </CarouselNext>
           </Carousel>
           
-          <div className="pagination-dots mt-6 flex justify-center">
+          <div className="pagination-dots mt-6">
             {counsellors.map((_, index) => (
               <button
                 key={index}
                 aria-label={`Go to slide ${index + 1}`}
                 className={`pagination-dot ${currentPage === index ? 'active' : ''}`}
-                onClick={() => setCurrentPage(index)}
+                onClick={() => api?.scrollTo(index)}
               />
             ))}
           </div>
