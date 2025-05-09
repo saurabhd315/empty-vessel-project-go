@@ -68,22 +68,6 @@
   text-align: center;
 }
 
-.know-more-button {
-  margin-top: auto;
-  background: none;
-  border: 1px solid #0778b6;
-  color: #0778b6;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.know-more-button:hover {
-  background-color: rgba(7, 120, 182, 0.1);
-}
-
 /* Desktop hover effect */
 @media (min-width: 768px) {
   .flip-card-inner {
@@ -96,5 +80,32 @@
 
   .flip-card.is-flipped .flip-card-inner {
     transform: rotateY(0deg);
+  }
+}
+
+/* Mobile specific styles */
+@media (max-width: 767px) {
+  .flip-card-inner {
+    height: 180px;
+    border: 1px solid rgba(7, 120, 182, 0.2);
+    box-shadow: 0 4px 12px rgba(7, 120, 182, 0.1);
+  }
+  
+  .flip-card-front, .flip-card-back {
+    background: linear-gradient(to bottom right, white, #f9fdff);
+  }
+  
+  .card-title {
+    color: #0778b6;
+  }
+  
+  .step-number {
+    font-size: 2.2rem;
+    color: rgba(7, 120, 182, 0.15);
+    margin-bottom: 0.75rem;
+  }
+  
+  .card-description {
+    line-height: 1.5;
   }
 }

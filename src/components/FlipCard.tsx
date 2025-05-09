@@ -18,17 +18,14 @@ export const FlipCard = ({ number, title, description }: FlipCardProps) => {
   };
 
   return (
-    <div className={`flip-card ${isFlipped ? "is-flipped" : ""}`}>
+    <div 
+      className={`flip-card ${isFlipped ? "is-flipped" : ""}`} 
+      onClick={isMobile ? handleFlip : undefined}
+    >
       <div className="flip-card-inner">
         <div className="flip-card-front">
           <div className="step-number">{number}</div>
           <h3 className="card-title">{title}</h3>
-          
-          {isMobile && (
-            <button className="know-more-button" onClick={handleFlip}>
-              Know More
-            </button>
-          )}
         </div>
         
         <div className="flip-card-back">
