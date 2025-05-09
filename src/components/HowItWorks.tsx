@@ -1,37 +1,27 @@
-
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { FlipCard } from "./FlipCard";
 import "./HowItWorks.css";
-
 export const HowItWorks = () => {
-  const steps = [
-    {
-      number: "01",
-      title: "Create Your Profile",
-      description: "Input your experience, skills, and career goals to start your personalized journey."
-    },
-    {
-      number: "02",
-      title: "Get Your Roadmap",
-      description: "Receive a tailored career development plan based on your unique profile and industry demands."
-    },
-    {
-      number: "03",
-      title: "Develop Skills",
-      description: "Access curated resources to build the specific skills needed for your career advancement."
-    },
-    {
-      number: "04",
-      title: "Track Progress",
-      description: "Monitor your growth and adjust your path as you achieve career milestones."
-    }
-  ];
-
-  return (
-    <section className="how-it-works-section">
+  const steps = [{
+    number: "01",
+    title: "Create Your Profile",
+    description: "Input your experience, skills, and career goals to start your personalized journey."
+  }, {
+    number: "02",
+    title: "Get Your Roadmap",
+    description: "Receive a tailored career development plan based on your unique profile and industry demands."
+  }, {
+    number: "03",
+    title: "Develop Skills",
+    description: "Access curated resources to build the specific skills needed for your career advancement."
+  }, {
+    number: "04",
+    title: "Track Progress",
+    description: "Monitor your growth and adjust your path as you achieve career milestones."
+  }];
+  return <section className="how-it-works-section">
       <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="text-center mb-12">
+        <div className="text-center ">
           <span className="text-sm uppercase tracking-wider text-primary-badge font-semibold">Simple Process</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-4">How It Works</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -39,16 +29,7 @@ export const HowItWorks = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {steps.map((step, index) => (
-            <FlipCard
-              key={index}
-              number={step.number}
-              title={step.title}
-              description={step.description}
-            />
-          ))}
-        </div>
+        
 
         <div className="text-center mt-10">
           <Button variant="outline" className="learn-more-button">
@@ -56,6 +37,5 @@ export const HowItWorks = () => {
           </Button>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
