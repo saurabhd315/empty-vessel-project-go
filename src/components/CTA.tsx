@@ -1,11 +1,9 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import "./CTA.css";
-
 export const CTA = () => {
   return <section className="cta-section">
-      <div className="container mx-auto px-4 py-12 md:py-16">
+      <div className="container mx-auto px-4 md:py-2">
         <div className="cta-container">
           <div className="cta-content">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white cta-heading">Start Your SkillJourney Today!</h2>
