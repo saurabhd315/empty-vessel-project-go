@@ -1,7 +1,7 @@
 
 .flip-card {
   perspective: 1000px;
-  height: 300px; /* Set a fixed height for consistent card size */
+  height: 200px; /* Reduced height to better fit content */
   width: 100%;
   cursor: pointer;
   position: relative;
@@ -29,7 +29,7 @@
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   border-radius: 12px;
-  padding: 2rem;
+  padding: 1.5rem; /* Slightly reduced padding */
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -50,7 +50,7 @@
 }
 
 .step-number {
-  font-size: 2.5rem;
+  font-size: 2rem; /* Slightly reduced size */
   font-weight: 800;
   color: rgba(7, 120, 182, 0.1);
   line-height: 1;
@@ -94,6 +94,6 @@
 /* Mobile adjustments */
 @media (max-width: 767px) {
   .flip-card {
-    height: 250px;
+    height: 180px; /* Reduced height for mobile */
   }
 }
