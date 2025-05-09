@@ -1,6 +1,7 @@
 
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { FlipCard } from "./FlipCard";
 import "./HowItWorks.css";
 
 export const HowItWorks = () => {
@@ -40,11 +41,12 @@ export const HowItWorks = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, index) => (
-            <div key={index} className="step-card">
-              <div className="step-number">{step.number}</div>
-              <h3 className="text-xl font-semibold mt-4 mb-2">{step.title}</h3>
-              <p className="text-gray-600">{step.description}</p>
-            </div>
+            <FlipCard
+              key={index}
+              number={step.number}
+              title={step.title}
+              description={step.description}
+            />
           ))}
         </div>
 
