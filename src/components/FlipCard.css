@@ -86,26 +86,28 @@
 /* Mobile specific styles */
 @media (max-width: 767px) {
   .flip-card-inner {
-    height: 180px;
+    height: 150px;
     border: 1px solid rgba(7, 120, 182, 0.2);
     box-shadow: 0 4px 12px rgba(7, 120, 182, 0.1);
   }
   
   .flip-card-front, .flip-card-back {
     background: linear-gradient(to bottom right, white, #f9fdff);
+    padding: 1rem;
   }
   
   .card-title {
     color: #0778b6;
+    margin-top: 0.25rem;
   }
   
   .step-number {
-    font-size: 2.2rem;
+    font-size: 2rem;
     color: rgba(7, 120, 182, 0.15);
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.25rem;
   }
   
   .card-description {
-    line-height: 1.5;
+    line-height: 1.4;
   }
 }
