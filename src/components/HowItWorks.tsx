@@ -29,13 +29,7 @@ export const HowItWorks = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {steps.map((step, index) => <div key={index} className="step-card">
-              <div className="step-number">{step.number}</div>
-              <h3 className="text-xl font-semibold mt-4 mb-2">{step.title}</h3>
-              <p className="text-gray-600">{step.description}</p>
-            </div>)}
-        </div>
+        
 
         <div className="text-center mt-10">
           <Button variant="outline" className="learn-more-button">
