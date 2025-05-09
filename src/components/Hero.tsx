@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -57,15 +56,13 @@ export const Hero = () => {
               <Button size="lg" className="journey-button create-journey-button ripple-effect">
                 Start My Journey <ArrowRight className="ml-2 h-4 w-4 button-icon" />
               </Button>
-              <div className="watch-link-container">
-                <a 
-                  className="watch-link"
-                  href="#"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  <Play className="mr-2 h-5 w-5 watch-icon" /> Watch How It Works
-                </a>
-              </div>
+              <a 
+                className="watch-link flex items-center"
+                href="#"
+                onClick={(e) => e.preventDefault()}
+              >
+                <Play className="h-5 w-5 watch-icon" /> Watch How It Works
+              </a>
             </div>
           </div>
           <div className="md:w-1/2">

@@ -1,4 +1,3 @@
-
 .hero-section {
   background-color: #f8fafc;
   font-family: 'Noto Sans', sans-serif;
@@ -178,28 +177,36 @@
   }
 }
 
-/* Watch button styles */
-.watch-button {
-  border: 2px solid #0778b6;
-  color: #0778b6;
-  transition: all 0.3s ease;
+/* Watch link styles */
+.watch-link-container {
+  display: flex;
+  align-items: center;
 }
 
-.watch-button:hover {
-  animation: bounce 0.5s;
-  animation-fill-mode: both;
+.watch-link {
+  display: flex;
+  align-items: center;
+  color: #0778b6;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.watch-link:hover {
   color: #056a9d;
-  border-color: #056a9d;
 }
 
 .watch-icon {
   background-color: rgba(7, 120, 182, 0.1);
   border-radius: 50%;
   padding: 2px;
+  margin-right: 0.5rem;
   transition: all 0.3s ease;
 }
 
-.watch-button:hover .watch-icon {
+.watch-link:hover .watch-icon {
   transform: scale(1.2);
   background-color: rgba(7, 120, 182, 0.2);
 }
