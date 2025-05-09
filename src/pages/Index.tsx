@@ -19,10 +19,10 @@ const Index = () => {
   const sectionRefs = {
     hero: useRef<HTMLDivElement>(null),
     howItWorks: useRef<HTMLDivElement>(null),
+    cta: useRef<HTMLDivElement>(null),
     features: useRef<HTMLDivElement>(null),
     counsellors: useRef<HTMLDivElement>(null),
-    testimonials: useRef<HTMLDivElement>(null),
-    cta: useRef<HTMLDivElement>(null)
+    testimonials: useRef<HTMLDivElement>(null)
   };
   
   // Apply scroll reveal to all sections
@@ -48,6 +48,10 @@ const Index = () => {
         <HowItWorks />
       </div>
       
+      <div ref={sectionRefs.cta}>
+        <CTA />
+      </div>
+      
       <div ref={sectionRefs.features}>
         <Features />
       </div>
@@ -58,10 +62,6 @@ const Index = () => {
       
       <div ref={sectionRefs.testimonials}>
         <Testimonials />
-      </div>
-      
-      <div ref={sectionRefs.cta}>
-        <CTA />
       </div>
       
       <Footer />
