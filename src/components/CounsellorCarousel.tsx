@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Star, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -158,7 +159,14 @@ export const CounsellorCarousel = () => {
           </Carousel>
           
           <div className="pagination-dots">
-            {counsellors.map((_, index) => {})}
+            {counsellors.map((_, index) => (
+              <button
+                key={index}
+                aria-label={`Go to slide ${index + 1}`}
+                className={`pagination-dot ${currentPage === index ? 'active' : ''}`}
+                onClick={() => api?.scrollTo(index)}
+              />
+            ))}
           </div>
         </div>
       </div>
