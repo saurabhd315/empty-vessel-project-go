@@ -49,69 +49,68 @@
   color: #0778b6;
 }
 
-.skill-journey-button {
-  background-color: #0778b6;
-  transition: background-color 0.3s ease;
+/* Typewriter effect */
+.typewriter-container {
+  display: flex;
+  align-items: center;
+  line-height: 1.2;
+  min-height: 4rem;
 }
 
-.skill-journey-button:hover {
-  background-color: #056a9d;
+.typewriter-text {
+  display: inline-block;
 }
 
+.typewriter-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Image carousel */
 .hero-image-container {
   position: relative;
   z-index: 1;
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-  transform: perspective(1000px) rotateY(-5deg);
   transition: transform 0.5s ease;
 }
 
 .hero-image-container:hover {
-  transform: perspective(1000px) rotateY(0);
+  transform: perspective(1000px) rotateY(-5deg) scale(1.03);
 }
 
-.hero-image-container img {
+.image-carousel {
+  position: relative;
   width: 100%;
-  height: auto;
-  transform: scale(1);
-  transition: transform 0.5s ease;
+  height: 0;
+  padding-bottom: 66.67%; /* 3:2 aspect ratio */
+  overflow: hidden;
 }
 
-.hero-image-container:hover img {
-  transform: scale(1.03);
+.carousel-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease;
 }
 
-/* Watch Link Styles */
-.watch-link {
-  display: flex;
-  align-items: center;
-  color: #0778b6;
-  font-weight: 600;
-  cursor: pointer;
-  transition: color 0.3s ease;
-  padding: 0.75rem 0;
-  letter-spacing: 0.025em;
+.carousel-image.active {
+  opacity: 1;
+  z-index: 2;
 }
 
-.watch-link:hover {
-  color: #056a9d;
-}
-
-.watch-icon {
-  background-color: rgba(7, 120, 182, 0.1);
-  border-radius: 50%;
-  padding: 2px;
-  transition: all 0.3s ease;
-}
-
-.watch-link:hover .watch-icon {
-  transform: scale(1.2);
-  background-color: rgba(7, 120, 182, 0.2);
-}
-
-/* Updated Button Styles */
+/* Button styles */
 .journey-button {
   font-size: 0.95rem;
   font-weight: 600;
@@ -140,12 +139,108 @@
   transform: translateY(0);
 }
 
+/* Ripple effect */
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.ripple-effect:hover::after {
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+/* Bounce effect */
+.bounce-on-hover {
+  border: 2px solid #0778b6;
+  color: #0778b6;
+  transition: all 0.3s ease;
+}
+
+.bounce-on-hover:hover {
+  animation: bounce 0.5s;
+  animation-fill-mode: both;
+  color: #056a9d;
+  border-color: #056a9d;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+  75% {
+    transform: translateY(-5px);
+  }
+}
+
 .button-icon {
   transition: transform 0.3s ease;
 }
 
 .create-journey-button:hover .button-icon {
   transform: translateX(4px);
+}
+
+/* Watch Link Styles */
+.watch-link {
+  display: flex;
+  align-items: center;
+  color: #0778b6;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 0.75rem 0;
+  letter-spacing: 0.025em;
+}
+
+.watch-link:hover {
+  color: #056a9d;
+}
+
+.watch-icon {
+  background-color: rgba(7, 120, 182, 0.1);
+  border-radius: 50%;
+  padding: 2px;
+  transition: all 0.3s ease;
+}
+
+.watch-link:hover .watch-icon {
+  transform: scale(1.2);
+  background-color: rgba(7, 120, 182, 0.2);
 }
 
 /* Mobile responsive adjustments */
@@ -183,5 +278,9 @@
   
   .stat-card-text {
     font-size: 0.75rem !important;
+  }
+  
+  .typewriter-container {
+    min-height: 3rem;
   }
 }
