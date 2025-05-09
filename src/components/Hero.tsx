@@ -57,12 +57,15 @@ export const Hero = () => {
               <Button size="lg" className="journey-button create-journey-button ripple-effect">
                 Start My Journey <ArrowRight className="ml-2 h-4 w-4 button-icon" />
               </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="watch-button bounce-on-hover">
-                Watch How It Works <Play className="ml-2 h-4 w-4 watch-icon" />
-              </Button>
+              <div className="watch-link-container">
+                <a 
+                  className="watch-link"
+                  href="#"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <Play className="mr-2 h-5 w-5 watch-icon" /> Watch How It Works
+                </a>
+              </div>
             </div>
           </div>
           <div className="md:w-1/2">
