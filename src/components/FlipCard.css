@@ -1,9 +1,11 @@
 
 .flip-card {
   perspective: 1000px;
-  height: 100%;
+  height: 300px; /* Set a fixed height for consistent card size */
+  width: 100%;
   cursor: pointer;
   position: relative;
+  margin-bottom: 20px;
 }
 
 .flip-card-inner {
@@ -31,17 +33,20 @@
   background-color: white;
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* Prevent content overflow */
 }
 
 .flip-card-front {
   z-index: 2;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .flip-card-back {
   transform: rotateY(180deg);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .step-number {
@@ -56,6 +61,7 @@
   color: #0778b6;
   align-self: flex-start;
   transition: all 0.3s ease;
+  margin-top: auto;
 }
 
 .know-more-button:hover {
@@ -67,6 +73,7 @@
   border-color: #0778b6;
   color: #0778b6;
   transition: all 0.3s ease;
+  margin-top: auto;
 }
 
 .back-button:hover {
@@ -81,5 +88,12 @@
 
   .flip-card.is-flipped .flip-card-inner {
     transform: rotateY(0deg);
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+  .flip-card {
+    height: 250px;
   }
 }
