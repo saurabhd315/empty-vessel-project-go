@@ -54,7 +54,7 @@
   display: flex;
   align-items: center;
   line-height: 1.2;
-  min-height: 4rem;
+  min-height: 3.5rem;
 }
 
 .typewriter-text {
@@ -178,18 +178,30 @@
   }
 }
 
-/* Bounce effect */
-.bounce-on-hover {
+/* Watch button styles */
+.watch-button {
   border: 2px solid #0778b6;
   color: #0778b6;
   transition: all 0.3s ease;
 }
 
-.bounce-on-hover:hover {
+.watch-button:hover {
   animation: bounce 0.5s;
   animation-fill-mode: both;
   color: #056a9d;
   border-color: #056a9d;
+}
+
+.watch-icon {
+  background-color: rgba(7, 120, 182, 0.1);
+  border-radius: 50%;
+  padding: 2px;
+  transition: all 0.3s ease;
+}
+
+.watch-button:hover .watch-icon {
+  transform: scale(1.2);
+  background-color: rgba(7, 120, 182, 0.2);
 }
 
 @keyframes bounce {
@@ -215,34 +227,6 @@
   transform: translateX(4px);
 }
 
-/* Watch Link Styles */
-.watch-link {
-  display: flex;
-  align-items: center;
-  color: #0778b6;
-  font-weight: 600;
-  cursor: pointer;
-  transition: color 0.3s ease;
-  padding: 0.75rem 0;
-  letter-spacing: 0.025em;
-}
-
-.watch-link:hover {
-  color: #056a9d;
-}
-
-.watch-icon {
-  background-color: rgba(7, 120, 182, 0.1);
-  border-radius: 50%;
-  padding: 2px;
-  transition: all 0.3s ease;
-}
-
-.watch-link:hover .watch-icon {
-  transform: scale(1.2);
-  background-color: rgba(7, 120, 182, 0.2);
-}
-
 /* Mobile responsive adjustments */
 @media (max-width: 767px) {
   .hero-section {
@@ -250,7 +234,7 @@
   }
   
   .hero-heading {
-    font-size: 2.25rem !important;
+    font-size: 2rem !important;
     line-height: 1.2;
   }
   

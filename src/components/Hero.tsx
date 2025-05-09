@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ExternalLink } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Play } from "lucide-react";
+import { useEffect, useState } from "react";
 import "./Hero.css";
 
 export const Hero = () => {
@@ -46,7 +46,7 @@ export const Hero = () => {
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 text-left mb-6 md:mb-0 md:pr-8">
             <span className="text-sm uppercase tracking-wider text-primary-badge font-semibold">Your Career Advancement Platform</span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-transparent bg-clip-text skill-journey-gradient typewriter-container">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-transparent bg-clip-text skill-journey-gradient typewriter-container">
               <span className="typewriter-text">{displayedText}</span>
               <span className="typewriter-cursor">|</span>
             </h1>
@@ -60,8 +60,8 @@ export const Hero = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="explore-features-button bounce-on-hover">
-                Explore Features <ExternalLink className="ml-2 h-4 w-4" />
+                className="watch-button bounce-on-hover">
+                Watch How It Works <Play className="ml-2 h-4 w-4 watch-icon" />
               </Button>
             </div>
           </div>
