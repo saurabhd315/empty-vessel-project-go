@@ -10,20 +10,7 @@
   color: #0778b6;
 }
 
-.learn-more-button {
-  border-color: #0778b6;
-  color: #0778b6;
-  padding: 0.5rem 1.5rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  min-height: 44px;
-}
-
-.learn-more-button:hover {
-  background-color: rgba(7, 120, 182, 0.1);
-  transform: translateY(-2px);
-}
-
+/* Desktop hover effect */
 @media (max-width: 767px) {
   .how-it-works-section {
     padding: 1.5rem 0;

@@ -1,7 +1,5 @@
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { ChevronLeft } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import "./FlipCard.css";
 
@@ -24,27 +22,19 @@ export const FlipCard = ({ number, title, description }: FlipCardProps) => {
       <div className="flip-card-inner">
         <div className="flip-card-front">
           <div className="step-number">{number}</div>
-          <h3 className="text-xl font-semibold mt-4 mb-2">{title}</h3>
+          <h3 className="card-title">{title}</h3>
           
           {isMobile && (
-            <Button variant="outline" className="know-more-button mt-4" onClick={handleFlip}>
+            <button className="know-more-button" onClick={handleFlip}>
               Know More
-            </Button>
+            </button>
           )}
         </div>
         
         <div className="flip-card-back">
-          <p className="text-gray-600 mb-4">{description}</p>
-          
-          <Button 
-            variant="outline" 
-            className="back-button"
-            onClick={handleFlip}
-          >
-            <ChevronLeft className="h-4 w-4 mr-1" /> Go Back
-          </Button>
+          <p className="card-description">{description}</p>
         </div>
       </div>
     </div>
   );
-};
+}
