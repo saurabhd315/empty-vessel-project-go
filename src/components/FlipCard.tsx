@@ -24,21 +24,21 @@ export const FlipCard = ({ number, title, description }: FlipCardProps) => {
       <div className="flip-card-inner">
         <div className="flip-card-front">
           <div className="step-number">{number}</div>
-          <h3 className="text-lg font-semibold mt-2 mb-1">{title}</h3>
+          <h3 className="text-xl font-semibold mt-4 mb-2">{title}</h3>
           
           {isMobile && (
-            <Button variant="outline" className="know-more-button mt-auto text-sm py-1" onClick={handleFlip}>
+            <Button variant="outline" className="know-more-button mt-4" onClick={handleFlip}>
               Know More
             </Button>
           )}
         </div>
         
         <div className="flip-card-back">
-          <p className="text-sm text-gray-600 mb-3">{description}</p>
+          <p className="text-gray-600 mb-4">{description}</p>
           
           <Button 
             variant="outline" 
-            className="back-button text-sm py-1"
+            className="back-button"
             onClick={handleFlip}
           >
             <ChevronLeft className="h-4 w-4 mr-1" /> Go Back
