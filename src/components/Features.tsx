@@ -1,8 +1,6 @@
-
 import { User, Search, Briefcase, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import "./Features.css";
-
 export const Features = () => {
   const features = [{
     icon: <User />,
@@ -17,9 +15,8 @@ export const Features = () => {
     title: "Industry-Aligned Guidance",
     description: "Get advice that's relevant to current market demands and future industry trends."
   }];
-
   return <section className="features-section">
-      <div className="container mx-auto px-4 py-12 md:py-16">
+      <div className="container mx-auto px-4 ">
         <div className="text-center ">
           <span className="text-sm uppercase tracking-wider text-primary-badge font-semibold">Key Features</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-6">Tools For Your Success</h2>
