@@ -1,0 +1,123 @@
+
+.journey-timeline {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 2rem;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.journey-timeline::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #e5e7eb;
+  z-index: 0;
+}
+
+.journey-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.journey-step:hover .journey-step-marker {
+  transform: scale(1.1);
+}
+
+.journey-step-marker {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 0.5rem;
+  z-index: 2;
+  transition: all 0.3s ease;
+  color: #6b7280;
+}
+
+.journey-step-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+  color: #6b7280;
+  max-width: 100px;
+  transition: all 0.3s ease;
+}
+
+.journey-step.completed .journey-step-marker {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.journey-step.completed .journey-step-title {
+  color: #4CAF50;
+}
+
+.journey-step.current .journey-step-marker {
+  background-color: #0778b6;
+  color: white;
+  box-shadow: 0 0 0 4px rgba(7, 120, 182, 0.2);
+}
+
+.journey-step.current .journey-step-title {
+  color: #0778b6;
+  font-weight: 600;
+}
+
+.journey-step.active .journey-step-marker {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 4px rgba(7, 120, 182, 0.3);
+}
+
+.journey-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.journey-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .journey-timeline {
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    justify-content: flex-start;
+    gap: 2rem;
+  }
+  
+  .journey-timeline::before {
+    width: calc(100% - 2rem);
+    left: 1rem;
+  }
+  
+  .journey-step {
+    flex: 0 0 auto;
+    min-width: 60px;
+  }
+  
+  .journey-resources {
+    grid-template-columns: 1fr;
+  }
+}

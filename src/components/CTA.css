@@ -171,3 +171,93 @@
     width: 100%;
   }
 }
+
+/* Journey Preview Styles */
+.journey-preview {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  position: relative;
+}
+
+.journey-step {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.journey-step:last-child {
+  margin-bottom: 0;
+}
+
+.journey-step:not(:last-child):after {
+  content: '';
+  position: absolute;
+  top: 30px;
+  left: 19px;
+  width: 2px;
+  height: calc(100% - 10px);
+  background-color: rgba(255, 255, 255, 0.3);
+  z-index: 1;
+}
+
+.step-marker {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 1rem;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.journey-step.completed .step-marker {
+  background-color: #4CAF50;
+  color: white;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
+}
+
+.journey-step.current .step-marker {
+  background-color: white;
+  color: #0778b6;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3);
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-content h4 {
+  margin: 0;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+@media (max-width: 767px) {
+  .journey-preview {
+    padding: 1rem;
+  }
+  
+  .step-marker {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+  
+  .journey-step:not(:last-child):after {
+    top: 25px;
+    left: 14px;
+  }
+  
+  .step-content h4 {
+    font-size: 0.9rem;
+  }
+}
