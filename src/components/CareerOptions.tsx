@@ -1,6 +1,7 @@
+
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Search, ChevronDown, Code, Palette, Brain, Users, GraduationCap, Briefcase } from "lucide-react";
+import { ChevronDown, Code, Palette, Brain, Users, GraduationCap, Briefcase } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./CareerOptions.css";
 type Career = {
@@ -90,12 +91,23 @@ export const CareerOptions = () => {
         
         <div className="search-filter-container">
           <div className="search-container">
-            <Search className="search-icon" />
-            
+            <input 
+              type="text"
+              className="search-input"
+              placeholder="Search careers..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
           </div>
           
           <div className="filter-container" ref={filterRef}>
-            
+            <button 
+              className="filter-button"
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+            >
+              {industryFilter || "All Industries"}
+              <ChevronDown size={18} />
+            </button>
             
             {isFilterOpen && <div className="filter-dropdown">
                 <div className={`filter-option ${!industryFilter ? 'selected' : ''}`} onClick={() => {
