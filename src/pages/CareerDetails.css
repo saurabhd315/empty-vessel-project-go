@@ -1,0 +1,78 @@
+
+.career-hero-section {
+  position: relative;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8));
+  display: flex;
+  align-items: center;
+}
+
+.career-content {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #0778b6;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: #056a9d;
+}
+
+.career-details h2 {
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.career-details h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #0778b6;
+}
+
+.outlook-card {
+  background-color: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.outlook-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+  .career-hero-section {
+    height: 250px;
+  }
+  
+  .career-hero-section h1 {
+    font-size: 2rem;
+  }
+}

@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/HowItWorks";
-import { Features } from "@/components/Features";
+import { CareerOptions } from "@/components/CareerOptions";
 import { Testimonials } from "@/components/Testimonials";
 import { CounsellorCarousel } from "@/components/CounsellorCarousel";
 import { CTA } from "@/components/CTA";
@@ -20,7 +20,7 @@ const Index = () => {
     hero: useRef<HTMLDivElement>(null),
     howItWorks: useRef<HTMLDivElement>(null),
     cta: useRef<HTMLDivElement>(null),
-    features: useRef<HTMLDivElement>(null),
+    careerOptions: useRef<HTMLDivElement>(null),
     counsellors: useRef<HTMLDivElement>(null),
     testimonials: useRef<HTMLDivElement>(null)
   };
@@ -52,8 +52,8 @@ const Index = () => {
         <CTA />
       </div>
       
-      <div ref={sectionRefs.features}>
-        <Features />
+      <div ref={sectionRefs.careerOptions}>
+        <CareerOptions />
       </div>
       
       <div ref={sectionRefs.counsellors}>

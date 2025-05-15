@@ -1,0 +1,249 @@
+
+.career-options-section {
+  font-family: 'Noto Sans', sans-serif;
+  padding: 4rem 0;
+  background-color: #ffffff;
+  position: relative;
+}
+
+/* Search and Filter Styles */
+.search-filter-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .search-filter-container {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8E9196;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 0.9rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background-color: #f8fafc;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #0778b6;
+  box-shadow: 0 0 0 3px rgba(7, 120, 182, 0.1);
+}
+
+.filter-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+.filter-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: #f8fafc;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.filter-button:hover {
+  border-color: #0778b6;
+}
+
+.filter-dropdown {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  z-index: 10;
+  max-height: 250px;
+  overflow-y: auto;
+  border: 1px solid #e2e8f0;
+}
+
+.filter-option {
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 0.9rem;
+}
+
+.filter-option:hover {
+  background-color: #f1f5f9;
+}
+
+.filter-option.selected {
+  background-color: #e0f2fe;
+  color: #0778b6;
+  font-weight: 600;
+}
+
+/* Career Grid Styles */
+.career-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 640px) {
+  .career-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .career-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.career-card-container {
+  height: 100%;
+}
+
+.career-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+  padding: 2rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  color: #1A1F2C;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.career-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.career-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.career-card:hover::before {
+  opacity: 1;
+}
+
+.career-icon {
+  background-color: rgba(255, 255, 255, 0.7);
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.career-card:hover .career-icon {
+  transform: scale(1.1);
+}
+
+.career-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.career-card:hover .career-title {
+  transform: translateY(-3px);
+}
+
+.career-teaser {
+  color: #4B5563;
+  font-size: 0.9rem;
+  margin-bottom: auto;
+  padding-bottom: 1rem;
+}
+
+.learn-more {
+  font-weight: 600;
+  color: #0778b6;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  margin-top: auto;
+  transition: transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.career-card:hover .learn-more {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile Styles */
+@media (max-width: 639px) {
+  .career-card {
+    padding: 1.5rem;
+  }
+  
+  .career-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 1rem;
+  }
+  
+  .career-title {
+    font-size: 1.125rem;
+  }
+  
+  .learn-more {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
