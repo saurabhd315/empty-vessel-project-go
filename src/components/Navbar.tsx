@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import "./Navbar.css";
+
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const toggleMobileMenu = () => {
@@ -39,6 +40,9 @@ export const Navbar = () => {
             <a href="#" className="nav-link">
               About
             </a>
+            <a href="/admin/careers" className="nav-link">
+              Manage Careers
+            </a>
           </nav>
           
           {/* Mobile menu button */}
@@ -71,6 +75,9 @@ export const Navbar = () => {
             </a>
             <a href="#" className="mobile-nav-link nav-link">
               About
+            </a>
+            <a href="/admin/careers" className="mobile-nav-link nav-link">
+              Manage Careers
             </a>
           </nav>}
       </div>
