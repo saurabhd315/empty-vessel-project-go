@@ -1,18 +1,13 @@
 
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 import "./Navbar.css";
 
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
-  const isHomePage = location.pathname === "/";
-  
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-  
   return <header className="border-b navbar-container">
       <div className="container mx-auto navbar-inner">
         <div className="flex items-center justify-between ">
@@ -45,11 +40,9 @@ export const Navbar = () => {
             <a href="#" className="nav-link">
               About
             </a>
-            {!isHomePage && (
-              <a href="/admin/careers" className="nav-link">
-                Manage Careers
-              </a>
-            )}
+            <a href="/admin/careers" className="nav-link">
+              Manage Careers
+            </a>
           </nav>
           
           {/* Mobile menu button */}
@@ -83,11 +76,9 @@ export const Navbar = () => {
             <a href="#" className="mobile-nav-link nav-link">
               About
             </a>
-            {!isHomePage && (
-              <a href="/admin/careers" className="mobile-nav-link nav-link">
-                Manage Careers
-              </a>
-            )}
+            <a href="/admin/careers" className="mobile-nav-link nav-link">
+              Manage Careers
+            </a>
           </nav>}
       </div>
     </header>;
