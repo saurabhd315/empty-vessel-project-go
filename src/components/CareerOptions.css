@@ -1,3 +1,4 @@
+
 .career-options-section {
   font-family: 'Noto Sans', sans-serif;
   padding: 4rem 0;
@@ -215,22 +216,4 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-/* Admin link */
-.admin-link-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
-}
-
-.admin-link {
-  color: #0778b6;
-  font-size: 0.875rem;
-  text-decoration: underline;
-  transition: all 0.2s ease;
-}
-
-.admin-link:hover {
-  color: #055c8a;
 }

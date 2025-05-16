@@ -201,13 +201,6 @@ export const CareerOptions = () => {
             <CarouselNext className="career-nav-button next" />
           </Carousel>
         </div>
-        
-        {/* Admin link */}
-        <div className="admin-link-container">
-          <Link to="/admin/careers" className="admin-link">
-            Manage Career Options
-          </Link>
-        </div>
       </div>
     </section>
   );
