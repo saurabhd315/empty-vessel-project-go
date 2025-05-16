@@ -1,5 +1,5 @@
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   Code,
   Palette,
@@ -18,6 +18,7 @@ import {
   CarouselPrevious
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
+import { CustomCareer } from "@/pages/AdminCareers";
 import "./CareerOptions.css";
 
 type Career = {
@@ -28,13 +29,16 @@ type Career = {
   industry: string;
   color: string;
   salary?: string;
+  description?: string;
 };
 
 export const CareerOptions = () => {
   const [activeFilter, setActiveFilter] = useState<string>("");
+  const [customCareers, setCustomCareers] = useState<CustomCareer[]>([]);
   const carouselRef = useRef(null);
 
-  const careers: Career[] = [
+  // Default careers
+  const defaultCareers: Career[] = [
     {
       id: "software-developer",
       title: "Software Developer",
@@ -91,11 +95,35 @@ export const CareerOptions = () => {
     }
   ];
 
-  const industries = Array.from(new Set(careers.map(career => career.industry)));
+  // Load custom careers from localStorage
+  useEffect(() => {
+    const storedCareers = localStorage.getItem("customCareers");
+    if (storedCareers) {
+      setCustomCareers(JSON.parse(storedCareers));
+    }
+  }, []);
+
+  // Combine default and custom careers
+  const allCareers = [
+    ...defaultCareers,
+    ...customCareers.map(career => ({
+      ...career,
+      icon: <Briefcase size={30} /> // Default icon for custom careers
+    }))
+  ];
+
+  // Get unique industries for filters
+  const industries = Array.from(new Set(allCareers.map(career => career.industry)));
   
-  const filteredCareers = careers.filter(career => {
+  // Filter careers based on selected industry
+  const filteredCareers = allCareers.filter(career => {
     return !activeFilter || career.industry === activeFilter;
   });
+
+  // Determine if a career is custom
+  const isCustomCareer = (careerId: string) => {
+    return careerId.startsWith('custom-');
+  };
 
   return (
     <section className="career-options-section section-spacing">
@@ -157,7 +185,7 @@ export const CareerOptions = () => {
                         <p className="career-teaser">{career.teaser}</p>
                         <div className="career-overlay">
                           <div className="career-salary">{career.salary}</div>
-                          <Link to={`/careers/${career.id}`}>
+                          <Link to={isCustomCareer(career.id) ? `/careers/custom/${career.id}` : `/careers/${career.id}`}>
                             <Button variant="outline" className="view-details-btn">
                               View Details
                             </Button>
@@ -172,6 +200,13 @@ export const CareerOptions = () => {
             <CarouselPrevious className="career-nav-button prev" />
             <CarouselNext className="career-nav-button next" />
           </Carousel>
+        </div>
+        
+        {/* Admin link */}
+        <div className="admin-link-container">
+          <Link to="/admin/careers" className="admin-link">
+            Manage Career Options
+          </Link>
         </div>
       </div>
     </section>
