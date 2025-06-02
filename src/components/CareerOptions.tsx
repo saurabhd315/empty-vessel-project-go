@@ -7,6 +7,8 @@ import {
   Users,
   GraduationCap,
   Briefcase,
+  ChevronRight,
+  ChevronDown
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -51,218 +53,11 @@ type CareerCategory = {
   insights: string;
 };
 
-// Hardcoded JSON data structure
-const hardcodedCareerData = {
-  "Career Development": {
-    "Technology": {
-      "Software Development": {
-        "Opportunities and Roles": [
-          "Software Engineer",
-          "Application Developer",
-          "Full-Stack Developer"
-        ],
-        "Resources": {
-          "Educational Resources": [
-            {
-              "title": "Coursera's Software Development Courses",
-              "url": "https://www.coursera.org/browse/computer-science/software-development"
-            },
-            {
-              "title": "edX's Software Engineering MicroMasters",
-              "url": "https://www.edx.org/"
-            }
-          ],
-          "Online Courses": [
-            {
-              "title": "Codecademy's Learn JavaScript",
-              "url": "https://www.codecademy.com/"
-            },
-            {
-              "title": "Udacity's Full-Stack Web Developer Nanodegree",
-              "url": "https://www.udacity.com/"
-            }
-          ],
-          "Industry Blogs": [
-            {
-              "title": "TechCrunch",
-              "url": "https://techcrunch.com/"
-            },
-            {
-              "title": "Hacker News",
-              "url": "https://news.ycombinator.com/"
-            }
-          ],
-          "Professional Networks": [
-            {
-              "title": "GitHub",
-              "url": "https://github.com/"
-            },
-            {
-              "title": "Stack Overflow",
-              "url": "https://stackoverflow.com/"
-            }
-          ]
-        },
-        "Insights": "Software development continues to grow with increasing demand for innovative solutions across industries."
-      },
-      "Data Science": {
-        "Opportunities and Roles": [
-          "Data Scientist",
-          "Data Analyst",
-          "Machine Learning Engineer"
-        ],
-        "Resources": {
-          "Educational Resources": [
-            {
-              "title": "DataCamp's Data Science Courses",
-              "url": "https://www.datacamp.com/"
-            },
-            {
-              "title": "Coursera's Data Science Specialization",
-              "url": "https://www.coursera.org/specializations/jhu-data-science"
-            }
-          ],
-          "Online Courses": [
-            {
-              "title": "Udemy's Data Science Bootcamp",
-              "url": "https://www.udemy.com/"
-            },
-            {
-              "title": "Kaggle's Data Science Courses",
-              "url": "https://www.kaggle.com/learn"
-            }
-          ],
-          "Industry Blogs": [
-            {
-              "title": "Towards Data Science",
-              "url": "https://towardsdatascience.com/"
-            },
-            {
-              "title": "Data Science Central",
-              "url": "https://www.datasciencecentral.com/"
-            }
-          ],
-          "Professional Networks": [
-            {
-              "title": "Kaggle",
-              "url": "https://www.kaggle.com/"
-            },
-            {
-              "title": "LinkedIn Data Science Group",
-              "url": "https://www.linkedin.com/groups/2445483/"
-            }
-          ]
-        },
-        "Insights": "Data science is a rapidly expanding field with applications in finance, healthcare, and technology."
-      },
-      "Cybersecurity": {
-        "Opportunities and Roles": [
-          "Cybersecurity Analyst",
-          "Information Security Manager",
-          "Ethical Hacker"
-        ],
-        "Resources": {
-          "Educational Resources": [
-            {
-              "title": "Cybrary's Cybersecurity Courses",
-              "url": "https://www.cybrary.it/"
-            },
-            {
-              "title": "SANS Institute's Cybersecurity Training",
-              "url": "https://www.sans.org/"
-            }
-          ],
-          "Online Courses": [
-            {
-              "title": "Coursera's Cybersecurity Specialization",
-              "url": "https://www.coursera.org/search?query=cyber%20security"
-            },
-            {
-              "title": "Udemy's Complete Cyber Security Course",
-              "url": "https://www.udemy.com/course/complete-cyber-security-course/"
-            }
-          ],
-          "Industry Blogs": [
-            {
-              "title": "Krebs on Security",
-              "url": "https://krebsonsecurity.com/"
-            },
-            {
-              "title": "The Hacker News",
-              "url": "https://thehackernews.com/"
-            }
-          ],
-          "Professional Networks": [
-            {
-              "title": "ISACA",
-              "url": "https://www.isaca.org/"
-            },
-            {
-              "title": "(ISC)²",
-              "url": "https://www.isc2.org/"
-            }
-          ]
-        },
-        "Insights": "With increasing cyber threats, the need for cybersecurity professionals is growing."
-      },
-      "Artificial Intelligence": {
-        "Opportunities and Roles": [
-          "AI Research Scientist",
-          "Machine Learning Engineer",
-          "AI Specialist"
-        ],
-        "Resources": {
-          "Educational Resources": [
-            {
-              "title": "MIT's Artificial Intelligence Courses",
-              "url": "https://betterworld.mit.edu/artificial-intelligence/"
-            },
-            {
-              "title": "Stanford's AI Courses",
-              "url": "https://ai.stanford.edu/"
-            }
-          ],
-          "Online Courses": [
-            {
-              "title": "Coursera's AI for Everyone",
-              "url": "https://www.coursera.org/learn/ai-for-everyone"
-            },
-            {
-              "title": "Udacity's AI Programming with Python",
-              "url": "https://www.udacity.com/course/ai-programming-with-python-nanodegree--nd089"
-            }
-          ],
-          "Industry Blogs": [
-            {
-              "title": "AI Trends",
-              "url": "https://www.ibm.com/think/insights/artificial-intelligence-trends"
-            },
-            {
-              "title": "The AI Report",
-              "url": "https://www.thereport.ai/"
-            }
-          ],
-          "Professional Networks": [
-            {
-              "title": "AI Hub",
-              "url": "https://aihub.org/"
-            },
-            {
-              "title": "Machine Learning Mastery",
-              "url": "https://machinelearningmastery.com/"
-            }
-          ]
-        },
-        "Insights": "AI and machine learning are transforming industries with innovations in automation, data analysis, and problem-solving."
-      }
-    }
-  }
-};
-
 export const CareerOptions = () => {
   const [activeFilter, setActiveFilter] = useState<string>("");
   const [customCareers, setCustomCareers] = useState<CustomCareer[]>([]);
   const [categories, setCategories] = useState<CareerCategory[]>([]);
+  const [expandedParent, setExpandedParent] = useState<string | null>(null);
   const carouselRef = useRef(null);
 
   // Default careers
@@ -323,26 +118,6 @@ export const CareerOptions = () => {
     }
   ];
 
-  // Convert hardcoded data to career format
-  const hardcodedCareers: Career[] = [];
-  
-  // Process Technology category from hardcoded data
-  if (hardcodedCareerData["Career Development"]["Technology"]) {
-    const techCategory = hardcodedCareerData["Career Development"]["Technology"];
-    Object.entries(techCategory).forEach(([subCategory, data]) => {
-      hardcodedCareers.push({
-        id: `hardcoded-${subCategory.toLowerCase().replace(/ /g, '-')}`,
-        title: subCategory,
-        teaser: data["Opportunities and Roles"][0] || "Explore opportunities",
-        icon: <Code size={30} />,
-        industry: "Technology",
-        color: "#D3E4FD",
-        salary: "Competitive",
-        description: data.Insights
-      });
-    });
-  }
-
   // Load custom careers and categories from localStorage with real-time updates
   useEffect(() => {
     const loadData = () => {
@@ -382,12 +157,19 @@ export const CareerOptions = () => {
     };
   }, []);
 
-  // Filter out unwanted categories and get only categories without parent
-  const excludedCategories = ["xyz", "adf", "Arts and Humanities"];
-  const categoriesWithoutParent = categories.filter(cat => 
-    (!cat.parentCategory || cat.parentCategory.trim() === "") &&
-    !excludedCategories.includes(cat.name)
-  );
+  // Get only parent categories from admin that are not in the excluded list
+  const excludedCategories = ["Arts and Humanities", "xyz"];
+  const adminParentCategories = Array.from(new Set(
+    categories
+      .map(cat => cat.parentCategory)
+      .filter(parent => 
+        parent && 
+        parent.trim() !== "" && 
+        !excludedCategories.includes(parent)
+      )
+  ));
+  
+  const categoriesWithoutParent = categories.filter(cat => !cat.parentCategory || cat.parentCategory.trim() === "");
 
   // Convert categories to career format for display
   const categoryToCareers = (categoryList: CareerCategory[]) => categoryList.map(category => ({
@@ -397,16 +179,15 @@ export const CareerOptions = () => {
       ? category.opportunities[0] 
       : "Explore opportunities",
     icon: <Briefcase size={30} />,
-    industry: category.name, // Use category name as industry
+    industry: "Technology", // Default to Technology for now
     color: "#D3E4FD", // Default color
     salary: "Competitive", // Default salary text
     categoryData: category // Store full category data for detailed view
   }));
 
-  // Combine all careers (default + hardcoded + custom + categories without parent)
+  // Combine all careers (default + custom + categories without parent)
   const allCareers = [
     ...defaultCareers,
-    ...hardcodedCareers,
     ...customCareers.map(career => ({
       ...career,
       icon: <Briefcase size={30} />
@@ -414,10 +195,8 @@ export const CareerOptions = () => {
     ...categoryToCareers(categoriesWithoutParent)
   ];
 
-  // Get unique industries for filters - combining default industries with new parent categories
-  const defaultIndustries = ["Technology", "Design", "Healthcare", "Business", "Education", "Finance"];
-  const newParentCategories = categoriesWithoutParent.map(cat => cat.name);
-  const industries = [...defaultIndustries, ...newParentCategories];
+  // Get unique industries for filters
+  const industries = Array.from(new Set(allCareers.map(career => career.industry)));
   
   // Filter careers based on selected industry
   const filteredCareers = allCareers.filter(career => {
@@ -433,20 +212,18 @@ export const CareerOptions = () => {
     return careerId.startsWith('category-');
   };
 
-  const isHardcodedCareer = (careerId: string) => {
-    return careerId.startsWith('hardcoded-');
-  };
-
   const getCareerLink = (career: any) => {
     if (isCustomCareer(career.id)) {
       return `/careers/custom/${career.id}`;
     } else if (isCategoryCareer(career.id)) {
       return `/careers/category/${career.id}`;
-    } else if (isHardcodedCareer(career.id)) {
-      return `/careers/hardcoded/${career.id}`;
     } else {
       return `/careers/${career.id}`;
     }
+  };
+
+  const toggleParentCategory = (parentName: string) => {
+    setExpandedParent(expandedParent === parentName ? null : parentName);
   };
 
   return (
@@ -460,7 +237,84 @@ export const CareerOptions = () => {
           Discover diverse career paths tailored for the Indian job market and find guidance to achieve your professional goals.
         </p>
 
-        {/* Career Options Section */}
+        {/* Admin Parent Categories Section - Only show if there are valid parent categories */}
+        {adminParentCategories.length > 0 && (
+          <div className="parent-categories-section">
+            <h3 className="parent-categories-title">Career Categories</h3>
+            <div className="parent-categories-container">
+              {adminParentCategories.map(parentName => {
+                const subcategories = categories.filter(cat => cat.parentCategory === parentName);
+                const isExpanded = expandedParent === parentName;
+                
+                return (
+                  <div key={parentName} className="parent-category-item">
+                    <button
+                      className={`parent-category-button ${isExpanded ? 'expanded' : ''}`}
+                      onClick={() => toggleParentCategory(parentName)}
+                    >
+                      <span>{parentName}</span>
+                      {isExpanded ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
+                    </button>
+                    
+                    <AnimatePresence>
+                      {isExpanded && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="subcategories-container"
+                        >
+                          {subcategories.length > 0 ? (
+                            <Carousel className="w-full">
+                              <CarouselContent>
+                                {categoryToCareers(subcategories).map((career) => (
+                                  <CarouselItem key={career.id} className="md:basis-1/2 lg:basis-1/3">
+                                    <motion.div 
+                                      initial={{ opacity: 0, y: 20 }}
+                                      animate={{ opacity: 1, y: 0 }}
+                                      transition={{ duration: 0.4 }}
+                                      className="career-card-container"
+                                    >
+                                      <div 
+                                        className="career-card" 
+                                        style={{ backgroundColor: career.color }}
+                                      >
+                                        <div className="career-icon-container">
+                                          {career.icon}
+                                        </div>
+                                        <h3 className="career-title">{career.title}</h3>
+                                        <p className="career-teaser">{career.teaser}</p>
+                                        <div className="career-overlay">
+                                          <div className="career-salary">{career.salary}</div>
+                                          <Link to={getCareerLink(career)}>
+                                            <Button variant="outline" className="view-details-btn">
+                                              View Details
+                                            </Button>
+                                          </Link>
+                                        </div>
+                                      </div>
+                                    </motion.div>
+                                  </CarouselItem>
+                                ))}
+                              </CarouselContent>
+                              <CarouselPrevious className="career-nav-button prev" />
+                              <CarouselNext className="career-nav-button next" />
+                            </Carousel>
+                          ) : (
+                            <p className="text-center text-gray-500 py-4">No subcategories found for {parentName}</p>
+                          )}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+        
+        {/* Original Career Options Section */}
         <div className="original-careers-section">
           <div className="filter-chips-container">
             <button 
