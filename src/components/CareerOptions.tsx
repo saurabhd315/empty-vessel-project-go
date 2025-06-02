@@ -7,8 +7,6 @@ import {
   Users,
   GraduationCap,
   Briefcase,
-  ChevronRight,
-  ChevronDown
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -57,7 +55,6 @@ export const CareerOptions = () => {
   const [activeFilter, setActiveFilter] = useState<string>("");
   const [customCareers, setCustomCareers] = useState<CustomCareer[]>([]);
   const [categories, setCategories] = useState<CareerCategory[]>([]);
-  const [expandedParent, setExpandedParent] = useState<string | null>(null);
   const carouselRef = useRef(null);
 
   // Default careers
@@ -157,19 +154,12 @@ export const CareerOptions = () => {
     };
   }, []);
 
-  // Get only parent categories from admin that are not in the excluded list
-  const excludedCategories = ["Arts and Humanities", "xyz"];
-  const adminParentCategories = Array.from(new Set(
-    categories
-      .map(cat => cat.parentCategory)
-      .filter(parent => 
-        parent && 
-        parent.trim() !== "" && 
-        !excludedCategories.includes(parent)
-      )
-  ));
-  
-  const categoriesWithoutParent = categories.filter(cat => !cat.parentCategory || cat.parentCategory.trim() === "");
+  // Filter out unwanted categories and get only categories without parent
+  const excludedCategories = ["xyz", "adf", "Arts and Humanities"];
+  const categoriesWithoutParent = categories.filter(cat => 
+    (!cat.parentCategory || cat.parentCategory.trim() === "") &&
+    !excludedCategories.includes(cat.name)
+  );
 
   // Convert categories to career format for display
   const categoryToCareers = (categoryList: CareerCategory[]) => categoryList.map(category => ({
@@ -222,10 +212,6 @@ export const CareerOptions = () => {
     }
   };
 
-  const toggleParentCategory = (parentName: string) => {
-    setExpandedParent(expandedParent === parentName ? null : parentName);
-  };
-
   return (
     <section className="career-options-section section-spacing">
       <div className="container mx-auto px-4">
@@ -237,84 +223,7 @@ export const CareerOptions = () => {
           Discover diverse career paths tailored for the Indian job market and find guidance to achieve your professional goals.
         </p>
 
-        {/* Admin Parent Categories Section - Only show if there are valid parent categories */}
-        {adminParentCategories.length > 0 && (
-          <div className="parent-categories-section">
-            <h3 className="parent-categories-title">Career Categories</h3>
-            <div className="parent-categories-container">
-              {adminParentCategories.map(parentName => {
-                const subcategories = categories.filter(cat => cat.parentCategory === parentName);
-                const isExpanded = expandedParent === parentName;
-                
-                return (
-                  <div key={parentName} className="parent-category-item">
-                    <button
-                      className={`parent-category-button ${isExpanded ? 'expanded' : ''}`}
-                      onClick={() => toggleParentCategory(parentName)}
-                    >
-                      <span>{parentName}</span>
-                      {isExpanded ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
-                    </button>
-                    
-                    <AnimatePresence>
-                      {isExpanded && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="subcategories-container"
-                        >
-                          {subcategories.length > 0 ? (
-                            <Carousel className="w-full">
-                              <CarouselContent>
-                                {categoryToCareers(subcategories).map((career) => (
-                                  <CarouselItem key={career.id} className="md:basis-1/2 lg:basis-1/3">
-                                    <motion.div 
-                                      initial={{ opacity: 0, y: 20 }}
-                                      animate={{ opacity: 1, y: 0 }}
-                                      transition={{ duration: 0.4 }}
-                                      className="career-card-container"
-                                    >
-                                      <div 
-                                        className="career-card" 
-                                        style={{ backgroundColor: career.color }}
-                                      >
-                                        <div className="career-icon-container">
-                                          {career.icon}
-                                        </div>
-                                        <h3 className="career-title">{career.title}</h3>
-                                        <p className="career-teaser">{career.teaser}</p>
-                                        <div className="career-overlay">
-                                          <div className="career-salary">{career.salary}</div>
-                                          <Link to={getCareerLink(career)}>
-                                            <Button variant="outline" className="view-details-btn">
-                                              View Details
-                                            </Button>
-                                          </Link>
-                                        </div>
-                                      </div>
-                                    </motion.div>
-                                  </CarouselItem>
-                                ))}
-                              </CarouselContent>
-                              <CarouselPrevious className="career-nav-button prev" />
-                              <CarouselNext className="career-nav-button next" />
-                            </Carousel>
-                          ) : (
-                            <p className="text-center text-gray-500 py-4">No subcategories found for {parentName}</p>
-                          )}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-        
-        {/* Original Career Options Section */}
+        {/* Career Options Section */}
         <div className="original-careers-section">
           <div className="filter-chips-container">
             <button 
