@@ -12,6 +12,8 @@ import NotFound from "./pages/NotFound";
 import AdminCareers from "./pages/AdminCareers";
 import AdminCareerAdd from "./pages/AdminCareerAdd";
 import AdminCareerDescription from "./pages/AdminCareerDescription";
+import Login from "./pages/Login";
+import AdminCategories from "./pages/AdminCategories";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +29,9 @@ const App = () => (
           <Route path="/sample-journeys" element={<SampleJourneys />} />
           <Route path="/careers/:careerId" element={<CareerDetails />} />
           <Route path="/careers/custom/:careerId" element={<CareerDetails />} />
+          <Route path="/careers/category/:careerId" element={<CareerDetails />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/admin/categories" element={<AdminCategories />} />
           <Route path="/admin/careers" element={<AdminCareers />} />
           <Route path="/admin/careers/add" element={<AdminCareerAdd />} />
           <Route path="/admin/careers/description/:id" element={<AdminCareerDescription />} />

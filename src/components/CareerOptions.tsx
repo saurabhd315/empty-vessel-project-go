@@ -32,9 +32,28 @@ type Career = {
   description?: string;
 };
 
+type CategoryResource = {
+  title: string;
+  url: string;
+};
+
+type CareerCategory = {
+  id: string;
+  name: string;
+  opportunities: string[];
+  resources: {
+    "Educational Resources": CategoryResource[];
+    "Online Courses": CategoryResource[];
+    "Industry Blogs": CategoryResource[];
+    "Professional Networks": CategoryResource[];
+  };
+  insights: string;
+};
+
 export const CareerOptions = () => {
   const [activeFilter, setActiveFilter] = useState<string>("");
   const [customCareers, setCustomCareers] = useState<CustomCareer[]>([]);
+  const [categories, setCategories] = useState<CareerCategory[]>([]);
   const carouselRef = useRef(null);
 
   // Default careers
@@ -95,21 +114,39 @@ export const CareerOptions = () => {
     }
   ];
 
-  // Load custom careers from localStorage
+  // Load custom careers and categories from localStorage
   useEffect(() => {
     const storedCareers = localStorage.getItem("customCareers");
     if (storedCareers) {
       setCustomCareers(JSON.parse(storedCareers));
     }
+
+    const storedCategories = localStorage.getItem("careerCategories");
+    if (storedCategories) {
+      setCategories(JSON.parse(storedCategories));
+    }
   }, []);
 
-  // Combine default and custom careers
+  // Convert categories to career format for display
+  const categoryToCareers = categories.map(category => ({
+    id: category.id,
+    title: category.name,
+    teaser: category.opportunities[0] || "Explore opportunities",
+    icon: <Briefcase size={30} />,
+    industry: "Technology", // Default to Technology for now
+    color: "#D3E4FD", // Default color
+    salary: "Competitive", // Default salary text
+    categoryData: category // Store full category data for detailed view
+  }));
+
+  // Combine all careers
   const allCareers = [
     ...defaultCareers,
     ...customCareers.map(career => ({
       ...career,
-      icon: <Briefcase size={30} /> // Default icon for custom careers
-    }))
+      icon: <Briefcase size={30} />
+    })),
+    ...categoryToCareers
   ];
 
   // Get unique industries for filters
@@ -120,9 +157,23 @@ export const CareerOptions = () => {
     return !activeFilter || career.industry === activeFilter;
   });
 
-  // Determine if a career is custom
+  // Determine if a career is custom or category
   const isCustomCareer = (careerId: string) => {
     return careerId.startsWith('custom-');
+  };
+
+  const isCategoryCareer = (careerId: string) => {
+    return careerId.startsWith('category-');
+  };
+
+  const getCareerLink = (career: any) => {
+    if (isCustomCareer(career.id)) {
+      return `/careers/custom/${career.id}`;
+    } else if (isCategoryCareer(career.id)) {
+      return `/careers/category/${career.id}`;
+    } else {
+      return `/careers/${career.id}`;
+    }
   };
 
   return (
@@ -185,7 +236,7 @@ export const CareerOptions = () => {
                         <p className="career-teaser">{career.teaser}</p>
                         <div className="career-overlay">
                           <div className="career-salary">{career.salary}</div>
-                          <Link to={isCustomCareer(career.id) ? `/careers/custom/${career.id}` : `/careers/${career.id}`}>
+                          <Link to={getCareerLink(career)}>
                             <Button variant="outline" className="view-details-btn">
                               View Details
                             </Button>

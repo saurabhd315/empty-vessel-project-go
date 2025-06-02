@@ -6,6 +6,24 @@ import { Button } from "@/components/ui/button";
 import { CustomCareer } from "@/pages/AdminCareers";
 import "./CareerDetails.css";
 
+type CategoryResource = {
+  title: string;
+  url: string;
+};
+
+type CareerCategory = {
+  id: string;
+  name: string;
+  opportunities: string[];
+  resources: {
+    "Educational Resources": CategoryResource[];
+    "Online Courses": CategoryResource[];
+    "Industry Blogs": CategoryResource[];
+    "Professional Networks": CategoryResource[];
+  };
+  insights: string;
+};
+
 const CareerDetails = () => {
   const { careerId } = useParams<{ careerId: string }>();
   const [careerData, setCareerData] = useState<any>(null);
@@ -13,8 +31,25 @@ const CareerDetails = () => {
   
   useEffect(() => {
     const fetchCareerData = () => {
+      // Check if it's a category career
+      if (careerId?.startsWith('category-')) {
+        const storedCategories = localStorage.getItem("careerCategories");
+        if (storedCategories) {
+          const categories: CareerCategory[] = JSON.parse(storedCategories);
+          const foundCategory = categories.find(category => category.id === careerId);
+          if (foundCategory) {
+            setCareerData({
+              title: foundCategory.name,
+              description: foundCategory.insights,
+              opportunities: foundCategory.opportunities,
+              resources: foundCategory.resources,
+              isCategory: true
+            });
+          }
+        }
+      }
       // Check if it's a custom career
-      if (careerId?.startsWith('custom-')) {
+      else if (careerId?.startsWith('custom-')) {
         const storedCareers = localStorage.getItem("customCareers");
         if (storedCareers) {
           const customCareers: CustomCareer[] = JSON.parse(storedCareers);
@@ -129,6 +164,37 @@ const CareerDetails = () => {
             <h2>About This Career</h2>
             <p>{careerData.description || "No description available yet."}</p>
           </div>
+          
+          {careerData.opportunities && (
+            <div className="career-opportunities">
+              <h2>Opportunities and Roles</h2>
+              <ul>
+                {careerData.opportunities.map((opportunity: string, index: number) => (
+                  <li key={index}>{opportunity}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          
+          {careerData.resources && (
+            <div className="career-resources">
+              <h2>Resources</h2>
+              {Object.entries(careerData.resources).map(([resourceType, resources]: [string, any]) => (
+                <div key={resourceType} className="resource-section">
+                  <h3>{resourceType}</h3>
+                  <ul>
+                    {resources.map((resource: CategoryResource, index: number) => (
+                      <li key={index}>
+                        <a href={resource.url} target="_blank" rel="noopener noreferrer">
+                          {resource.title}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          )}
           
           {careerData.skills && (
             <div className="career-skills">
