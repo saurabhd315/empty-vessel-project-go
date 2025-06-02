@@ -7,73 +7,6 @@
   overflow: hidden;
 }
 
-/* Parent Categories Section */
-.parent-categories-section {
-  margin-bottom: 4rem;
-}
-
-.parent-categories-title {
-  font-size: 2rem;
-  font-weight: 700;
-  text-align: center;
-  color: #1A1F2C;
-  margin-bottom: 2rem;
-}
-
-.parent-categories-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.parent-category-item {
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.parent-category-item:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.parent-category-button {
-  width: 100%;
-  padding: 1.5rem 2rem;
-  background: linear-gradient(135deg, #0778b6 0%, #056a9d 100%);
-  color: white;
-  border: none;
-  font-size: 1.25rem;
-  font-weight: 600;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.parent-category-button:hover {
-  background: linear-gradient(135deg, #056a9d 0%, #044a73 100%);
-}
-
-.parent-category-button.expanded {
-  background: linear-gradient(135deg, #044a73 0%, #033959 100%);
-}
-
-.subcategories-container {
-  padding: 2rem;
-  background-color: #f8fafc;
-}
-
-/* Original Career Options Section */
-.original-careers-section {
-  margin-top: 2rem;
-}
-
 /* Filter Chips Styles */
 .filter-chips-container {
   display: flex;
@@ -253,20 +186,7 @@
 }
 
 /* Mobile adjustments */
-@media (max-width: 768px) {
-  .parent-categories-container {
-    gap: 0.5rem;
-  }
-  
-  .parent-category-button {
-    padding: 1rem 1.5rem;
-    font-size: 1.1rem;
-  }
-  
-  .subcategories-container {
-    padding: 1rem;
-  }
-  
+@media (max-width: 640px) {
   .career-card {
     height: 280px;
     padding: 1.5rem 1rem;
