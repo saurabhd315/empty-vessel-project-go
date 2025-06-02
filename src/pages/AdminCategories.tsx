@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Plus, Edit, Trash, Save } from "lucide-react";
@@ -17,7 +18,6 @@ type Resource = {
 type CareerCategory = {
   id: string;
   name: string;
-  parentCategory: string;
   opportunities: string[];
   resources: {
     "Educational Resources": Resource[];
@@ -79,9 +79,6 @@ const AdminCategories = () => {
     setIsEditing(true);
   };
 
-  // Get unique parent categories
-  const parentCategories = Array.from(new Set(categories.map(cat => cat.parentCategory).filter(Boolean)));
-
   return (
     <div className="admin-categories-container">
       <header className="admin-header">
@@ -128,51 +125,36 @@ const AdminCategories = () => {
               </Button>
             </div>
           ) : (
-            <>
-              {parentCategories.map((parentCategory) => (
-                <div key={parentCategory} className="parent-category-section">
-                  <h3 className="parent-category-title">{parentCategory}</h3>
-                  <div className="subcategories-grid">
-                    {categories
-                      .filter(cat => cat.parentCategory === parentCategory)
-                      .map((category) => (
-                        <Card key={category.id} className="category-card">
-                          <CardHeader>
-                            <CardTitle>{category.name}</CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <div className="category-info">
-                              <p><strong>Opportunities:</strong> {
-                                category.opportunities && Array.isArray(category.opportunities) 
-                                  ? category.opportunities.join(", ") 
-                                  : "No opportunities listed"
-                              }</p>
-                              <p><strong>Insights:</strong> {category.insights || "No insights provided"}</p>
-                            </div>
-                            <div className="category-actions">
-                              <Button 
-                                variant="outline" 
-                                size="sm"
-                                onClick={() => handleEditCategory(category)}
-                              >
-                                <Edit size={16} />
-                              </Button>
-                              <Button 
-                                variant="outline" 
-                                size="sm"
-                                onClick={() => handleDeleteCategory(category.id)}
-                                className="text-red-500 hover:text-red-700"
-                              >
-                                <Trash size={16} />
-                              </Button>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))}
+            categories.map((category) => (
+              <Card key={category.id} className="category-card">
+                <CardHeader>
+                  <CardTitle>{category.name}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="category-info">
+                    <p><strong>Opportunities:</strong> {category.opportunities.join(", ")}</p>
+                    <p><strong>Insights:</strong> {category.insights}</p>
                   </div>
-                </div>
-              ))}
-            </>
+                  <div className="category-actions">
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => handleEditCategory(category)}
+                    >
+                      <Edit size={16} />
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => handleDeleteCategory(category.id)}
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      <Trash size={16} />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))
           )}
         </div>
       )}
@@ -192,7 +174,6 @@ const CategoryForm = ({
   const [formData, setFormData] = useState<CareerCategory>({
     id: category?.id || '',
     name: category?.name || '',
-    parentCategory: category?.parentCategory || '',
     opportunities: category?.opportunities || [''],
     resources: category?.resources || {
       "Educational Resources": [{ title: '', url: '' }],
@@ -253,11 +234,6 @@ const CategoryForm = ({
       return;
     }
 
-    if (!formData.parentCategory.trim()) {
-      toast.error("Parent category is required");
-      return;
-    }
-
     // Filter out empty opportunities
     const validOpportunities = formData.opportunities.filter(opp => opp.trim());
     
@@ -279,16 +255,6 @@ const CategoryForm = ({
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="category-form">
-          <div className="form-group">
-            <label>Parent Category</label>
-            <Input
-              value={formData.parentCategory}
-              onChange={(e) => setFormData({ ...formData, parentCategory: e.target.value })}
-              placeholder="e.g., Technology, Healthcare, Business"
-              required
-            />
-          </div>
-
           <div className="form-group">
             <label>Category Name</label>
             <Input

@@ -1,3 +1,4 @@
+
 import { useRef, useState, useEffect } from "react";
 import {
   Code,
@@ -5,9 +6,7 @@ import {
   Brain,
   Users,
   GraduationCap,
-  Briefcase,
-  ChevronDown,
-  ChevronUp
+  Briefcase
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -41,7 +40,6 @@ type CategoryResource = {
 type CareerCategory = {
   id: string;
   name: string;
-  parentCategory: string;
   opportunities: string[];
   resources: {
     "Educational Resources": CategoryResource[];
@@ -56,7 +54,6 @@ export const CareerOptions = () => {
   const [activeFilter, setActiveFilter] = useState<string>("");
   const [customCareers, setCustomCareers] = useState<CustomCareer[]>([]);
   const [categories, setCategories] = useState<CareerCategory[]>([]);
-  const [expandedParentCategory, setExpandedParentCategory] = useState<string | null>(null);
   const carouselRef = useRef(null);
 
   // Default careers
@@ -130,49 +127,51 @@ export const CareerOptions = () => {
     }
   }, []);
 
-  // Get unique parent categories
-  const parentCategories = Array.from(new Set(categories.map(cat => cat.parentCategory).filter(Boolean)));
+  // Convert categories to career format for display
+  const categoryToCareers = categories.map(category => ({
+    id: category.id,
+    title: category.name,
+    teaser: (category.opportunities && category.opportunities.length > 0) 
+      ? category.opportunities[0] 
+      : "Explore opportunities",
+    icon: <Briefcase size={30} />,
+    industry: "Technology", // Default to Technology for now
+    color: "#D3E4FD", // Default color
+    salary: "Competitive", // Default salary text
+    categoryData: category // Store full category data for detailed view
+  }));
 
-  // Convert subcategories to career format for display
-  const getSubcategoriesForParent = (parentCategory: string) => {
-    return categories
-      .filter(category => category.parentCategory === parentCategory)
-      .map(category => ({
-        id: category.id,
-        title: category.name,
-        teaser: (category.opportunities && category.opportunities.length > 0) 
-          ? category.opportunities[0] 
-          : "Explore opportunities",
-        icon: <Briefcase size={30} />,
-        industry: parentCategory,
-        color: "#D3E4FD",
-        salary: "Competitive",
-        categoryData: category
-      }));
-  };
-
-  // Combine default careers and custom careers
-  const defaultAndCustomCareers = [
+  // Combine all careers
+  const allCareers = [
     ...defaultCareers,
     ...customCareers.map(career => ({
       ...career,
       icon: <Briefcase size={30} />
-    }))
+    })),
+    ...categoryToCareers
   ];
 
-  // Get industries for filtering (excluding parent categories)
-  const industries = Array.from(new Set(defaultAndCustomCareers.map(career => career.industry)));
+  // Get unique industries for filters
+  const industries = Array.from(new Set(allCareers.map(career => career.industry)));
   
   // Filter careers based on selected industry
-  const filteredCareers = defaultAndCustomCareers.filter(career => {
+  const filteredCareers = allCareers.filter(career => {
     return !activeFilter || career.industry === activeFilter;
   });
 
-  // Determine career link
+  // Determine if a career is custom or category
+  const isCustomCareer = (careerId: string) => {
+    return careerId.startsWith('custom-');
+  };
+
+  const isCategoryCareer = (careerId: string) => {
+    return careerId.startsWith('category-');
+  };
+
   const getCareerLink = (career: any) => {
-    if (career.id?.startsWith('custom-')) {
+    if (isCustomCareer(career.id)) {
       return `/careers/custom/${career.id}`;
-    } else if (career.id?.startsWith('category-')) {
+    } else if (isCategoryCareer(career.id)) {
       return `/careers/category/${career.id}`;
     } else {
       return `/careers/${career.id}`;
@@ -189,88 +188,7 @@ export const CareerOptions = () => {
         <p className="text-center text-lg mb-10 max-w-2xl mx-auto">
           Discover diverse career paths tailored for the Indian job market and find guidance to achieve your professional goals.
         </p>
-
-        {/* Parent Categories Section */}
-        {parentCategories.length > 0 && (
-          <div className="parent-categories-section mb-10">
-            <h3 className="text-2xl font-bold text-center mb-6">Career Categories</h3>
-            <div className="parent-categories-grid">
-              {parentCategories.map((parentCategory) => (
-                <div key={parentCategory} className="parent-category-card">
-                  <div 
-                    className="parent-category-header"
-                    onClick={() => setExpandedParentCategory(
-                      expandedParentCategory === parentCategory ? null : parentCategory
-                    )}
-                  >
-                    <h4 className="parent-category-name">{parentCategory}</h4>
-                    {expandedParentCategory === parentCategory ? 
-                      <ChevronUp size={20} /> : <ChevronDown size={20} />
-                    }
-                  </div>
-                  
-                  <AnimatePresence>
-                    {expandedParentCategory === parentCategory && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="subcategories-container"
-                      >
-                        <div className="subcategories-carousel">
-                          <Carousel
-                            className="w-full"
-                            opts={{
-                              align: "start",
-                              loop: false,
-                            }}
-                          >
-                            <CarouselContent>
-                              {getSubcategoriesForParent(parentCategory).map((subcategory) => (
-                                <CarouselItem key={subcategory.id} className="md:basis-1/2 lg:basis-1/3">
-                                  <motion.div 
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.4 }}
-                                    className="career-card-container"
-                                  >
-                                    <div 
-                                      className="career-card subcategory-card" 
-                                      style={{ backgroundColor: subcategory.color }}
-                                    >
-                                      <div className="career-icon-container">
-                                        {subcategory.icon}
-                                      </div>
-                                      <h3 className="career-title">{subcategory.title}</h3>
-                                      <p className="career-teaser">{subcategory.teaser}</p>
-                                      <div className="career-overlay">
-                                        <div className="career-salary">{subcategory.salary}</div>
-                                        <Link to={getCareerLink(subcategory)}>
-                                          <Button variant="outline" className="view-details-btn">
-                                            View Details
-                                          </Button>
-                                        </Link>
-                                      </div>
-                                    </div>
-                                  </motion.div>
-                                </CarouselItem>
-                              ))}
-                            </CarouselContent>
-                            <CarouselPrevious className="career-nav-button prev" />
-                            <CarouselNext className="career-nav-button next" />
-                          </Carousel>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
         
-        {/* Default Career Options */}
         <div className="filter-chips-container">
           <button 
             className={`filter-chip ${activeFilter === "" ? "active" : ""}`}
