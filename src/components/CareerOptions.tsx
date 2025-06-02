@@ -1,17 +1,13 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { 
   Code, 
   Database, 
   Shield, 
-  Brain, 
-  Search,
-  Filter
+  Brain
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { CareerDetailCard } from "./CareerDetailCard";
 import "./CareerOptions.css";
 
 // Career data from your JSON
@@ -218,44 +214,48 @@ const careerData = {
   }
 };
 
+const categories = [
+  { name: "All", label: "All Careers" },
+  { name: "Technology", label: "Technology" }
+];
+
 const careerMetadata = [
   {
     id: "software-development",
     title: "Software Development",
     icon: Code,
-    color: "bg-blue-500"
+    color: "bg-blue-500",
+    category: "Technology"
   },
   {
     id: "data-science", 
     title: "Data Science",
     icon: Database,
-    color: "bg-green-500"
+    color: "bg-green-500",
+    category: "Technology"
   },
   {
     id: "cybersecurity",
     title: "Cybersecurity", 
     icon: Shield,
-    color: "bg-red-500"
+    color: "bg-red-500",
+    category: "Technology"
   },
   {
     id: "artificial-intelligence",
     title: "Artificial Intelligence",
     icon: Brain,
-    color: "bg-purple-500"
+    color: "bg-purple-500",
+    category: "Technology"
   }
 ];
 
 export const CareerOptions = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedFilter, setSelectedFilter] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const filteredCareers = careerMetadata.filter(career => {
-    const matchesSearch = career.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = selectedFilter === "All" || selectedFilter === "Technology";
-    return matchesSearch && matchesFilter;
-  });
-
-  const filters = ["All", "Technology"];
+  const filteredCareers = careerMetadata.filter(career => 
+    selectedCategory === "All" || career.category === selectedCategory
+  );
 
   return (
     <section id="career-options" className="career-options-section">
@@ -268,50 +268,61 @@ export const CareerOptions = () => {
             Discover detailed information about technology careers including roles, resources, and industry insights
           </p>
 
-          {/* Search and Filter */}
-          <div className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto mb-8">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-              <Input
-                type="text"
-                placeholder="Search career paths..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
-              />
-            </div>
-            <div className="flex gap-2">
-              {filters.map((filter) => (
-                <Button
-                  key={filter}
-                  variant={selectedFilter === filter ? "default" : "outline"}
-                  onClick={() => setSelectedFilter(filter)}
-                  className="filter-chip"
-                >
-                  <Filter className="w-4 h-4 mr-2" />
-                  {filter}
-                </Button>
-              ))}
-            </div>
+          {/* Category Filter */}
+          <div className="flex justify-center gap-4 mb-8">
+            {categories.map((category) => (
+              <Button
+                key={category.name}
+                variant={selectedCategory === category.name ? "default" : "outline"}
+                onClick={() => setSelectedCategory(category.name)}
+                className="filter-chip"
+              >
+                {category.label}
+              </Button>
+            ))}
           </div>
         </div>
 
         {/* Career Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {filteredCareers.map((career) => (
-            <CareerDetailCard
-              key={career.id}
-              title={career.title}
-              data={careerData[career.title as keyof typeof careerData]}
-              icon={career.icon}
-              color={career.color}
-            />
-          ))}
+          {filteredCareers.map((career) => {
+            const IconComponent = career.icon;
+            const data = careerData[career.title as keyof typeof careerData];
+            
+            return (
+              <div key={career.id} className="career-card-container">
+                <div className={`career-card ${career.color}`}>
+                  <div className="career-icon-container">
+                    <IconComponent className="w-8 h-8" />
+                  </div>
+                  <h3 className="career-title text-white">{career.title}</h3>
+                  <p className="career-teaser text-white/90">
+                    {data["Opportunities and Roles"].slice(0, 2).join(", ")}
+                    {data["Opportunities and Roles"].length > 2 && "..."}
+                  </p>
+                  
+                  <div className="career-overlay">
+                    <div className="text-center mb-4">
+                      <h4 className="font-semibold text-lg mb-2">{career.title}</h4>
+                      <p className="text-sm text-gray-600 mb-4">
+                        {data.Insights.substring(0, 100)}...
+                      </p>
+                    </div>
+                    <Button asChild className="view-details-btn">
+                      <Link to={`/career-details/${career.id}`}>
+                        View More
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         {filteredCareers.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No career paths found matching your search.</p>
+            <p className="text-gray-500 text-lg">No career paths found in this category.</p>
           </div>
         )}
 

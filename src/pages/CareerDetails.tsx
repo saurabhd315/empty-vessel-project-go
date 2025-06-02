@@ -1,168 +1,372 @@
 
-import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { ChevronDown, ChevronUp, ExternalLink, Users, BookOpen, Globe, Network, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CustomCareer } from "@/pages/AdminCareers";
+import { useState } from "react";
 import "./CareerDetails.css";
 
-const CareerDetails = () => {
-  const { careerId } = useParams<{ careerId: string }>();
-  const [careerData, setCareerData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  
-  useEffect(() => {
-    const fetchCareerData = () => {
-      // Check if it's a custom career
-      if (careerId?.startsWith('custom-')) {
-        const storedCareers = localStorage.getItem("customCareers");
-        if (storedCareers) {
-          const customCareers: CustomCareer[] = JSON.parse(storedCareers);
-          const foundCareer = customCareers.find(career => career.id === careerId);
-          if (foundCareer) {
-            setCareerData(foundCareer);
+// Career data from JSON
+const careerData = {
+  "software-development": {
+    title: "Software Development",
+    data: {
+      "Opportunities and Roles": [
+        "Software Engineer",
+        "Application Developer",
+        "Full-Stack Developer"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "Coursera's Software Development Courses",
+            "url": "https://www.coursera.org/browse/computer-science/software-development"
+          },
+          {
+            "title": "edX's Software Engineering MicroMasters",
+            "url": "https://www.edx.org/"
           }
-        }
-      } else {
-        // For demo purposes, we're using hardcoded data for default careers
-        // In a real app, this would come from an API
-        const defaultCareers = {
-          "software-developer": {
-            title: "Software Developer",
-            description: "Software developers design, build, and maintain computer programs. They may focus on creating consumer applications, such as desktop or mobile apps, or specialized software for businesses and organizations.",
-            salary: "₹5-25 LPA",
-            skills: ["Programming", "Problem Solving", "Logical Thinking", "Teamwork"],
-            education: "B.Tech/BE in Computer Science or similar field",
-            jobOutlook: "Excellent growth prospects as India continues to be a global IT hub"
+        ],
+        "Online Courses": [
+          {
+            "title": "Codecademy's Learn JavaScript",
+            "url": "https://www.codecademy.com/"
           },
-          "fashion-designer": {
-            title: "Fashion Designer",
-            description: "Fashion designers create clothing, accessories, and footwear. They sketch designs, select fabrics and patterns, and give instructions on how to make the products they designed.",
-            salary: "₹3-15 LPA",
-            skills: ["Creativity", "Drawing", "Textile Knowledge", "Trend Analysis"],
-            education: "Degree in Fashion Design or related field",
-            jobOutlook: "Growing industry with opportunities in retail, export, and online fashion"
-          },
-          "psychologist": {
-            title: "Psychologist",
-            description: "Psychologists study cognitive, emotional, and social processes and behavior by observing, interpreting, and recording how people relate to one another and to their environments.",
-            salary: "₹4-12 LPA",
-            skills: ["Empathy", "Communication", "Analysis", "Patience"],
-            education: "Master's or Doctorate in Psychology",
-            jobOutlook: "Growing awareness of mental health is creating more opportunities"
-          },
-          "hr-manager": {
-            title: "HR Manager",
-            description: "Human Resources Managers plan, direct, and coordinate the administrative functions of an organization. They oversee recruiting, interviewing, and hiring of new staff.",
-            salary: "₹6-18 LPA",
-            skills: ["Communication", "Organization", "Negotiation", "Empathy"],
-            education: "Bachelor's degree in Human Resources or Business Administration",
-            jobOutlook: "Steady demand across all industries and sectors"
-          },
-          "teacher": {
-            title: "Teacher",
-            description: "Teachers instruct students in a broad range of subjects, from basic skills like reading and mathematics to advanced topics in science, humanities, and technical fields.",
-            salary: "₹3-12 LPA",
-            skills: ["Communication", "Patience", "Organization", "Adaptability"],
-            education: "Bachelor's degree with B.Ed or Master's in Education",
-            jobOutlook: "Consistent demand with growth in private education sector"
-          },
-          "financial-analyst": {
-            title: "Financial Analyst",
-            description: "Financial analysts guide businesses and individuals in decisions about expending money to attain profit. They assess the performance of stocks, bonds, and other investments.",
-            salary: "₹7-20 LPA",
-            skills: ["Analytical Thinking", "Mathematics", "Communication", "Research"],
-            education: "Bachelor's degree in Finance, Economics, or Accounting",
-            jobOutlook: "Strong growth as businesses expand and need investment guidance"
+          {
+            "title": "Udacity's Full-Stack Web Developer Nanodegree",
+            "url": "https://www.udacity.com/"
           }
-        };
-
-        if (careerId && careerId in defaultCareers) {
-          setCareerData(defaultCareers[careerId as keyof typeof defaultCareers]);
-        }
-      }
-      setLoading(false);
-    };
-
-    fetchCareerData();
-  }, [careerId]);
-
-  if (loading) {
-    return (
-      <div className="career-details-container">
-        <div className="loading">Loading career details...</div>
-      </div>
-    );
+        ],
+        "Industry Blogs": [
+          {
+            "title": "TechCrunch",
+            "url": "https://techcrunch.com/"
+          },
+          {
+            "title": "Hacker News",
+            "url": "https://news.ycombinator.com/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "GitHub",
+            "url": "https://github.com/"
+          },
+          {
+            "title": "Stack Overflow",
+            "url": "https://stackoverflow.com/"
+          }
+        ]
+      },
+      "Insights": "Software development continues to grow with increasing demand for innovative solutions across industries."
+    }
+  },
+  "data-science": {
+    title: "Data Science",
+    data: {
+      "Opportunities and Roles": [
+        "Data Scientist",
+        "Data Analyst",
+        "Machine Learning Engineer"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "DataCamp's Data Science Courses",
+            "url": "https://www.datacamp.com/"
+          },
+          {
+            "title": "Coursera's Data Science Specialization",
+            "url": "https://www.coursera.org/specializations/jhu-data-science"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Udemy's Data Science Bootcamp",
+            "url": "https://www.udemy.com/"
+          },
+          {
+            "title": "Kaggle's Data Science Courses",
+            "url": "https://www.kaggle.com/learn"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "Towards Data Science",
+            "url": "https://towardsdatascience.com/"
+          },
+          {
+            "title": "Data Science Central",
+            "url": "https://www.datasciencecentral.com/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "Kaggle",
+            "url": "https://www.kaggle.com/"
+          },
+          {
+            "title": "LinkedIn Data Science Group",
+            "url": "https://www.linkedin.com/groups/2445483/"
+          }
+        ]
+      },
+      "Insights": "Data science is a rapidly expanding field with applications in finance, healthcare, and technology."
+    }
+  },
+  "cybersecurity": {
+    title: "Cybersecurity",
+    data: {
+      "Opportunities and Roles": [
+        "Cybersecurity Analyst",
+        "Information Security Manager",
+        "Ethical Hacker"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "Cybrary's Cybersecurity Courses",
+            "url": "https://www.cybrary.it/"
+          },
+          {
+            "title": "SANS Institute's Cybersecurity Training",
+            "url": "https://www.sans.org/"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Coursera's Cybersecurity Specialization",
+            "url": "https://www.coursera.org/search?query=cyber%20security"
+          },
+          {
+            "title": "Udemy's Complete Cyber Security Course",
+            "url": "https://www.udemy.com/course/complete-cyber-security-course/"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "Krebs on Security",
+            "url": "https://krebsonsecurity.com/"
+          },
+          {
+            "title": "The Hacker News",
+            "url": "https://thehackernews.com/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "ISACA",
+            "url": "https://www.isaca.org/"
+          },
+          {
+            "title": "(ISC)²",
+            "url": "https://www.isc2.org/"
+          }
+        ]
+      },
+      "Insights": "With increasing cyber threats, the need for cybersecurity professionals is growing."
+    }
+  },
+  "artificial-intelligence": {
+    title: "Artificial Intelligence",
+    data: {
+      "Opportunities and Roles": [
+        "AI Research Scientist",
+        "Machine Learning Engineer",
+        "AI Specialist"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "MIT's Artificial Intelligence Courses",
+            "url": "https://betterworld.mit.edu/artificial-intelligence/"
+          },
+          {
+            "title": "Stanford's AI Courses",
+            "url": "https://ai.stanford.edu/"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Coursera's AI for Everyone",
+            "url": "https://www.coursera.org/learn/ai-for-everyone"
+          },
+          {
+            "title": "Udacity's AI Programming with Python",
+            "url": "https://www.udacity.com/course/ai-programming-with-python-nanodegree--nd089"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "AI Trends",
+            "url": "https://www.ibm.com/think/insights/artificial-intelligence-trends"
+          },
+          {
+            "title": "The AI Report",
+            "url": "https://www.thereport.ai/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "AI Hub",
+            "url": "https://aihub.org/"
+          },
+          {
+            "title": "Machine Learning Mastery",
+            "url": "https://machinelearningmastery.com/"
+          }
+        ]
+      },
+      "Insights": "AI and machine learning are transforming industries with innovations in automation, data analysis, and problem-solving."
+    }
   }
+};
 
-  if (!careerData) {
+const resourceIcons = {
+  "Educational Resources": BookOpen,
+  "Online Courses": Globe,
+  "Industry Blogs": ExternalLink,
+  "Professional Networks": Network
+};
+
+const CareerDetails = () => {
+  const { careerId } = useParams();
+  const [expandedSections, setExpandedSections] = useState<string[]>([]);
+
+  const career = careerData[careerId as keyof typeof careerData];
+
+  if (!career) {
     return (
-      <div className="career-details-container">
-        <div className="not-found">
-          <h2>Career Not Found</h2>
-          <p>The career you're looking for doesn't exist or has been removed.</p>
-          <Link to="/">
-            <Button>Back to Home</Button>
-          </Link>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Career Not Found</h1>
+          <Button asChild>
+            <Link to="/">Go Back Home</Link>
+          </Button>
         </div>
       </div>
     );
   }
+
+  const toggleSection = (section: string) => {
+    setExpandedSections(prev => 
+      prev.includes(section) 
+        ? prev.filter(s => s !== section)
+        : [...prev, section]
+    );
+  };
 
   return (
     <div className="career-details-page">
       <div className="container mx-auto px-4 py-8">
-        <Link to="/" className="back-link">
-          <Button variant="outline" className="back-button">
-            <ArrowLeft size={16} />
-            <span>Back to Home</span>
-          </Button>
-        </Link>
-        
-        <div className="career-header" style={{ backgroundColor: careerData.color || "#D3E4FD" }}>
-          <h1 className="career-title">{careerData.title}</h1>
-          {careerData.salary && <div className="career-salary">{careerData.salary}</div>}
+        {/* Back Button */}
+        <Button variant="outline" asChild className="mb-6">
+          <Link to="/#career-options">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Career Options
+          </Link>
+        </Button>
+
+        {/* Page Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">{career.title}</h1>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            Comprehensive guide to {career.title.toLowerCase()} career path
+          </p>
         </div>
-        
-        <div className="career-content">
-          <div className="career-description">
-            <h2>About This Career</h2>
-            <p>{careerData.description || "No description available yet."}</p>
-          </div>
-          
-          {careerData.skills && (
-            <div className="career-skills">
-              <h2>Key Skills Required</h2>
-              <ul>
-                {careerData.skills.map((skill: string) => (
-                  <li key={skill}>{skill}</li>
+
+        {/* Main Content */}
+        <div className="max-w-4xl mx-auto space-y-8">
+          {/* Opportunities and Roles */}
+          <Card className="career-section-card">
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Users className="w-5 h-5 text-blue-600 mr-2" />
+                Opportunities and Roles
+              </CardTitle>
+              <CardDescription>
+                Explore the various career opportunities available in {career.title.toLowerCase()}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="roles-grid">
+                {career.data["Opportunities and Roles"].map((role, index) => (
+                  <span key={index} className="role-badge">
+                    {role}
+                  </span>
                 ))}
-              </ul>
-            </div>
-          )}
-          
-          {careerData.education && (
-            <div className="career-education">
-              <h2>Education Requirements</h2>
-              <p>{careerData.education}</p>
-            </div>
-          )}
-          
-          {careerData.jobOutlook && (
-            <div className="career-outlook">
-              <h2>Job Outlook in India</h2>
-              <p>{careerData.jobOutlook}</p>
-            </div>
-          )}
-          
-          <div className="career-cta">
-            <h2>Ready to Explore This Career Path?</h2>
-            <div className="cta-buttons">
-              <Link to="/journey">
-                <Button className="journey-button">Start Your Career Journey</Button>
-              </Link>
-            </div>
-          </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Resources */}
+          <Card className="career-section-card">
+            <CardHeader>
+              <CardTitle>Resources</CardTitle>
+              <CardDescription>
+                Curated resources to help you start and advance your career
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {Object.entries(career.data.Resources).map(([category, resources]) => {
+                  const ResourceIcon = resourceIcons[category as keyof typeof resourceIcons];
+                  const isOpen = expandedSections.includes(category);
+                  
+                  return (
+                    <div key={category} className="resource-category">
+                      <Collapsible open={isOpen} onOpenChange={() => toggleSection(category)}>
+                        <CollapsibleTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            className="w-full justify-between resource-category-btn"
+                          >
+                            <div className="flex items-center">
+                              <ResourceIcon className="w-4 h-4 mr-2 text-blue-600" />
+                              <span className="font-medium">{category}</span>
+                              <span className="ml-2 text-sm text-gray-500">({resources.length})</span>
+                            </div>
+                            {isOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                          </Button>
+                        </CollapsibleTrigger>
+                        
+                        <CollapsibleContent className="mt-2 space-y-2 pl-6">
+                          {resources.map((resource, index) => (
+                            <a
+                              key={index}
+                              href={resource.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="resource-link"
+                            >
+                              <span>{resource.title}</span>
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          ))}
+                        </CollapsibleContent>
+                      </Collapsible>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Insights */}
+          <Card className="career-section-card">
+            <CardHeader>
+              <CardTitle>Industry Insights</CardTitle>
+              <CardDescription>
+                Key insights about the {career.title.toLowerCase()} industry
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="insights-card">
+                <p className="text-gray-700 leading-relaxed">{career.data.Insights}</p>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
