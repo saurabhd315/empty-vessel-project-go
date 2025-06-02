@@ -249,14 +249,13 @@ export const CareerOptions = () => {
     { name: "Technology", label: "Technology" }
   ]);
 
-  // Load dynamic categories from localStorage and merge with existing Technology category
+  // Load dynamic categories from localStorage
   useEffect(() => {
     const storedCategories = localStorage.getItem("careerCategories");
     if (storedCategories) {
       const parsedCategories = JSON.parse(storedCategories);
       setCategories([
         { name: "All", label: "All Careers" },
-        { name: "Technology", label: "Technology" },
         ...parsedCategories
       ]);
     }
@@ -298,6 +297,15 @@ export const CareerOptions = () => {
                 {category.label}
               </Button>
             ))}
+          </div>
+
+          {/* Admin Login Link */}
+          <div className="mb-8">
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/login">
+                Admin Login
+              </Link>
+            </Button>
           </div>
         </div>
 
