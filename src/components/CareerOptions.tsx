@@ -131,7 +131,9 @@ export const CareerOptions = () => {
   const categoryToCareers = categories.map(category => ({
     id: category.id,
     title: category.name,
-    teaser: category.opportunities[0] || "Explore opportunities",
+    teaser: (category.opportunities && category.opportunities.length > 0) 
+      ? category.opportunities[0] 
+      : "Explore opportunities",
     icon: <Briefcase size={30} />,
     industry: "Technology", // Default to Technology for now
     color: "#D3E4FD", // Default color
