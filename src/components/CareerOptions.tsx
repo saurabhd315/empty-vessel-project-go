@@ -1,4 +1,3 @@
-
 import { useRef, useState, useEffect } from "react";
 import {
   Code,
@@ -49,6 +48,210 @@ type CareerCategory = {
     "Professional Networks": CategoryResource[];
   };
   insights: string;
+};
+
+// Hardcoded career data
+const hardcodedCareers = {
+  "Software Development": {
+    "Opportunities and Roles": [
+      "Software Engineer",
+      "Application Developer",
+      "Full-Stack Developer"
+    ],
+    "Resources": {
+      "Educational Resources": [
+        {
+          "title": "Coursera's Software Development Courses",
+          "url": "https://www.coursera.org/browse/computer-science/software-development"
+        },
+        {
+          "title": "edX's Software Engineering MicroMasters",
+          "url": "https://www.edx.org/"
+        }
+      ],
+      "Online Courses": [
+        {
+          "title": "Codecademy's Learn JavaScript",
+          "url": "https://www.codecademy.com/"
+        },
+        {
+          "title": "Udacity's Full-Stack Web Developer Nanodegree",
+          "url": "https://www.udacity.com/"
+        }
+      ],
+      "Industry Blogs": [
+        {
+          "title": "TechCrunch",
+          "url": "https://techcrunch.com/"
+        },
+        {
+          "title": "Hacker News",
+          "url": "https://news.ycombinator.com/"
+        }
+      ],
+      "Professional Networks": [
+        {
+          "title": "GitHub",
+          "url": "https://github.com/"
+        },
+        {
+          "title": "Stack Overflow",
+          "url": "https://stackoverflow.com/"
+        }
+      ]
+    },
+    "Insights": "Software development continues to grow with increasing demand for innovative solutions across industries."
+  },
+  "Data Science": {
+    "Opportunities and Roles": [
+      "Data Scientist",
+      "Data Analyst",
+      "Machine Learning Engineer"
+    ],
+    "Resources": {
+      "Educational Resources": [
+        {
+          "title": "DataCamp's Data Science Courses",
+          "url": "https://www.datacamp.com/"
+        },
+        {
+          "title": "Coursera's Data Science Specialization",
+          "url": "https://www.coursera.org/specializations/jhu-data-science"
+        }
+      ],
+      "Online Courses": [
+        {
+          "title": "Udemy's Data Science Bootcamp",
+          "url": "https://www.udemy.com/"
+        },
+        {
+          "title": "Kaggle's Data Science Courses",
+          "url": "https://www.kaggle.com/learn"
+        }
+      ],
+      "Industry Blogs": [
+        {
+          "title": "Towards Data Science",
+          "url": "https://towardsdatascience.com/"
+        },
+        {
+          "title": "Data Science Central",
+          "url": "https://www.datasciencecentral.com/"
+        }
+      ],
+      "Professional Networks": [
+        {
+          "title": "Kaggle",
+          "url": "https://www.kaggle.com/"
+        },
+        {
+          "title": "LinkedIn Data Science Group",
+          "url": "https://www.linkedin.com/groups/2445483/"
+        }
+      ]
+    },
+    "Insights": "Data science is a rapidly expanding field with applications in finance, healthcare, and technology."
+  },
+  "Cybersecurity": {
+    "Opportunities and Roles": [
+      "Cybersecurity Analyst",
+      "Information Security Manager",
+      "Ethical Hacker"
+    ],
+    "Resources": {
+      "Educational Resources": [
+        {
+          "title": "Cybrary's Cybersecurity Courses",
+          "url": "https://www.cybrary.it/"
+        },
+        {
+          "title": "SANS Institute's Cybersecurity Training",
+          "url": "https://www.sans.org/"
+        }
+      ],
+      "Online Courses": [
+        {
+          "title": "Coursera's Cybersecurity Specialization",
+          "url": "https://www.coursera.org/search?query=cyber%20security"
+        },
+        {
+          "title": "Udemy's Complete Cyber Security Course",
+          "url": "https://www.udemy.com/course/complete-cyber-security-course/"
+        }
+      ],
+      "Industry Blogs": [
+        {
+          "title": "Krebs on Security",
+          "url": "https://krebsonsecurity.com/"
+        },
+        {
+          "title": "The Hacker News",
+          "url": "https://thehackernews.com/"
+        }
+      ],
+      "Professional Networks": [
+        {
+          "title": "ISACA",
+          "url": "https://www.isaca.org/"
+        },
+        {
+          "title": "(ISC)²",
+          "url": "https://www.isc2.org/"
+        }
+      ]
+    },
+    "Insights": "With increasing cyber threats, the need for cybersecurity professionals is growing."
+  },
+  "Artificial Intelligence": {
+    "Opportunities and Roles": [
+      "AI Research Scientist",
+      "Machine Learning Engineer",
+      "AI Specialist"
+    ],
+    "Resources": {
+      "Educational Resources": [
+        {
+          "title": "MIT's Artificial Intelligence Courses",
+          "url": "https://betterworld.mit.edu/artificial-intelligence/"
+        },
+        {
+          "title": "Stanford's AI Courses",
+          "url": "https://ai.stanford.edu/"
+        }
+      ],
+      "Online Courses": [
+        {
+          "title": "Coursera's AI for Everyone",
+          "url": "https://www.coursera.org/learn/ai-for-everyone"
+        },
+        {
+          "title": "Udacity's AI Programming with Python",
+          "url": "https://www.udacity.com/course/ai-programming-with-python-nanodegree--nd089"
+        }
+      ],
+      "Industry Blogs": [
+        {
+          "title": "AI Trends",
+          "url": "https://www.ibm.com/think/insights/artificial-intelligence-trends"
+        },
+        {
+          "title": "The AI Report",
+          "url": "https://www.thereport.ai/"
+        }
+      ],
+      "Professional Networks": [
+        {
+          "title": "AI Hub",
+          "url": "https://aihub.org/"
+        },
+        {
+          "title": "Machine Learning Mastery",
+          "url": "https://machinelearningmastery.com/"
+        }
+      ]
+    },
+    "Insights": "AI and machine learning are transforming industries with innovations in automation, data analysis, and problem-solving."
+  }
 };
 
 export const CareerOptions = () => {
@@ -115,6 +318,18 @@ export const CareerOptions = () => {
     }
   ];
 
+  // Convert hardcoded careers to career format
+  const hardcodedCareersList: Career[] = Object.entries(hardcodedCareers).map(([key, data]) => ({
+    id: `hardcoded-${key.toLowerCase().replace(/\s+/g, '-')}`,
+    title: key,
+    teaser: data["Opportunities and Roles"][0] || "Explore opportunities",
+    icon: <Code size={30} />,
+    industry: "Technology",
+    color: "#D3E4FD",
+    salary: "Competitive",
+    description: data.Insights
+  }));
+
   // Load custom careers and categories from localStorage with real-time updates
   useEffect(() => {
     const loadData = () => {
@@ -175,14 +390,15 @@ export const CareerOptions = () => {
     categoryData: category // Store full category data for detailed view
   }));
 
-  // Combine all careers (default + custom + categories without parent)
+  // Combine all careers (default + custom + categories without parent + hardcoded)
   const allCareers = [
     ...defaultCareers,
     ...customCareers.map(career => ({
       ...career,
       icon: <Briefcase size={30} />
     })),
-    ...categoryToCareers(categoriesWithoutParent)
+    ...categoryToCareers(categoriesWithoutParent),
+    ...hardcodedCareersList
   ];
 
   // Get unique industries for filters
@@ -202,11 +418,17 @@ export const CareerOptions = () => {
     return careerId.startsWith('category-');
   };
 
+  const isHardcodedCareer = (careerId: string) => {
+    return careerId.startsWith('hardcoded-');
+  };
+
   const getCareerLink = (career: any) => {
     if (isCustomCareer(career.id)) {
       return `/careers/custom/${career.id}`;
     } else if (isCategoryCareer(career.id)) {
       return `/careers/category/${career.id}`;
+    } else if (isHardcodedCareer(career.id)) {
+      return `/careers/hardcoded/${career.id}`;
     } else {
       return `/careers/${career.id}`;
     }
@@ -295,3 +517,6 @@ export const CareerOptions = () => {
     </section>
   );
 };
+
+// Export hardcoded careers for use in CareerDetails
+export { hardcodedCareers };

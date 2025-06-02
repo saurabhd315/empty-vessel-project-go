@@ -1,9 +1,9 @@
-
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CustomCareer } from "@/pages/AdminCareers";
+import { hardcodedCareers } from "@/components/CareerOptions";
 import "./CareerDetails.css";
 
 type CategoryResource = {
@@ -31,8 +31,24 @@ const CareerDetails = () => {
   
   useEffect(() => {
     const fetchCareerData = () => {
+      // Check if it's a hardcoded career
+      if (careerId?.startsWith('hardcoded-')) {
+        const careerKey = careerId.replace('hardcoded-', '').replace(/-/g, ' ')
+          .replace(/\b\w/g, l => l.toUpperCase());
+        
+        const foundHardcodedCareer = hardcodedCareers[careerKey as keyof typeof hardcodedCareers];
+        if (foundHardcodedCareer) {
+          setCareerData({
+            title: careerKey,
+            description: foundHardcodedCareer.Insights,
+            opportunities: foundHardcodedCareer["Opportunities and Roles"],
+            resources: foundHardcodedCareer.Resources,
+            isHardcoded: true
+          });
+        }
+      }
       // Check if it's a category career
-      if (careerId?.startsWith('category-')) {
+      else if (careerId?.startsWith('category-')) {
         const storedCategories = localStorage.getItem("careerCategories");
         if (storedCategories) {
           const categories: CareerCategory[] = JSON.parse(storedCategories);

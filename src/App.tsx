@@ -30,6 +30,7 @@ const App = () => (
           <Route path="/careers/:careerId" element={<CareerDetails />} />
           <Route path="/careers/custom/:careerId" element={<CareerDetails />} />
           <Route path="/careers/category/:careerId" element={<CareerDetails />} />
+          <Route path="/careers/hardcoded/:careerId" element={<CareerDetails />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin/categories" element={<AdminCategories />} />
           <Route path="/admin/careers" element={<AdminCareers />} />
