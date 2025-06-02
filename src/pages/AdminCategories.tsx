@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Plus, Edit, Trash, Save } from "lucide-react";
@@ -132,8 +131,12 @@ const AdminCategories = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="category-info">
-                    <p><strong>Opportunities:</strong> {category.opportunities.join(", ")}</p>
-                    <p><strong>Insights:</strong> {category.insights}</p>
+                    <p><strong>Opportunities:</strong> {
+                      category.opportunities && Array.isArray(category.opportunities) 
+                        ? category.opportunities.join(", ") 
+                        : "No opportunities listed"
+                    }</p>
+                    <p><strong>Insights:</strong> {category.insights || "No insights provided"}</p>
                   </div>
                   <div className="category-actions">
                     <Button 
