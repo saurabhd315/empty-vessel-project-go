@@ -63,6 +63,10 @@ const AdminCategories = () => {
     
     setCategories(updatedCategories);
     localStorage.setItem("careerCategories", JSON.stringify(updatedCategories));
+    
+    // Trigger custom event to notify other components
+    window.dispatchEvent(new CustomEvent("categoriesUpdated"));
+    
     setIsEditing(false);
     setEditingCategory(null);
     toast.success(editingCategory ? "Category updated!" : "Category added!");
@@ -72,6 +76,10 @@ const AdminCategories = () => {
     const updatedCategories = categories.filter(cat => cat.id !== id);
     setCategories(updatedCategories);
     localStorage.setItem("careerCategories", JSON.stringify(updatedCategories));
+    
+    // Trigger custom event to notify other components
+    window.dispatchEvent(new CustomEvent("categoriesUpdated"));
+    
     toast.success("Category deleted!");
   };
 

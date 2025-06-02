@@ -118,22 +118,53 @@ export const CareerOptions = () => {
     }
   ];
 
-  // Load custom careers and categories from localStorage
+  // Load custom careers and categories from localStorage with real-time updates
   useEffect(() => {
-    const storedCareers = localStorage.getItem("customCareers");
-    if (storedCareers) {
-      setCustomCareers(JSON.parse(storedCareers));
-    }
+    const loadData = () => {
+      const storedCareers = localStorage.getItem("customCareers");
+      if (storedCareers) {
+        setCustomCareers(JSON.parse(storedCareers));
+      }
 
-    const storedCategories = localStorage.getItem("careerCategories");
-    if (storedCategories) {
-      setCategories(JSON.parse(storedCategories));
-    }
+      const storedCategories = localStorage.getItem("careerCategories");
+      if (storedCategories) {
+        setCategories(JSON.parse(storedCategories));
+      }
+    };
+
+    // Initial load
+    loadData();
+
+    // Listen for storage changes to update in real-time
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === "careerCategories" || e.key === "customCareers") {
+        loadData();
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    
+    // Also listen for custom events in case changes happen in the same window
+    const handleCustomUpdate = () => {
+      loadData();
+    };
+    
+    window.addEventListener("categoriesUpdated", handleCustomUpdate);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("categoriesUpdated", handleCustomUpdate);
+    };
   }, []);
 
   // Get parent categories and their subcategories
-  const parentCategories = Array.from(new Set(categories.map(cat => cat.parentCategory).filter(Boolean)));
-  const categoriesWithoutParent = categories.filter(cat => !cat.parentCategory);
+  const parentCategories = Array.from(new Set(
+    categories
+      .map(cat => cat.parentCategory)
+      .filter(parent => parent && parent.trim() !== "")
+  ));
+  
+  const categoriesWithoutParent = categories.filter(cat => !cat.parentCategory || cat.parentCategory.trim() === "");
 
   // Convert categories to career format for display
   const categoryToCareers = (categoryList: CareerCategory[]) => categoryList.map(category => ({
@@ -229,41 +260,45 @@ export const CareerOptions = () => {
                           transition={{ duration: 0.3 }}
                           className="subcategories-container"
                         >
-                          <Carousel className="w-full">
-                            <CarouselContent>
-                              {categoryToCareers(subcategories).map((career) => (
-                                <CarouselItem key={career.id} className="md:basis-1/2 lg:basis-1/3">
-                                  <motion.div 
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.4 }}
-                                    className="career-card-container"
-                                  >
-                                    <div 
-                                      className="career-card" 
-                                      style={{ backgroundColor: career.color }}
+                          {subcategories.length > 0 ? (
+                            <Carousel className="w-full">
+                              <CarouselContent>
+                                {categoryToCareers(subcategories).map((career) => (
+                                  <CarouselItem key={career.id} className="md:basis-1/2 lg:basis-1/3">
+                                    <motion.div 
+                                      initial={{ opacity: 0, y: 20 }}
+                                      animate={{ opacity: 1, y: 0 }}
+                                      transition={{ duration: 0.4 }}
+                                      className="career-card-container"
                                     >
-                                      <div className="career-icon-container">
-                                        {career.icon}
+                                      <div 
+                                        className="career-card" 
+                                        style={{ backgroundColor: career.color }}
+                                      >
+                                        <div className="career-icon-container">
+                                          {career.icon}
+                                        </div>
+                                        <h3 className="career-title">{career.title}</h3>
+                                        <p className="career-teaser">{career.teaser}</p>
+                                        <div className="career-overlay">
+                                          <div className="career-salary">{career.salary}</div>
+                                          <Link to={getCareerLink(career)}>
+                                            <Button variant="outline" className="view-details-btn">
+                                              View Details
+                                            </Button>
+                                          </Link>
+                                        </div>
                                       </div>
-                                      <h3 className="career-title">{career.title}</h3>
-                                      <p className="career-teaser">{career.teaser}</p>
-                                      <div className="career-overlay">
-                                        <div className="career-salary">{career.salary}</div>
-                                        <Link to={getCareerLink(career)}>
-                                          <Button variant="outline" className="view-details-btn">
-                                            View Details
-                                          </Button>
-                                        </Link>
-                                      </div>
-                                    </div>
-                                  </motion.div>
-                                </CarouselItem>
-                              ))}
-                            </CarouselContent>
-                            <CarouselPrevious className="career-nav-button prev" />
-                            <CarouselNext className="career-nav-button next" />
-                          </Carousel>
+                                    </motion.div>
+                                  </CarouselItem>
+                                ))}
+                              </CarouselContent>
+                              <CarouselPrevious className="career-nav-button prev" />
+                              <CarouselNext className="career-nav-button next" />
+                            </Carousel>
+                          ) : (
+                            <p className="text-center text-gray-500 py-4">No subcategories found for {parentName}</p>
+                          )}
                         </motion.div>
                       )}
                     </AnimatePresence>
