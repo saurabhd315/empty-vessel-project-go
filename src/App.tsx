@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound";
 import AdminCareers from "./pages/AdminCareers";
 import AdminCareerAdd from "./pages/AdminCareerAdd";
 import AdminCareerDescription from "./pages/AdminCareerDescription";
+import CareerExplorer from "./pages/CareerExplorer";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/journey" element={<Journey />} />
           <Route path="/sample-journeys" element={<SampleJourneys />} />
+          <Route path="/career-explorer" element={<CareerExplorer />} />
           <Route path="/careers/:careerId" element={<CareerDetails />} />
           <Route path="/careers/custom/:careerId" element={<CareerDetails />} />
           <Route path="/admin/careers" element={<AdminCareers />} />
