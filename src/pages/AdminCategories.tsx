@@ -308,8 +308,12 @@ const CategoryForm = ({
       return;
     }
 
+    // Clean up parent category - if it's "none", set to empty string
+    const cleanedParentCategory = formData.parentCategory === "none" ? "" : formData.parentCategory;
+
     onSave({
       ...formData,
+      parentCategory: cleanedParentCategory,
       opportunities: validOpportunities
     });
   };
@@ -335,14 +339,14 @@ const CategoryForm = ({
             <label>Parent Category (Optional)</label>
             <div className="parent-category-input">
               <Select
-                value={formData.parentCategory}
-                onValueChange={(value) => setFormData({ ...formData, parentCategory: value })}
+                value={formData.parentCategory || "none"}
+                onValueChange={(value) => setFormData({ ...formData, parentCategory: value === "none" ? "" : value })}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select or create parent category" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">No Parent Category</SelectItem>
+                  <SelectItem value="none">No Parent Category</SelectItem>
                   {parentOptions.map(parent => (
                     <SelectItem key={parent} value={parent}>{parent}</SelectItem>
                   ))}
