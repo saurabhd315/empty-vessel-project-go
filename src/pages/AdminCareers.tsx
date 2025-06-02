@@ -6,7 +6,8 @@ import {
   Plus,
   Edit,
   Trash,
-  ArrowLeft
+  ArrowLeft,
+  Tags
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -69,13 +70,23 @@ const AdminCareers = () => {
           </Button>
         </Link>
         <h1 className="admin-title">Career Options Management</h1>
-        <Button 
-          onClick={() => navigate("/admin/careers/add")}
-          className="add-career-button"
-        >
-          <Plus size={16} />
-          <span>Add New Career</span>
-        </Button>
+        <div className="flex gap-2">
+          <Button 
+            onClick={() => navigate("/admin/categories")}
+            variant="outline"
+            className="manage-categories-button"
+          >
+            <Tags size={16} />
+            <span>Manage Categories</span>
+          </Button>
+          <Button 
+            onClick={() => navigate("/admin/careers/add")}
+            className="add-career-button"
+          >
+            <Plus size={16} />
+            <span>Add New Career</span>
+          </Button>
+        </div>
       </header>
 
       <div className="careers-table-container">

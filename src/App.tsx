@@ -12,6 +12,8 @@ import NotFound from "./pages/NotFound";
 import AdminCareers from "./pages/AdminCareers";
 import AdminCareerAdd from "./pages/AdminCareerAdd";
 import AdminCareerDescription from "./pages/AdminCareerDescription";
+import AdminCategories from "./pages/AdminCategories";
+import Login from "./pages/Login";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +25,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/journey" element={<Journey />} />
           <Route path="/sample-journeys" element={<SampleJourneys />} />
           <Route path="/career-details/:careerId" element={<CareerDetails />} />
@@ -31,6 +34,7 @@ const App = () => (
           <Route path="/admin/careers" element={<AdminCareers />} />
           <Route path="/admin/careers/add" element={<AdminCareerAdd />} />
           <Route path="/admin/careers/description/:id" element={<AdminCareerDescription />} />
+          <Route path="/admin/categories" element={<AdminCategories />} />
           <Route path="/profile/:slug" element={<NotFound />} />
           <Route path="/counsellors/:slug" element={<NotFound />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

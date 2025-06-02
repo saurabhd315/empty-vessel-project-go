@@ -1,11 +1,15 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { 
   Code, 
   Database, 
   Shield, 
-  Brain
+  Brain,
+  Briefcase,
+  Heart,
+  Building,
+  Palette
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./CareerOptions.css";
@@ -214,44 +218,57 @@ const careerData = {
   }
 };
 
-const categories = [
-  { name: "All", label: "All Careers" },
-  { name: "Technology", label: "Technology" }
-];
+// Icon mapping for different categories
+const iconMap = {
+  "Software Development": Code,
+  "Data Science": Database,
+  "Cybersecurity": Shield,
+  "Artificial Intelligence": Brain,
+  "Healthcare": Heart,
+  "Business": Briefcase,
+  "Finance": Building,
+  "Design": Palette
+};
 
-const careerMetadata = [
-  {
-    id: "software-development",
-    title: "Software Development",
-    icon: Code,
-    color: "bg-blue-500",
-    category: "Technology"
-  },
-  {
-    id: "data-science", 
-    title: "Data Science",
-    icon: Database,
-    color: "bg-green-500",
-    category: "Technology"
-  },
-  {
-    id: "cybersecurity",
-    title: "Cybersecurity", 
-    icon: Shield,
-    color: "bg-red-500",
-    category: "Technology"
-  },
-  {
-    id: "artificial-intelligence",
-    title: "Artificial Intelligence",
-    icon: Brain,
-    color: "bg-purple-500",
-    category: "Technology"
-  }
-];
+// Color mapping for different categories
+const colorMap = {
+  "Software Development": "bg-blue-500",
+  "Data Science": "bg-green-500", 
+  "Cybersecurity": "bg-red-500",
+  "Artificial Intelligence": "bg-purple-500",
+  "Healthcare": "bg-pink-500",
+  "Business": "bg-orange-500",
+  "Finance": "bg-indigo-500",
+  "Design": "bg-teal-500"
+};
 
 export const CareerOptions = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [categories, setCategories] = useState([
+    { name: "All", label: "All Careers" },
+    { name: "Technology", label: "Technology" }
+  ]);
+
+  // Load dynamic categories from localStorage
+  useEffect(() => {
+    const storedCategories = localStorage.getItem("careerCategories");
+    if (storedCategories) {
+      const parsedCategories = JSON.parse(storedCategories);
+      setCategories([
+        { name: "All", label: "All Careers" },
+        ...parsedCategories
+      ]);
+    }
+  }, []);
+
+  // Create career metadata from the data
+  const careerMetadata = Object.keys(careerData).map(careerTitle => ({
+    id: careerTitle.toLowerCase().replace(/\s+/g, '-'),
+    title: careerTitle,
+    icon: iconMap[careerTitle as keyof typeof iconMap] || Briefcase,
+    color: colorMap[careerTitle as keyof typeof colorMap] || "bg-gray-500",
+    category: "Technology"
+  }));
 
   const filteredCareers = careerMetadata.filter(career => 
     selectedCategory === "All" || career.category === selectedCategory
@@ -269,7 +286,7 @@ export const CareerOptions = () => {
           </p>
 
           {/* Category Filter */}
-          <div className="flex justify-center gap-4 mb-8">
+          <div className="flex justify-center gap-4 mb-8 flex-wrap">
             {categories.map((category) => (
               <Button
                 key={category.name}
@@ -280,6 +297,15 @@ export const CareerOptions = () => {
                 {category.label}
               </Button>
             ))}
+          </div>
+
+          {/* Admin Login Link */}
+          <div className="mb-8">
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/login">
+                Admin Login
+              </Link>
+            </Button>
           </div>
         </div>
 
