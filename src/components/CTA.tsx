@@ -1,9 +1,12 @@
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./CTA.css";
+
 export const CTA = () => {
-  return <section className="cta-section">
+  return (
+    <section className="cta-section">
       <div className="container mx-auto px-4 md:py-2">
         <div className="cta-container">
           <div className="cta-content">
@@ -17,7 +20,7 @@ export const CTA = () => {
                 Get Started Now <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button variant="outline" size="lg" className="cta-button-outline touch-target" asChild>
-                <Link to="/journey">View Full Journey</Link>
+                <Link to="/sample-journeys">View Sample Journeys</Link>
               </Button>
             </div>
           </div>
@@ -26,5 +29,6 @@ export const CTA = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
