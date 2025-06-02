@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Code, Stethoscope, Paintbrush } from "lucide-react";
+import { ArrowRight, Code, Stethoscope, PaintBrush } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CTA.css";
@@ -32,7 +32,7 @@ export const CTA = () => {
       id: "designer",
       title: "UX/UI Designer",
       description: "From creative passion to designing user experiences for leading brands",
-      icon: <Paintbrush className="h-8 w-8" />,
+      icon: <PaintBrush className="h-8 w-8" />,
       color: "from-purple-500 to-purple-600",
       skills: ["Design Thinking", "User Research", "Prototyping"],
       timeline: "1-3 years"
