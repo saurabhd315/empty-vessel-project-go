@@ -169,7 +169,7 @@ export const CareerOptions = () => {
       ? category.opportunities[0] 
       : "Explore opportunities",
     icon: <Briefcase size={30} />,
-    industry: "Technology", // Default to Technology for now
+    industry: category.name, // Use category name as industry
     color: "#D3E4FD", // Default color
     salary: "Competitive", // Default salary text
     categoryData: category // Store full category data for detailed view
@@ -185,8 +185,10 @@ export const CareerOptions = () => {
     ...categoryToCareers(categoriesWithoutParent)
   ];
 
-  // Get unique industries for filters
-  const industries = Array.from(new Set(allCareers.map(career => career.industry)));
+  // Get unique industries for filters - combining default industries with new parent categories
+  const defaultIndustries = ["Technology", "Design", "Healthcare", "Business", "Education", "Finance"];
+  const newParentCategories = categoriesWithoutParent.map(cat => cat.name);
+  const industries = [...defaultIndustries, ...newParentCategories];
   
   // Filter careers based on selected industry
   const filteredCareers = allCareers.filter(career => {
