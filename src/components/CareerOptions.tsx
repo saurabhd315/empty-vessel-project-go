@@ -1,205 +1,326 @@
 
-import { useRef, useState, useEffect } from "react";
-import {
-  Code,
-  Palette,
-  Brain,
-  Users,
-  GraduationCap,
-  Briefcase
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { 
+  Code, 
+  Database, 
+  Shield, 
+  Brain, 
+  Search,
+  Filter
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious
-} from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
-import { CustomCareer } from "@/pages/AdminCareers";
+import { CareerDetailCard } from "./CareerDetailCard";
 import "./CareerOptions.css";
 
-type Career = {
-  id: string;
-  title: string;
-  teaser: string;
-  icon: JSX.Element;
-  industry: string;
-  color: string;
-  salary?: string;
-  description?: string;
+// Career data from your JSON
+const careerData = {
+  "Software Development": {
+    "Opportunities and Roles": [
+      "Software Engineer",
+      "Application Developer", 
+      "Full-Stack Developer"
+    ],
+    "Resources": {
+      "Educational Resources": [
+        {
+          "title": "Coursera's Software Development Courses",
+          "url": "https://www.coursera.org/browse/computer-science/software-development"
+        },
+        {
+          "title": "edX's Software Engineering MicroMasters",
+          "url": "https://www.edx.org/"
+        }
+      ],
+      "Online Courses": [
+        {
+          "title": "Codecademy's Learn JavaScript",
+          "url": "https://www.codecademy.com/"
+        },
+        {
+          "title": "Udacity's Full-Stack Web Developer Nanodegree",
+          "url": "https://www.udacity.com/"
+        }
+      ],
+      "Industry Blogs": [
+        {
+          "title": "TechCrunch",
+          "url": "https://techcrunch.com/"
+        },
+        {
+          "title": "Hacker News",
+          "url": "https://news.ycombinator.com/"
+        }
+      ],
+      "Professional Networks": [
+        {
+          "title": "GitHub",
+          "url": "https://github.com/"
+        },
+        {
+          "title": "Stack Overflow",
+          "url": "https://stackoverflow.com/"
+        }
+      ]
+    },
+    "Insights": "Software development continues to grow with increasing demand for innovative solutions across industries."
+  },
+  "Data Science": {
+    "Opportunities and Roles": [
+      "Data Scientist",
+      "Data Analyst",
+      "Machine Learning Engineer"
+    ],
+    "Resources": {
+      "Educational Resources": [
+        {
+          "title": "DataCamp's Data Science Courses",
+          "url": "https://www.datacamp.com/"
+        },
+        {
+          "title": "Coursera's Data Science Specialization",
+          "url": "https://www.coursera.org/specializations/jhu-data-science"
+        }
+      ],
+      "Online Courses": [
+        {
+          "title": "Udemy's Data Science Bootcamp",
+          "url": "https://www.udemy.com/"
+        },
+        {
+          "title": "Kaggle's Data Science Courses",
+          "url": "https://www.kaggle.com/learn"
+        }
+      ],
+      "Industry Blogs": [
+        {
+          "title": "Towards Data Science",
+          "url": "https://towardsdatascience.com/"
+        },
+        {
+          "title": "Data Science Central",
+          "url": "https://www.datasciencecentral.com/"
+        }
+      ],
+      "Professional Networks": [
+        {
+          "title": "Kaggle",
+          "url": "https://www.kaggle.com/"
+        },
+        {
+          "title": "LinkedIn Data Science Group",
+          "url": "https://www.linkedin.com/groups/2445483/"
+        }
+      ]
+    },
+    "Insights": "Data science is a rapidly expanding field with applications in finance, healthcare, and technology."
+  },
+  "Cybersecurity": {
+    "Opportunities and Roles": [
+      "Cybersecurity Analyst",
+      "Information Security Manager",
+      "Ethical Hacker"
+    ],
+    "Resources": {
+      "Educational Resources": [
+        {
+          "title": "Cybrary's Cybersecurity Courses",
+          "url": "https://www.cybrary.it/"
+        },
+        {
+          "title": "SANS Institute's Cybersecurity Training",
+          "url": "https://www.sans.org/"
+        }
+      ],
+      "Online Courses": [
+        {
+          "title": "Coursera's Cybersecurity Specialization",
+          "url": "https://www.coursera.org/search?query=cyber%20security"
+        },
+        {
+          "title": "Udemy's Complete Cyber Security Course",
+          "url": "https://www.udemy.com/course/complete-cyber-security-course/"
+        }
+      ],
+      "Industry Blogs": [
+        {
+          "title": "Krebs on Security",
+          "url": "https://krebsonsecurity.com/"
+        },
+        {
+          "title": "The Hacker News",
+          "url": "https://thehackernews.com/"
+        }
+      ],
+      "Professional Networks": [
+        {
+          "title": "ISACA",
+          "url": "https://www.isaca.org/"
+        },
+        {
+          "title": "(ISC)²",
+          "url": "https://www.isc2.org/"
+        }
+      ]
+    },
+    "Insights": "With increasing cyber threats, the need for cybersecurity professionals is growing."
+  },
+  "Artificial Intelligence": {
+    "Opportunities and Roles": [
+      "AI Research Scientist",
+      "Machine Learning Engineer",
+      "AI Specialist"
+    ],
+    "Resources": {
+      "Educational Resources": [
+        {
+          "title": "MIT's Artificial Intelligence Courses",
+          "url": "https://betterworld.mit.edu/artificial-intelligence/"
+        },
+        {
+          "title": "Stanford's AI Courses",
+          "url": "https://ai.stanford.edu/"
+        }
+      ],
+      "Online Courses": [
+        {
+          "title": "Coursera's AI for Everyone",
+          "url": "https://www.coursera.org/learn/ai-for-everyone"
+        },
+        {
+          "title": "Udacity's AI Programming with Python",
+          "url": "https://www.udacity.com/course/ai-programming-with-python-nanodegree--nd089"
+        }
+      ],
+      "Industry Blogs": [
+        {
+          "title": "AI Trends",
+          "url": "https://www.ibm.com/think/insights/artificial-intelligence-trends"
+        },
+        {
+          "title": "The AI Report",
+          "url": "https://www.thereport.ai/"
+        }
+      ],
+      "Professional Networks": [
+        {
+          "title": "AI Hub",
+          "url": "https://aihub.org/"
+        },
+        {
+          "title": "Machine Learning Mastery",
+          "url": "https://machinelearningmastery.com/"
+        }
+      ]
+    },
+    "Insights": "AI and machine learning are transforming industries with innovations in automation, data analysis, and problem-solving."
+  }
 };
 
+const careerMetadata = [
+  {
+    id: "software-development",
+    title: "Software Development",
+    icon: Code,
+    color: "bg-blue-500"
+  },
+  {
+    id: "data-science", 
+    title: "Data Science",
+    icon: Database,
+    color: "bg-green-500"
+  },
+  {
+    id: "cybersecurity",
+    title: "Cybersecurity", 
+    icon: Shield,
+    color: "bg-red-500"
+  },
+  {
+    id: "artificial-intelligence",
+    title: "Artificial Intelligence",
+    icon: Brain,
+    color: "bg-purple-500"
+  }
+];
+
 export const CareerOptions = () => {
-  const [activeFilter, setActiveFilter] = useState<string>("");
-  const [customCareers, setCustomCareers] = useState<CustomCareer[]>([]);
-  const carouselRef = useRef(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState("All");
 
-  // Default careers
-  const defaultCareers: Career[] = [
-    {
-      id: "software-developer",
-      title: "Software Developer",
-      teaser: "Design digital experiences",
-      icon: <Code size={30} />,
-      industry: "Technology",
-      color: "#D3E4FD",
-      salary: "₹5-25 LPA"
-    },
-    {
-      id: "fashion-designer",
-      title: "Fashion Designer",
-      teaser: "Create trends that inspire",
-      icon: <Palette size={30} />,
-      industry: "Design",
-      color: "#FFDEE2",
-      salary: "₹3-15 LPA"
-    },
-    {
-      id: "psychologist",
-      title: "Psychologist",
-      teaser: "Shape minds and futures",
-      icon: <Brain size={30} />,
-      industry: "Healthcare",
-      color: "#E5DEFF",
-      salary: "₹4-12 LPA"
-    },
-    {
-      id: "hr-manager",
-      title: "HR Manager",
-      teaser: "Build strong organizations",
-      icon: <Users size={30} />,
-      industry: "Business",
-      color: "#FDE1D3",
-      salary: "₹6-18 LPA"
-    },
-    {
-      id: "teacher",
-      title: "Teacher",
-      teaser: "Inspire the next generation",
-      icon: <GraduationCap size={30} />,
-      industry: "Education",
-      color: "#F2FCE2",
-      salary: "₹3-12 LPA"
-    },
-    {
-      id: "financial-analyst",
-      title: "Financial Analyst",
-      teaser: "Shape economic futures",
-      icon: <Briefcase size={30} />,
-      industry: "Finance",
-      color: "#FEF7CD",
-      salary: "₹7-20 LPA"
-    }
-  ];
-
-  // Load custom careers from localStorage
-  useEffect(() => {
-    const storedCareers = localStorage.getItem("customCareers");
-    if (storedCareers) {
-      setCustomCareers(JSON.parse(storedCareers));
-    }
-  }, []);
-
-  // Combine default and custom careers
-  const allCareers = [
-    ...defaultCareers,
-    ...customCareers.map(career => ({
-      ...career,
-      icon: <Briefcase size={30} /> // Default icon for custom careers
-    }))
-  ];
-
-  // Get unique industries for filters
-  const industries = Array.from(new Set(allCareers.map(career => career.industry)));
-  
-  // Filter careers based on selected industry
-  const filteredCareers = allCareers.filter(career => {
-    return !activeFilter || career.industry === activeFilter;
+  const filteredCareers = careerMetadata.filter(career => {
+    const matchesSearch = career.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesFilter = selectedFilter === "All" || selectedFilter === "Technology";
+    return matchesSearch && matchesFilter;
   });
 
-  // Determine if a career is custom
-  const isCustomCareer = (careerId: string) => {
-    return careerId.startsWith('custom-');
-  };
+  const filters = ["All", "Technology"];
 
   return (
-    <section className="career-options-section section-spacing">
-      <div className="container mx-auto px-4">
-        <h2 className="section-title text-3xl md:text-4xl font-bold text-center mb-6">
-          Explore Career Options in India
-        </h2>
-        
-        <p className="text-center text-lg mb-10 max-w-2xl mx-auto">
-          Discover diverse career paths tailored for the Indian job market and find guidance to achieve your professional goals.
-        </p>
-        
-        <div className="filter-chips-container">
-          <button 
-            className={`filter-chip ${activeFilter === "" ? "active" : ""}`}
-            onClick={() => setActiveFilter("")}
-          >
-            All
-          </button>
-          {industries.map(industry => (
-            <button 
-              key={industry}
-              className={`filter-chip ${activeFilter === industry ? "active" : ""}`}
-              onClick={() => setActiveFilter(industry)}
-            >
-              {industry}
-            </button>
+    <section id="career-options" className="career-options-section">
+      <div className="container mx-auto px-4 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+            Explore Career Options in India
+          </h2>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
+            Discover detailed information about technology careers including roles, resources, and industry insights
+          </p>
+
+          {/* Search and Filter */}
+          <div className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto mb-8">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <Input
+                type="text"
+                placeholder="Search career paths..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+            <div className="flex gap-2">
+              {filters.map((filter) => (
+                <Button
+                  key={filter}
+                  variant={selectedFilter === filter ? "default" : "outline"}
+                  onClick={() => setSelectedFilter(filter)}
+                  className="filter-chip"
+                >
+                  <Filter className="w-4 h-4 mr-2" />
+                  {filter}
+                </Button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Career Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {filteredCareers.map((career) => (
+            <CareerDetailCard
+              key={career.id}
+              title={career.title}
+              data={careerData[career.title as keyof typeof careerData]}
+              icon={career.icon}
+              color={career.color}
+            />
           ))}
         </div>
-        
-        <div className="carousel-container">
-          <Carousel
-            ref={carouselRef}
-            className="w-full"
-            opts={{
-              align: "center",
-              loop: true,
-            }}
-          >
-            <CarouselContent>
-              <AnimatePresence>
-                {filteredCareers.map((career) => (
-                  <CarouselItem key={career.id} className="md:basis-1/2 lg:basis-1/3">
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.4 }}
-                      className="career-card-container"
-                    >
-                      <div 
-                        className="career-card" 
-                        style={{ backgroundColor: career.color }}
-                      >
-                        <div className="career-icon-container">
-                          {career.icon}
-                        </div>
-                        <h3 className="career-title">{career.title}</h3>
-                        <p className="career-teaser">{career.teaser}</p>
-                        <div className="career-overlay">
-                          <div className="career-salary">{career.salary}</div>
-                          <Link to={isCustomCareer(career.id) ? `/careers/custom/${career.id}` : `/careers/${career.id}`}>
-                            <Button variant="outline" className="view-details-btn">
-                              View Details
-                            </Button>
-                          </Link>
-                        </div>
-                      </div>
-                    </motion.div>
-                  </CarouselItem>
-                ))}
-              </AnimatePresence>
-            </CarouselContent>
-            <CarouselPrevious className="career-nav-button prev" />
-            <CarouselNext className="career-nav-button next" />
-          </Carousel>
+
+        {filteredCareers.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">No career paths found matching your search.</p>
+          </div>
+        )}
+
+        <div className="text-center mt-12">
+          <Button variant="outline" size="lg" asChild>
+            <Link to="/sample-journeys">
+              View Sample Career Journeys
+            </Link>
+          </Button>
         </div>
       </div>
     </section>
