@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Plus, Edit, Trash, Save } from "lucide-react";
@@ -6,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
 import "./AdminCategories.css";
@@ -18,6 +18,7 @@ type Resource = {
 type CareerCategory = {
   id: string;
   name: string;
+  parentCategory?: string;
   opportunities: string[];
   resources: {
     "Educational Resources": Resource[];
@@ -79,6 +80,10 @@ const AdminCategories = () => {
     setIsEditing(true);
   };
 
+  // Get parent categories for grouping
+  const parentCategories = Array.from(new Set(categories.map(cat => cat.parentCategory).filter(Boolean)));
+  const categoriesWithoutParent = categories.filter(cat => !cat.parentCategory);
+
   return (
     <div className="admin-categories-container">
       <header className="admin-header">
@@ -104,6 +109,7 @@ const AdminCategories = () => {
       {isEditing ? (
         <CategoryForm 
           category={editingCategory}
+          categories={categories}
           onSave={handleSaveCategory}
           onCancel={() => {
             setIsEditing(false);
@@ -111,7 +117,7 @@ const AdminCategories = () => {
           }}
         />
       ) : (
-        <div className="categories-grid">
+        <div className="categories-content">
           {categories.length === 0 ? (
             <div className="empty-state">
               <h2>No categories added yet</h2>
@@ -125,36 +131,43 @@ const AdminCategories = () => {
               </Button>
             </div>
           ) : (
-            categories.map((category) => (
-              <Card key={category.id} className="category-card">
-                <CardHeader>
-                  <CardTitle>{category.name}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="category-info">
-                    <p><strong>Opportunities:</strong> {category.opportunities.join(", ")}</p>
-                    <p><strong>Insights:</strong> {category.insights}</p>
+            <>
+              {/* Categories without parent */}
+              {categoriesWithoutParent.length > 0 && (
+                <div className="category-section">
+                  <h2 className="section-title">Independent Categories</h2>
+                  <div className="categories-grid">
+                    {categoriesWithoutParent.map((category) => (
+                      <CategoryCard 
+                        key={category.id} 
+                        category={category} 
+                        onEdit={handleEditCategory}
+                        onDelete={handleDeleteCategory}
+                      />
+                    ))}
                   </div>
-                  <div className="category-actions">
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => handleEditCategory(category)}
-                    >
-                      <Edit size={16} />
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => handleDeleteCategory(category.id)}
-                      className="text-red-500 hover:text-red-700"
-                    >
-                      <Trash size={16} />
-                    </Button>
+                </div>
+              )}
+
+              {/* Grouped by parent categories */}
+              {parentCategories.map(parentName => (
+                <div key={parentName} className="category-section">
+                  <h2 className="section-title">{parentName}</h2>
+                  <div className="categories-grid">
+                    {categories
+                      .filter(cat => cat.parentCategory === parentName)
+                      .map((category) => (
+                        <CategoryCard 
+                          key={category.id} 
+                          category={category} 
+                          onEdit={handleEditCategory}
+                          onDelete={handleDeleteCategory}
+                        />
+                      ))}
                   </div>
-                </CardContent>
-              </Card>
-            ))
+                </div>
+              ))}
+            </>
           )}
         </div>
       )}
@@ -162,18 +175,63 @@ const AdminCategories = () => {
   );
 };
 
+const CategoryCard = ({ 
+  category, 
+  onEdit, 
+  onDelete 
+}: { 
+  category: CareerCategory;
+  onEdit: (category: CareerCategory) => void;
+  onDelete: (id: string) => void;
+}) => (
+  <Card className="category-card">
+    <CardHeader>
+      <CardTitle>{category.name}</CardTitle>
+      {category.parentCategory && (
+        <p className="text-sm text-gray-500">Parent: {category.parentCategory}</p>
+      )}
+    </CardHeader>
+    <CardContent>
+      <div className="category-info">
+        <p><strong>Opportunities:</strong> {category.opportunities?.join(", ") || "None"}</p>
+        <p><strong>Insights:</strong> {category.insights}</p>
+      </div>
+      <div className="category-actions">
+        <Button 
+          variant="outline" 
+          size="sm"
+          onClick={() => onEdit(category)}
+        >
+          <Edit size={16} />
+        </Button>
+        <Button 
+          variant="outline" 
+          size="sm"
+          onClick={() => onDelete(category.id)}
+          className="text-red-500 hover:text-red-700"
+        >
+          <Trash size={16} />
+        </Button>
+      </div>
+    </CardContent>
+  </Card>
+);
+
 const CategoryForm = ({ 
   category, 
+  categories,
   onSave, 
   onCancel 
 }: { 
   category: CareerCategory | null;
+  categories: CareerCategory[];
   onSave: (category: CareerCategory) => void;
   onCancel: () => void;
 }) => {
   const [formData, setFormData] = useState<CareerCategory>({
     id: category?.id || '',
     name: category?.name || '',
+    parentCategory: category?.parentCategory || '',
     opportunities: category?.opportunities || [''],
     resources: category?.resources || {
       "Educational Resources": [{ title: '', url: '' }],
@@ -183,6 +241,14 @@ const CategoryForm = ({
     },
     insights: category?.insights || ''
   });
+
+  // Get unique parent category options (excluding current category)
+  const parentOptions = Array.from(new Set(
+    categories
+      .filter(cat => cat.id !== category?.id)
+      .map(cat => cat.parentCategory)
+      .filter(Boolean)
+  ));
 
   const handleOpportunityChange = (index: number, value: string) => {
     const newOpportunities = [...formData.opportunities];
@@ -263,6 +329,32 @@ const CategoryForm = ({
               placeholder="e.g., Software Development"
               required
             />
+          </div>
+
+          <div className="form-group">
+            <label>Parent Category (Optional)</label>
+            <div className="parent-category-input">
+              <Select
+                value={formData.parentCategory}
+                onValueChange={(value) => setFormData({ ...formData, parentCategory: value })}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select or create parent category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">No Parent Category</SelectItem>
+                  {parentOptions.map(parent => (
+                    <SelectItem key={parent} value={parent}>{parent}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <span className="text-sm text-gray-500">Or type a new parent category name:</span>
+              <Input
+                value={formData.parentCategory}
+                onChange={(e) => setFormData({ ...formData, parentCategory: e.target.value })}
+                placeholder="e.g., Technology, Healthcare, Business"
+              />
+            </div>
           </div>
 
           <div className="form-group">

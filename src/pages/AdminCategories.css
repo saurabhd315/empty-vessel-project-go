@@ -38,12 +38,28 @@
   background-color: #056a9d;
 }
 
+.categories-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.category-section {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1f2c;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #0778b6;
+}
+
 .categories-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 1.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
 .category-card {
@@ -73,12 +89,13 @@
 }
 
 .empty-state {
-  grid-column: 1 / -1;
   text-align: center;
   padding: 3rem;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .category-form-card {
@@ -102,6 +119,12 @@
 .form-group label {
   font-weight: 600;
   color: #374151;
+}
+
+.parent-category-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .opportunity-input, .resource-input {

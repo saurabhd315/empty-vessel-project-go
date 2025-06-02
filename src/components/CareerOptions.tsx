@@ -6,7 +6,9 @@ import {
   Brain,
   Users,
   GraduationCap,
-  Briefcase
+  Briefcase,
+  ChevronRight,
+  ChevronDown
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -40,6 +42,7 @@ type CategoryResource = {
 type CareerCategory = {
   id: string;
   name: string;
+  parentCategory?: string;
   opportunities: string[];
   resources: {
     "Educational Resources": CategoryResource[];
@@ -54,6 +57,7 @@ export const CareerOptions = () => {
   const [activeFilter, setActiveFilter] = useState<string>("");
   const [customCareers, setCustomCareers] = useState<CustomCareer[]>([]);
   const [categories, setCategories] = useState<CareerCategory[]>([]);
+  const [expandedParent, setExpandedParent] = useState<string | null>(null);
   const carouselRef = useRef(null);
 
   // Default careers
@@ -127,8 +131,12 @@ export const CareerOptions = () => {
     }
   }, []);
 
+  // Get parent categories and their subcategories
+  const parentCategories = Array.from(new Set(categories.map(cat => cat.parentCategory).filter(Boolean)));
+  const categoriesWithoutParent = categories.filter(cat => !cat.parentCategory);
+
   // Convert categories to career format for display
-  const categoryToCareers = categories.map(category => ({
+  const categoryToCareers = (categoryList: CareerCategory[]) => categoryList.map(category => ({
     id: category.id,
     title: category.name,
     teaser: (category.opportunities && category.opportunities.length > 0) 
@@ -141,14 +149,14 @@ export const CareerOptions = () => {
     categoryData: category // Store full category data for detailed view
   }));
 
-  // Combine all careers
+  // Combine all careers (default + custom + categories without parent)
   const allCareers = [
     ...defaultCareers,
     ...customCareers.map(career => ({
       ...career,
       icon: <Briefcase size={30} />
     })),
-    ...categoryToCareers
+    ...categoryToCareers(categoriesWithoutParent)
   ];
 
   // Get unique industries for filters
@@ -178,6 +186,10 @@ export const CareerOptions = () => {
     }
   };
 
+  const toggleParentCategory = (parentName: string) => {
+    setExpandedParent(expandedParent === parentName ? null : parentName);
+  };
+
   return (
     <section className="career-options-section section-spacing">
       <div className="container mx-auto px-4">
@@ -188,71 +200,147 @@ export const CareerOptions = () => {
         <p className="text-center text-lg mb-10 max-w-2xl mx-auto">
           Discover diverse career paths tailored for the Indian job market and find guidance to achieve your professional goals.
         </p>
-        
-        <div className="filter-chips-container">
-          <button 
-            className={`filter-chip ${activeFilter === "" ? "active" : ""}`}
-            onClick={() => setActiveFilter("")}
-          >
-            All
-          </button>
-          {industries.map(industry => (
-            <button 
-              key={industry}
-              className={`filter-chip ${activeFilter === industry ? "active" : ""}`}
-              onClick={() => setActiveFilter(industry)}
-            >
-              {industry}
-            </button>
-          ))}
-        </div>
-        
-        <div className="carousel-container">
-          <Carousel
-            ref={carouselRef}
-            className="w-full"
-            opts={{
-              align: "center",
-              loop: true,
-            }}
-          >
-            <CarouselContent>
-              <AnimatePresence>
-                {filteredCareers.map((career) => (
-                  <CarouselItem key={career.id} className="md:basis-1/2 lg:basis-1/3">
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.4 }}
-                      className="career-card-container"
+
+        {/* Parent Categories Section */}
+        {parentCategories.length > 0 && (
+          <div className="parent-categories-section">
+            <h3 className="parent-categories-title">Career Categories</h3>
+            <div className="parent-categories-container">
+              {parentCategories.map(parentName => {
+                const subcategories = categories.filter(cat => cat.parentCategory === parentName);
+                const isExpanded = expandedParent === parentName;
+                
+                return (
+                  <div key={parentName} className="parent-category-item">
+                    <button
+                      className={`parent-category-button ${isExpanded ? 'expanded' : ''}`}
+                      onClick={() => toggleParentCategory(parentName)}
                     >
-                      <div 
-                        className="career-card" 
-                        style={{ backgroundColor: career.color }}
+                      <span>{parentName}</span>
+                      {isExpanded ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
+                    </button>
+                    
+                    <AnimatePresence>
+                      {isExpanded && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="subcategories-container"
+                        >
+                          <Carousel className="w-full">
+                            <CarouselContent>
+                              {categoryToCareers(subcategories).map((career) => (
+                                <CarouselItem key={career.id} className="md:basis-1/2 lg:basis-1/3">
+                                  <motion.div 
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4 }}
+                                    className="career-card-container"
+                                  >
+                                    <div 
+                                      className="career-card" 
+                                      style={{ backgroundColor: career.color }}
+                                    >
+                                      <div className="career-icon-container">
+                                        {career.icon}
+                                      </div>
+                                      <h3 className="career-title">{career.title}</h3>
+                                      <p className="career-teaser">{career.teaser}</p>
+                                      <div className="career-overlay">
+                                        <div className="career-salary">{career.salary}</div>
+                                        <Link to={getCareerLink(career)}>
+                                          <Button variant="outline" className="view-details-btn">
+                                            View Details
+                                          </Button>
+                                        </Link>
+                                      </div>
+                                    </div>
+                                  </motion.div>
+                                </CarouselItem>
+                              ))}
+                            </CarouselContent>
+                            <CarouselPrevious className="career-nav-button prev" />
+                            <CarouselNext className="career-nav-button next" />
+                          </Carousel>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+        
+        {/* Original Career Options Section */}
+        <div className="original-careers-section">
+          <div className="filter-chips-container">
+            <button 
+              className={`filter-chip ${activeFilter === "" ? "active" : ""}`}
+              onClick={() => setActiveFilter("")}
+            >
+              All
+            </button>
+            {industries.map(industry => (
+              <button 
+                key={industry}
+                className={`filter-chip ${activeFilter === industry ? "active" : ""}`}
+                onClick={() => setActiveFilter(industry)}
+              >
+                {industry}
+              </button>
+            ))}
+          </div>
+          
+          <div className="carousel-container">
+            <Carousel
+              ref={carouselRef}
+              className="w-full"
+              opts={{
+                align: "center",
+                loop: true,
+              }}
+            >
+              <CarouselContent>
+                <AnimatePresence>
+                  {filteredCareers.map((career) => (
+                    <CarouselItem key={career.id} className="md:basis-1/2 lg:basis-1/3">
+                      <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.4 }}
+                        className="career-card-container"
                       >
-                        <div className="career-icon-container">
-                          {career.icon}
+                        <div 
+                          className="career-card" 
+                          style={{ backgroundColor: career.color }}
+                        >
+                          <div className="career-icon-container">
+                            {career.icon}
+                          </div>
+                          <h3 className="career-title">{career.title}</h3>
+                          <p className="career-teaser">{career.teaser}</p>
+                          <div className="career-overlay">
+                            <div className="career-salary">{career.salary}</div>
+                            <Link to={getCareerLink(career)}>
+                              <Button variant="outline" className="view-details-btn">
+                                View Details
+                              </Button>
+                            </Link>
+                          </div>
                         </div>
-                        <h3 className="career-title">{career.title}</h3>
-                        <p className="career-teaser">{career.teaser}</p>
-                        <div className="career-overlay">
-                          <div className="career-salary">{career.salary}</div>
-                          <Link to={getCareerLink(career)}>
-                            <Button variant="outline" className="view-details-btn">
-                              View Details
-                            </Button>
-                          </Link>
-                        </div>
-                      </div>
-                    </motion.div>
-                  </CarouselItem>
-                ))}
-              </AnimatePresence>
-            </CarouselContent>
-            <CarouselPrevious className="career-nav-button prev" />
-            <CarouselNext className="career-nav-button next" />
-          </Carousel>
+                      </motion.div>
+                    </CarouselItem>
+                  ))}
+                </AnimatePresence>
+              </CarouselContent>
+              <CarouselPrevious className="career-nav-button prev" />
+              <CarouselNext className="career-nav-button next" />
+            </Carousel>
+          </div>
         </div>
       </div>
     </section>
