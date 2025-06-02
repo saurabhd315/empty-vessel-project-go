@@ -157,11 +157,16 @@ export const CareerOptions = () => {
     };
   }, []);
 
-  // Get parent categories and their subcategories
-  const parentCategories = Array.from(new Set(
+  // Get only parent categories from admin that are not in the excluded list
+  const excludedCategories = ["Arts and Humanities", "xyz"];
+  const adminParentCategories = Array.from(new Set(
     categories
       .map(cat => cat.parentCategory)
-      .filter(parent => parent && parent.trim() !== "")
+      .filter(parent => 
+        parent && 
+        parent.trim() !== "" && 
+        !excludedCategories.includes(parent)
+      )
   ));
   
   const categoriesWithoutParent = categories.filter(cat => !cat.parentCategory || cat.parentCategory.trim() === "");
@@ -232,12 +237,12 @@ export const CareerOptions = () => {
           Discover diverse career paths tailored for the Indian job market and find guidance to achieve your professional goals.
         </p>
 
-        {/* Parent Categories Section */}
-        {parentCategories.length > 0 && (
+        {/* Admin Parent Categories Section - Only show if there are valid parent categories */}
+        {adminParentCategories.length > 0 && (
           <div className="parent-categories-section">
             <h3 className="parent-categories-title">Career Categories</h3>
             <div className="parent-categories-container">
-              {parentCategories.map(parentName => {
+              {adminParentCategories.map(parentName => {
                 const subcategories = categories.filter(cat => cat.parentCategory === parentName);
                 const isExpanded = expandedParent === parentName;
                 
