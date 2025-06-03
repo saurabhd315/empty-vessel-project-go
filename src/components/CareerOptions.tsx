@@ -1,222 +1,1000 @@
-import { useState, useEffect } from "react";
-import { ArrowRight, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { useRef, useState, useEffect } from "react";
+import {
+  Code,
+  Palette,
+  Brain,
+  Users,
+  GraduationCap,
+  Briefcase,
+} from "lucide-react";
 import { Link } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
-  CarouselPrevious,
+  CarouselPrevious
 } from "@/components/ui/carousel";
+import { Button } from "@/components/ui/button";
+import { CustomCareer } from "@/pages/AdminCareers";
 import "./CareerOptions.css";
 
-export const hardcodedCareers = {
+type Career = {
+  id: string;
+  title: string;
+  teaser: string;
+  icon: JSX.Element;
+  industry: string;
+  color: string;
+  salary?: string;
+  description?: string;
+};
+
+type CategoryResource = {
+  title: string;
+  url: string;
+};
+
+type CareerCategory = {
+  id: string;
+  name: string;
+  parentCategory?: string;
+  opportunities: string[];
+  resources: {
+    "Educational Resources": CategoryResource[];
+    "Online Courses": CategoryResource[];
+    "Industry Blogs": CategoryResource[];
+    "Professional Networks": CategoryResource[];
+  };
+  insights: string;
+};
+
+// Hardcoded career data
+const hardcodedCareers = {
   "Technology": {
     "Software Development": {
-      "Opportunities and Roles": ["Software Engineer", "Web Developer", "Mobile App Developer"],
+      "Opportunities and Roles": [
+        "Software Engineer",
+        "Application Developer",
+        "Full-Stack Developer"
+      ],
       "Resources": {
         "Educational Resources": [
-          {"title": "freeCodeCamp", "url": "https://www.freecodecamp.org/"},
-          {"title": "Codecademy", "url": "https://www.codecademy.com/"}
+          {
+            "title": "Coursera's Software Development Courses",
+            "url": "https://www.coursera.org/browse/computer-science/software-development"
+          },
+          {
+            "title": "edX's Software Engineering MicroMasters",
+            "url": "https://www.edx.org/"
+          }
         ],
         "Online Courses": [
-          {"title": "Coursera's Programming Courses", "url": "https://www.coursera.org/courses?query=programming"},
-          {"title": "Udemy's Web Development Course", "url": "https://www.udemy.com/course/the-web-developer-bootcamp/"}
+          {
+            "title": "Codecademy's Learn JavaScript",
+            "url": "https://www.codecademy.com/"
+          },
+          {
+            "title": "Udacity's Full-Stack Web Developer Nanodegree",
+            "url": "https://www.udacity.com/"
+          }
         ],
         "Industry Blogs": [
-          {"title": "Stack Overflow Blog", "url": "https://stackoverflow.blog/"},
-          {"title": "Dev.to", "url": "https://dev.to/"}
+          {
+            "title": "TechCrunch",
+            "url": "https://techcrunch.com/"
+          },
+          {
+            "title": "Hacker News",
+            "url": "https://news.ycombinator.com/"
+          }
         ],
         "Professional Networks": [
-          {"title": "GitHub Community", "url": "https://github.com/community"},
-          {"title": "LinkedIn Developer Groups", "url": "https://www.linkedin.com/groups/"}
+          {
+            "title": "GitHub",
+            "url": "https://github.com/"
+          },
+          {
+            "title": "Stack Overflow",
+            "url": "https://stackoverflow.com/"
+          }
         ]
       },
-      "Insights": "Software development is one of the fastest-growing fields with excellent career prospects and remote work opportunities."
+      "Insights": "Software development continues to grow with increasing demand for innovative solutions across industries."
     },
     "Data Science": {
-      "Opportunities and Roles": ["Data Scientist", "Data Analyst", "Machine Learning Engineer"],
+      "Opportunities and Roles": [
+        "Data Scientist",
+        "Data Analyst",
+        "Machine Learning Engineer"
+      ],
       "Resources": {
         "Educational Resources": [
-          {"title": "Kaggle Learn", "url": "https://www.kaggle.com/learn"},
-          {"title": "DataCamp", "url": "https://www.datacamp.com/"}
+          {
+            "title": "DataCamp's Data Science Courses",
+            "url": "https://www.datacamp.com/"
+          },
+          {
+            "title": "Coursera's Data Science Specialization",
+            "url": "https://www.coursera.org/specializations/jhu-data-science"
+          }
         ],
         "Online Courses": [
-          {"title": "Coursera's Data Science Specialization", "url": "https://www.coursera.org/specializations/jhu-data-science"},
-          {"title": "edX MIT Introduction to Computer Science", "url": "https://www.edx.org/course/introduction-computer-science-mitx-6-00-1x-10"}
+          {
+            "title": "Udemy's Data Science Bootcamp",
+            "url": "https://www.udemy.com/"
+          },
+          {
+            "title": "Kaggle's Data Science Courses",
+            "url": "https://www.kaggle.com/learn"
+          }
         ],
         "Industry Blogs": [
-          {"title": "Towards Data Science", "url": "https://towardsdatascience.com/"},
-          {"title": "KDnuggets", "url": "https://www.kdnuggets.com/"}
+          {
+            "title": "Towards Data Science",
+            "url": "https://towardsdatascience.com/"
+          },
+          {
+            "title": "Data Science Central",
+            "url": "https://www.datasciencecentral.com/"
+          }
         ],
         "Professional Networks": [
-          {"title": "Data Science Central", "url": "https://www.datasciencecentral.com/"},
-          {"title": "LinkedIn Data Science Groups", "url": "https://www.linkedin.com/groups/"}
+          {
+            "title": "Kaggle",
+            "url": "https://www.kaggle.com/"
+          },
+          {
+            "title": "LinkedIn Data Science Group",
+            "url": "https://www.linkedin.com/groups/2445483/"
+          }
         ]
       },
-      "Insights": "Data science combines statistics, programming, and domain expertise to extract insights from data."
+      "Insights": "Data science is a rapidly expanding field with applications in finance, healthcare, and technology."
+    },
+    "Cybersecurity": {
+      "Opportunities and Roles": [
+        "Cybersecurity Analyst",
+        "Information Security Manager",
+        "Ethical Hacker"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "Cybrary's Cybersecurity Courses",
+            "url": "https://www.cybrary.it/"
+          },
+          {
+            "title": "SANS Institute's Cybersecurity Training",
+            "url": "https://www.sans.org/"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Coursera's Cybersecurity Specialization",
+            "url": "https://www.coursera.org/search?query=cyber%20security"
+          },
+          {
+            "title": "Udemy's Complete Cyber Security Course",
+            "url": "https://www.udemy.com/course/complete-cyber-security-course/"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "Krebs on Security",
+            "url": "https://krebsonsecurity.com/"
+          },
+          {
+            "title": "The Hacker News",
+            "url": "https://thehackernews.com/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "ISACA",
+            "url": "https://www.isaca.org/"
+          },
+          {
+            "title": "(ISC)²",
+            "url": "https://www.isc2.org/"
+          }
+        ]
+      },
+      "Insights": "With increasing cyber threats, the need for cybersecurity professionals is growing."
     },
     "Artificial Intelligence": {
-      "Opportunities and Roles": ["AI Engineer", "Machine Learning Specialist", "AI Researcher"],
+      "Opportunities and Roles": [
+        "AI Research Scientist",
+        "Machine Learning Engineer",
+        "AI Specialist"
+      ],
       "Resources": {
         "Educational Resources": [
-          {"title": "MIT OpenCourseWare AI", "url": "https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/"},
-          {"title": "Stanford AI Course", "url": "https://ai.stanford.edu/courses/"}
+          {
+            "title": "MIT's Artificial Intelligence Courses",
+            "url": "https://betterworld.mit.edu/artificial-intelligence/"
+          },
+          {
+            "title": "Stanford's AI Courses",
+            "url": "https://ai.stanford.edu/"
+          }
         ],
         "Online Courses": [
-          {"title": "Coursera's AI for Everyone", "url": "https://www.coursera.org/learn/ai-for-everyone"},
-          {"title": "Fast.ai Practical Deep Learning", "url": "https://www.fast.ai/"}
+          {
+            "title": "Coursera's AI for Everyone",
+            "url": "https://www.coursera.org/learn/ai-for-everyone"
+          },
+          {
+            "title": "Udacity's AI Programming with Python",
+            "url": "https://www.udacity.com/course/ai-programming-with-python-nanodegree--nd089"
+          }
         ],
         "Industry Blogs": [
-          {"title": "OpenAI Blog", "url": "https://openai.com/blog/"},
-          {"title": "Google AI Blog", "url": "https://ai.googleblog.com/"}
+          {
+            "title": "AI Trends",
+            "url": "https://www.ibm.com/think/insights/artificial-intelligence-trends"
+          },
+          {
+            "title": "The AI Report",
+            "url": "https://www.thereport.ai/"
+          }
         ],
         "Professional Networks": [
-          {"title": "AI/ML LinkedIn Groups", "url": "https://www.linkedin.com/groups/"},
-          {"title": "Association for the Advancement of Artificial Intelligence", "url": "https://www.aaai.org/"}
+          {
+            "title": "AI Hub",
+            "url": "https://aihub.org/"
+          },
+          {
+            "title": "Machine Learning Mastery",
+            "url": "https://machinelearningmastery.com/"
+          }
         ]
       },
-      "Insights": "AI is revolutionizing industries and creating new career opportunities in automation and intelligent systems."
+      "Insights": "AI and machine learning are transforming industries with innovations in automation, data analysis, and problem-solving."
     }
   },
-  "Healthcare": {
+  "Business": {
+    "Marketing": {
+      "Opportunities and Roles": [
+        "Marketing Manager",
+        "Digital Marketing Specialist",
+        "Brand Strategist"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "HubSpot Academy's Marketing Courses",
+            "url": "https://academy.hubspot.com/"
+          },
+          {
+            "title": "Coursera's Digital Marketing Specialization",
+            "url": "https://www.coursera.org/specializations/digital-marketing"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Google's Digital Garage",
+            "url": "https://learndigital.withgoogle.com/digitalgarage"
+          },
+          {
+            "title": "Udemy's Complete Digital Marketing Course",
+            "url": "https://www.udemy.com/course/digital-marketing-course/"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "Neil Patel",
+            "url": "https://neilpatel.com/blog/"
+          },
+          {
+            "title": "Marketing Land",
+            "url": "https://marketingland.com/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "LinkedIn Marketing Solutions",
+            "url": "https://business.linkedin.com/marketing-solutions"
+          },
+          {
+            "title": "MarketingProfs",
+            "url": "https://www.marketingprofs.com/"
+          }
+        ]
+      },
+      "Insights": "Marketing professionals are in demand due to the growing emphasis on digital strategies and brand management."
+    },
+    "Finance": {
+      "Opportunities and Roles": [
+        "Financial Analyst",
+        "Investment Banker",
+        "Financial Planner"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "CFA Institute's Financial Analyst Courses",
+            "url": "https://www.cfainstitute.org/"
+          },
+          {
+            "title": "Coursera's Financial Markets",
+            "url": "https://www.coursera.org/learn/financial-markets"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Udemy's Financial Analyst Course",
+            "url": "https://www.udemy.com/"
+          },
+          {
+            "title": "Khan Academy's Finance and Capital Markets",
+            "url": "https://www.khanacademy.org/economics-finance-domain/core-finance"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "Bloomberg",
+            "url": "https://www.bloomberg.com/"
+          },
+          {
+            "title": "Financial Times",
+            "url": "https://www.ft.com/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "CFA Society",
+            "url": "https://www.cfainstitute.org/"
+          },
+          {
+            "title": "Financial Planning Association",
+            "url": "https://www.onefpa.org/"
+          }
+        ]
+      },
+      "Insights": "The finance sector offers lucrative career opportunities with roles in analysis, investment, and financial planning."
+    }
+  },
+  "Arts and Humanities": {
+    "Visual Arts": {
+      "Opportunities and Roles": [
+        "Artist",
+        "Graphic Designer",
+        "Art Director"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "Coursera's Art & Humanities Courses",
+            "url": "https://www.coursera.org/search?query=performing%20arts%20courses"
+          },
+          {
+            "title": "Skillshare's Visual Arts Classes",
+            "url": "https://www.skillshare.com/browse/visual-arts"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Udemy's Graphic Design Masterclass",
+            "url": "https://www.udemy.com/courses/search/?q=graphic+design&src=sac&kw=gra"
+          },
+          {
+            "title": "LinkedIn Learning's Visual Arts Courses",
+            "url": "https://www.linkedin.com/learning/search?keywords=visual%20arts"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "Design Milk",
+            "url": "https://design-milk.com/"
+          },
+          {
+            "title": "The Art Newspaper",
+            "url": "https://www.theartnewspaper.com/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "Behance",
+            "url": "https://www.behance.net/"
+          },
+          {
+            "title": "Dribbble",
+            "url": "https://dribbble.com/"
+          }
+        ]
+      },
+      "Insights": "Visual arts professionals work in various creative fields, from fine arts to digital design."
+    },
+    "Performing Arts": {
+      "Opportunities and Roles": [
+        "Actor",
+        "Musician",
+        "Stage Director"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "Coursera's Performing Arts Courses",
+            "url": "https://www.coursera.org/search?query=arts%20courses"
+          },
+          {
+            "title": "Berklee Online's Music Courses",
+            "url": "https://online.berklee.edu/courses"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Udemy's Acting Techniques Course",
+            "url": "https://www.udemy.com/courses/search/?src=ukw&q=acting+techniques"
+          },
+          {
+            "title": "LinkedIn Learning's Music Production Courses",
+            "url": "https://www.linkedin.com/learning/topics/music-production"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "StageMilk",
+            "url": "https://www.stagemilk.com/"
+          },
+          {
+            "title": "The Music Network",
+            "url": "https://themusicnetwork.com/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "Casting Networks",
+            "url": "https://www.castingnetworks.com/"
+          },
+          {
+            "title": "Musical Chairs",
+            "url": "https://www.musicalchairs.info/"
+          }
+        ]
+      },
+      "Insights": "Performing arts careers span theatre, music, and dance, offering creative expression opportunities."
+    },
+    "Literature and Writing": {
+      "Opportunities and Roles": [
+        "Writer",
+        "Editor",
+        "Literary Agent"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "Gotham Writers Workshop",
+            "url": "https://www.writingclasses.com/"
+          },
+          {
+            "title": "Coursera's Creative Writing Specialization",
+            "url": "https://www.coursera.org/specializations/creative-writing"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Udemy's Writing Mastery Course",
+            "url": "https://www.udemy.com/course/writing-mastery-how-to-write-anything-with-confidence/"
+          },
+          {
+            "title": "LinkedIn Learning's Writing Courses",
+            "url": "https://www.linkedin.com/learning/topics/writing"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "Writer's Digest",
+            "url": "https://www.writersdigest.com/"
+          },
+          {
+            "title": "The Creative Penn",
+            "url": "https://www.thecreativepenn.com/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "The Editorial Freelancers Association",
+            "url": "https://www.the-efa.org/"
+          },
+          {
+            "title": "Writers' Guild",
+            "url": "https://www.writersguild.org.uk/"
+          }
+        ]
+      },
+      "Insights": "Careers in literature and writing offer diverse opportunities from authorship to editing."
+    },
+    "Journalism": {
+      "Opportunities and Roles": [
+        "Journalist",
+        "News Reporter",
+        "Media Correspondent"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "Poynter Institute",
+            "url": "https://www.poynter.org/"
+          },
+          {
+            "title": "Coursera's Journalism Specialization",
+            "url": "https://www.coursera.org/search?query=journalism"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Udemy's Journalism Essentials Course",
+            "url": "https://www.udemy.com/courses/search/?q=journalism&src=sac&kw=jour"
+          },
+          {
+            "title": "LinkedIn Learning's Journalism Courses",
+            "url": "https://www.linkedin.com/learning/search?keywords=journalism"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "Journalism.co.uk",
+            "url": "https://www.journalism.co.uk/"
+          },
+          {
+            "title": "Nieman Lab",
+            "url": "https://www.niemanlab.org/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "Association of Journalists",
+            "url": "https://www.nuj.org.uk/"
+          },
+          {
+            "title": "LinkedIn Journalism Group",
+            "url": "https://www.linkedin.com/groups/43850/"
+          }
+        ]
+      },
+      "Insights": "Journalism offers dynamic career paths in print, broadcast, and digital media."
+    },
+    "Film and Television": {
+      "Opportunities and Roles": [
+        "Film Director",
+        "Screenwriter",
+        "Television Producer"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "MasterClass Film Courses",
+            "url": "https://www.masterclass.com/"
+          },
+          {
+            "title": "Coursera's Film and Television Courses",
+            "url": "https://www.coursera.org/search?query=Film%20and%20Television%20Courses"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Udemy's Filmmaking Course",
+            "url": "https://www.udemy.com/courses/search/?q=film+making&src=sac&kw=film+ma"
+          },
+          {
+            "title": "LinkedIn Learning's Film Production Courses",
+            "url": "https://www.linkedin.com/learning/search?keywords=film%20making"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "IndieWire",
+            "url": "https://www.indiewire.com/"
+          },
+          {
+            "title": "The Hollywood Reporter",
+            "url": "https://www.hollywoodreporter.com/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "Film Independent",
+            "url": "https://www.filmindependent.org/"
+          },
+          {
+            "title": "LinkedIn Film & TV Group",
+            "url": "https://www.linkedin.com/groups/4074625/"
+          }
+        ]
+      },
+      "Insights": "Film and television careers involve creative production and storytelling."
+    },
+    "History and Cultural Studies": {
+      "Opportunities and Roles": [
+        "Historian",
+        "Museum Curator",
+        "Cultural Consultant"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "Coursera's History Courses",
+            "url": "https://www.coursera.org/browse/arts-and-humanities/history"
+          },
+          {
+            "title": "edX's Cultural Studies Programs",
+            "url": "https://www.edx.org/learn/cultural-studies"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Udemy's Historical Research Course",
+            "url": "https://www.udemy.com/courses/search/?src=ukw&q=Historical+Research"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "History Today",
+            "url": "https://www.historytoday.com/"
+          },
+          {
+            "title": "Museums Association",
+            "url": "https://www.museumsassociation.org/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "American Historical Association",
+            "url": "https://www.historians.org/"
+          },
+          {
+            "title": "International Council of Museums",
+            "url": "https://icom.museum/en/"
+          }
+        ]
+      },
+      "Insights": "Careers in history and cultural studies involve research, preservation, and education."
+    }
+  },
+  "Health and Medicine": {
     "Medicine": {
       "Opportunities and Roles": ["Doctor", "Surgeon", "Medical Researcher"],
       "Resources": {
         "Educational Resources": [
-          {"title": "All India Institute of Medical Sciences (AIIMS)", "url": "https://www.aiims.edu/"},
-          {"title": "National Medical Commission", "url": "https://www.nmc.org.in/"}
+          {"title": "Coursera's Medical Courses", "url": "https://www.coursera.org/search?query=medical%20courses&topic=Health&sortBy=BEST_MATCH"},
+          {"title": "Harvard Medical School's Online Learning", "url": "https://onlinelearning.hms.harvard.edu/"}
         ],
         "Online Courses": [
-          {"title": "Coursera's Medical Courses", "url": "https://www.coursera.org/browse/health"},
-          {"title": "edX Harvard Medical School Courses", "url": "https://www.edx.org/school/harvardx"}
+          {"title": "Udemy's Medical Terminology Course", "url": "https://www.udemy.com/course/medical-terminology-101/"},
+          {"title": "edX's Introduction to Medical Research", "url": "https://www.edx.org/course/introduction-to-clinical-research"}
         ],
         "Industry Blogs": [
-          {"title": "The Lancet", "url": "https://www.thelancet.com/"},
-          {"title": "New England Journal of Medicine", "url": "https://www.nejm.org/"}
+          {"title": "Medical News Today", "url": "https://www.medicalnewstoday.com/"},
+          {"title": "The Lancet", "url": "https://www.thelancet.com/"}
         ],
         "Professional Networks": [
-          {"title": "Indian Medical Association", "url": "https://www.ima-india.org/"},
-          {"title": "World Medical Association", "url": "https://www.wma.net/"}
+          {"title": "American Medical Association", "url": "https://www.ama-assn.org/"},
+          {"title": "LinkedIn Medical Professionals Group", "url": "https://www.linkedin.com/groups/74296/"}
         ]
       },
-      "Insights": "Medicine offers the opportunity to directly impact lives and contribute to healthcare advancement."
+      "Insights": "Careers in medicine require extensive education and training, offering various specializations and high job stability."
     },
     "Nursing": {
-      "Opportunities and Roles": ["Registered Nurse", "Nurse Practitioner", "Clinical Specialist"],
+      "Opportunities and Roles": ["Registered Nurse", "Nurse Practitioner", "Clinical Nurse Specialist"],
       "Resources": {
         "Educational Resources": [
-          {"title": "Indian Nursing Council", "url": "https://indiannursingcouncil.org/"},
-          {"title": "All India Institute of Medical Sciences Nursing", "url": "https://www.aiims.edu/"}
+          {"title": "Nursing.org's Nursing Programs", "url": "https://www.nursing.org/"},
+          {"title": "Coursera's Nursing Specialization", "url": "https://www.coursera.org/search?query=nursing&topic=Health&sortBy=BEST_MATCH"}
         ],
         "Online Courses": [
-          {"title": "Coursera's Nursing Courses", "url": "https://www.coursera.org/browse/health/nursing"},
-          {"title": "edX Nursing Essentials", "url": "https://www.edx.org/course/nursing"}
+          {"title": "Udemy's Nursing Essentials Course", "url": "https://www.udemy.com/course/nursing-essentials/"},
+          {"title": "edX's Nursing Professional Development", "url": "https://www.edx.org/learn/nursing"}
         ],
         "Industry Blogs": [
-          {"title": "American Journal of Nursing", "url": "https://journals.lww.com/ajnonline/"},
-          {"title": "Nursing Times", "url": "https://www.nursingtimes.net/"}
+          {"title": "Nurse.org", "url": "https://nurse.org/"},
+          {"title": "American Nurse Today", "url": "https://www.myamericannurse.com/"}
         ],
         "Professional Networks": [
-          {"title": "Trained Nurses Association of India", "url": "https://www.tnai.org/"},
-          {"title": "International Council of Nurses", "url": "https://www.icn.ch/"}
+          {"title": "American Nurses Association", "url": "https://www.nursingworld.org/"},
+          {"title": "LinkedIn Nursing Group", "url": "https://www.linkedin.com/groups/85582/"}
         ]
       },
-      "Insights": "Nursing is a vital healthcare profession focused on patient care and health promotion."
-    }
-  },
-  "Business": {
-    "Management": {
-      "Opportunities and Roles": ["Manager", "Team Lead", "Project Manager"],
-      "Resources": {
-        "Educational Resources": [
-          {"title": "Indian Institutes of Management (IIM)", "url": "https://www.iimcat.ac.in/"},
-          {"title": "Harvard Business School Online", "url": "https://online.hbs.edu/"}
-        ],
-        "Online Courses": [
-          {"title": "Coursera's Management Courses", "url": "https://www.coursera.org/browse/business/management-and-leadership"},
-          {"title": "edX MIT Management", "url": "https://www.edx.org/school/mitx"}
-        ],
-        "Industry Blogs": [
-          {"title": "Harvard Business Review", "url": "https://hbr.org/"},
-          {"title": "McKinsey Insights", "url": "https://www.mckinsey.com/insights"}
-        ],
-        "Professional Networks": [
-          {"title": "Project Management Institute", "url": "https://www.pmi.org/"},
-          {"title": "LinkedIn Management Groups", "url": "https://www.linkedin.com/groups/"}
-        ]
-      },
-      "Insights": "Management roles involve leading teams and driving organizational success across various industries."
+      "Insights": "Nursing offers diverse roles in patient care, with opportunities for specialization and advancement."
     },
-    "Consulting": {
-      "Opportunities and Roles": ["Business Consultant", "Strategy Consultant", "Management Consultant"],
+    "Public Health": {
+      "Opportunities and Roles": ["Public Health Analyst", "Epidemiologist", "Health Educator"],
       "Resources": {
         "Educational Resources": [
-          {"title": "Case Interview Preparation", "url": "https://www.preplounge.com/"},
-          {"title": "McKinsey Insights", "url": "https://www.mckinsey.com/insights"}
+          {"title": "Coursera's Public Health Specialization", "url": "https://www.coursera.org/search?query=public%20health"},
+          {"title": "edX's Public Health Programs", "url": "https://www.edx.org/learn/public-health"}
         ],
         "Online Courses": [
-          {"title": "Coursera's Consulting Courses", "url": "https://www.coursera.org/browse/business/business-strategy"},
-          {"title": "edX Strategy Courses", "url": "https://www.edx.org/course/strategy"}
+          {"title": "Udemy's Introduction to Public Health Course", "url": "https://www.udemy.com/course/introduction-to-public-health/"},
+          {"title": "LinkedIn Learning's Health & Wellness Courses", "url": "https://www.linkedin.com/learning/search?keywords=health%20and%20wellness"}
         ],
         "Industry Blogs": [
-          {"title": "BCG Insights", "url": "https://www.bcg.com/insights"},
-          {"title": "Bain Insights", "url": "https://www.bain.com/insights/"}
+          {"title": "Public Health Insights", "url": "https://thepublichealthinsight.com/"},
+          {"title": "The American Public Health Association", "url": "https://www.apha.org/"}
         ],
         "Professional Networks": [
-          {"title": "Management Consultancies Association", "url": "https://www.mca.org.uk/"},
-          {"title": "LinkedIn Consulting Groups", "url": "https://www.linkedin.com/groups/"}
+          {"title": "American Public Health Association", "url": "https://www.apha.org/"},
+          {"title": "LinkedIn Public Health Group", "url": "https://www.linkedin.com/groups/2305824/"}
         ]
       },
-      "Insights": "Consulting offers diverse problem-solving opportunities across industries with high growth potential."
+      "Insights": "Public health focuses on improving community health and preventing disease."
+    },
+    "Medical Research": {
+      "Opportunities and Roles": ["Medical Researcher", "Clinical Research Coordinator", "Biomedical Scientist"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "PubMed", "url": "https://pubmed.ncbi.nlm.nih.gov/"},
+          {"title": "Coursera's Medical Research Courses", "url": "https://www.coursera.org/courses?query=medical%20research"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Medical Research Course", "url": "https://www.udemy.com/courses/search/?q=medical+research&src=sac&kw=medical+re"},
+          {"title": "LinkedIn Learning's Medical Research Courses", "url": "https://www.linkedin.com/learning/search?keywords=medical%20research"}
+        ],
+        "Industry Blogs": [
+          {"title": "Nature Reviews Drug Discovery", "url": "https://www.nature.com/nrd/"},
+          {"title": "Science Daily Medical Research", "url": "https://www.sciencedaily.com/news/health_medicine/medical_research/"}
+        ],
+        "Professional Networks": [
+          {"title": "American Association for the Advancement of Science", "url": "https://www.aaas.org/"},
+          {"title": "LinkedIn Medical Research Group", "url": "https://www.linkedin.com/groups/124401/"}
+        ]
+      },
+      "Insights": "Medical research involves studying diseases and developing treatments, advancing medical knowledge and improving health outcomes."
     }
   },
   "Engineering": {
-    "Civil Engineering": {
-      "Opportunities and Roles": ["Civil Engineer", "Structural Engineer", "Project Manager"],
-      "Resources": {
-        "Educational Resources": [
-          {"title": "Indian Institute of Technology (IIT)", "url": "https://www.iit.ac.in/"},
-          {"title": "American Society of Civil Engineers", "url": "https://www.asce.org/"}
-        ],
-        "Online Courses": [
-          {"title": "Coursera's Civil Engineering Courses", "url": "https://www.coursera.org/browse/physical-science-and-engineering/civil-engineering"},
-          {"title": "edX Structural Engineering", "url": "https://www.edx.org/course/structural-engineering"}
-        ],
-        "Industry Blogs": [
-          {"title": "Civil Engineering Portal", "url": "https://www.engineeringcivil.com/"},
-          {"title": "ASCE News", "url": "https://www.asce.org/news/"}
-        ],
-        "Professional Networks": [
-          {"title": "Institution of Civil Engineers India", "url": "https://www.ice.org.uk/"},
-          {"title": "Indian Society for Technical Education", "url": "https://www.iste.ac.in/"}
-        ]
-      },
-      "Insights": "Civil engineering involves designing and constructing infrastructure that shapes our society."
-    },
     "Mechanical Engineering": {
-      "Opportunities and Roles": ["Mechanical Engineer", "Design Engineer", "Manufacturing Engineer"],
+      "Opportunities and Roles": [
+        "Mechanical Engineer",
+        "Design Engineer",
+        "Manufacturing Engineer"
+      ],
       "Resources": {
         "Educational Resources": [
-          {"title": "American Society of Mechanical Engineers", "url": "https://www.asme.org/"},
-          {"title": "Institution of Mechanical Engineers", "url": "https://www.imeche.org/"}
+          {
+            "title": "MIT OpenCourseWare Mechanical Engineering",
+            "url": "https://ocw.mit.edu/courses/mechanical-engineering/"
+          },
+          {
+            "title": "Coursera's Mechanical Engineering Courses",
+            "url": "https://www.coursera.org/search?query=mechanical%20engineering"
+          }
         ],
         "Online Courses": [
-          {"title": "Coursera's Mechanical Engineering", "url": "https://www.coursera.org/browse/physical-science-and-engineering/mechanical-engineering"},
-          {"title": "edX Manufacturing Courses", "url": "https://www.edx.org/course/manufacturing"}
+          {
+            "title": "Udemy's Mechanical Engineering Course",
+            "url": "https://www.udemy.com/course/mechanical-engineering/"
+          },
+          {
+            "title": "edX's Introduction to Mechanical Engineering",
+            "url": "https://www.edx.org/course/introduction-to-mechanical-engineering"
+          }
         ],
         "Industry Blogs": [
-          {"title": "Machine Design", "url": "https://www.machinedesign.com/"},
-          {"title": "Mechanical Engineering Magazine", "url": "https://www.asme.org/topics-resources/content/mechanical-engineering-magazine"}
+          {
+            "title": "Mechanical Engineering Magazine",
+            "url": "https://www.asme.org/publications/mechanical-engineering-magazine"
+          },
+          {
+            "title": "Engineering.com",
+            "url": "https://www.engineering.com/"
+          }
         ],
         "Professional Networks": [
-          {"title": "ASME Professional Networks", "url": "https://www.asme.org/"},
-          {"title": "LinkedIn Mechanical Engineering Groups", "url": "https://www.linkedin.com/groups/"}
+          {
+            "title": "ASME",
+            "url": "https://www.asme.org/"
+          },
+          {
+            "title": "LinkedIn Mechanical Engineering Group",
+            "url": "https://www.linkedin.com/groups/86755/"
+          }
         ]
       },
-      "Insights": "Mechanical engineering covers a broad range of applications from automotive to aerospace industries."
+      "Insights": "Mechanical engineering is crucial in sectors like manufacturing, automotive, and aerospace."
+    },
+    "Civil Engineering": {
+      "Opportunities and Roles": [
+        "Civil Engineer",
+        "Structural Engineer",
+        "Urban Planner"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "American Society of Civil Engineers (ASCE)",
+            "url": "https://www.asce.org/"
+          },
+          {
+            "title": "Coursera's Civil Engineering Courses",
+            "url": "https://www.coursera.org/search?query=civil%20engineering"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Udemy's Civil Engineering Course",
+            "url": "https://www.udemy.com/course/civil-engineering/"
+          },
+          {
+            "title": "edX's Introduction to Civil Engineering",
+            "url": "https://www.edx.org/course/introduction-to-civil-engineering"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "Civil Engineering Magazine",
+            "url": "https://www.asce.org/publications/civil-engineering-magazine"
+          },
+          {
+            "title": "Civil Engineering Portal",
+            "url": "https://www.engineeringcivil.com/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "ASCE",
+            "url": "https://www.asce.org/"
+          },
+          {
+            "title": "LinkedIn Civil Engineering Group",
+            "url": "https://www.linkedin.com/groups/85881/"
+          }
+        ]
+      },
+      "Insights": "Civil engineering focuses on infrastructure development, offering stable career opportunities."
+    },
+    "Electrical Engineering": {
+      "Opportunities and Roles": [
+        "Electrical Engineer",
+        "Electronics Engineer",
+        "Power Systems Engineer"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "IEEE Educational Resources",
+            "url": "https://www.ieee.org/education/index.html"
+          },
+          {
+            "title": "Coursera's Electrical Engineering Specialization",
+            "url": "https://www.coursera.org/search?query=electrical%20engineering"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Udemy's Electrical Engineering Course",
+            "url": "https://www.udemy.com/course/electrical-engineering/"
+          },
+          {
+            "title": "edX's Introduction to Electrical Engineering",
+            "url": "https://www.edx.org/course/introduction-to-electrical-engineering"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "EDN Network",
+            "url": "https://www.edn.com/"
+          },
+          {
+            "title": "Electrical Engineering Times",
+            "url": "https://www.eetimes.com/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "IEEE",
+            "url": "https://www.ieee.org/"
+          },
+          {
+            "title": "LinkedIn Electrical Engineering Group",
+            "url": "https://www.linkedin.com/groups/37695/"
+          }
+        ]
+      },
+      "Insights": "Electrical engineering encompasses electrical systems and electronics, with career prospects in energy, telecommunications, and automation."
+    },
+    "Chemical Engineering": {
+      "Opportunities and Roles": [
+        "Chemical Engineer",
+        "Process Engineer",
+        "Biochemical Engineer"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "AIChE's Chemical Engineering Courses",
+            "url": "https://www.aiche.org/"
+          },
+          {
+            "title": "Coursera's Chemical Engineering Specialization",
+            "url": "https://www.coursera.org/search?query=chemical%20engineering"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Udemy's Chemical Engineering Course",
+            "url": "https://www.udemy.com/course/chemical-engineering/"
+          },
+          {
+            "title": "edX's Introduction to Chemical Engineering",
+            "url": "https://www.edx.org/course/introduction-to-chemical-engineering"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "Chemical Engineering Magazine",
+            "url": "https://www.chemengonline.com/"
+          },
+          {
+            "title": "Chemical & Engineering News",
+            "url": "https://cen.acs.org/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "AIChE",
+            "url": "https://www.aiche.org/"
+          },
+          {
+            "title": "LinkedIn Chemical Engineering Group",
+            "url": "https://www.linkedin.com/groups/84942/"
+          }
+        ]
+      },
+      "Insights": "Chemical engineering integrates chemistry with engineering principles, offering careers in pharmaceuticals, energy, and manufacturing."
+    },
+    "Computer Science": {
+      "Opportunities and Roles": [
+        "Software Developer",
+        "Data Scientist",
+        "Cybersecurity Analyst"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "Coursera's Computer Science Courses",
+            "url": "https://www.coursera.org/browse/computer-science"
+          },
+          {
+            "title": "edX's Computer Science Programs",
+            "url": "https://www.edx.org/learn/computer-science"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Udemy's Web Development Bootcamp",
+            "url": "https://www.udemy.com/course/the-web-developer-bootcamp/"
+          },
+          {
+            "title": "LinkedIn Learning's Data Science Courses",
+            "url": "https://www.linkedin.com/learning/topics/data-science"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "TechCrunch",
+            "url": "https://techcrunch.com/"
+          },
+          {
+            "title": "Wired",
+            "url": "https://www.wired.com/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "GitHub",
+            "url": "https://github.com/"
+          },
+          {
+            "title": "LinkedIn Computer Science Group",
+            "url": "https://www.linkedin.com/groups/6547890/"
+          }
+        ]
+      },
+      "Insights": "Computer Science offers vast opportunities in software development, data science, and cybersecurity."
     }
   },
   "Education and Teaching": {
@@ -368,10 +1146,6 @@ export const hardcodedCareers = {
         "Industry Blogs": [
           {"title": "Law & Order Blog", "url": "https://www.lawandorder.com/"},
           {"title": "Criminal Law Forum", "url": "https://link.springer.com/journal/10609"}
-        ],
-        "Professional Networks": [
-          {"title": "National Association of Criminal Defense Lawyers", "url": "https://www.nacdl.org/"},
-          {"title": "LinkedIn Criminal Law Group", "url": "https://www.linkedin.com/groups/121728/"}
         ]
       },
       "Insights": "Criminal law involves defending and prosecuting criminal cases, with roles in legal advocacy and forensic analysis."
@@ -786,474 +1560,301 @@ export const hardcodedCareers = {
       },
       "Insights": "International relations professionals play a critical role in shaping global policies and fostering diplomatic relationships."
     }
-  },
-  "Environmental and Agricultural Sciences": {
-    "Sustainable Agriculture": {
-      "Opportunities and Roles": ["Agronomist", "Sustainable Farm Manager", "Agricultural Consultant"],
-      "Resources": {
-        "Educational Resources": [
-          {"title": "Indian Council of Agricultural Research (ICAR)", "url": "https://icar.org.in/"},
-          {"title": "Wageningen University's Agriculture Programs", "url": "https://www.wur.nl/en/Research-Results.htm"}
-        ],
-        "Online Courses": [
-          {"title": "edX's Sustainable Agricultural Land Management", "url": "https://www.edx.org/course/sustainable-agricultural-land-management"},
-          {"title": "Coursera's Sustainable Food Production", "url": "https://www.coursera.org/courses?query=sustainable%20food%20production"}
-        ],
-        "Industry Blogs": [
-          {"title": "The Agroecologist", "url": "https://www.cstsavings.ca/blog/agroecologist/"},
-          {"title": "The Green Revolution Blog", "url": "https://www.localfutures.org/the-green-revolution-no-way-to-feed-a-hungry-planet/"}
-        ],
-        "Professional Networks": [
-          {"title": "National Academy of Agricultural Sciences (NAAS)", "url": "http://naasindia.org/"},
-          {"title": "International Federation of Organic Agriculture Movements (IFOAM)", "url": "https://www.ifoam.bio/"}
-        ]
-      },
-      "Insights": "Sustainable agriculture is increasingly critical as global food demands rise, focusing on innovative farming techniques to ensure food security."
-    },
-    "Environmental Conservation": {
-      "Opportunities and Roles": ["Conservation Scientist", "Environmental Consultant", "Wildlife Manager"],
-      "Resources": {
-        "Educational Resources": [
-          {"title": "Wildlife Institute of India (WII)", "url": "https://wii.gov.in/"},
-          {"title": "Yale School of the Environment", "url": "https://environment.yale.edu/"}
-        ],
-        "Online Courses": [
-          {"title": "Coursera's Introduction to Environmental Law and Policy", "url": "https://www.coursera.org/courses?query=environmental%20law"},
-          {"title": "edX's Conservation and Ecosystem Management", "url": "https://www.edx.org/course/conservation-and-ecosystem-management"}
-        ],
-        "Industry Blogs": [
-          {"title": "Conservation International Blog", "url": "https://www.conservation.org/blog"},
-          {"title": "Mongabay India", "url": "https://india.mongabay.com/"}
-        ],
-        "Professional Networks": [
-          {"title": "The Nature Conservancy", "url": "https://www.nature.org/en-us/"},
-          {"title": "Society for Conservation Biology", "url": "https://conbio.org/"}
-        ]
-      },
-      "Insights": "Environmental conservation professionals work to protect natural habitats and biodiversity, helping to combat climate change."
-    },
-    "Forestry": {
-      "Opportunities and Roles": ["Forester", "Forest Ranger", "Forestry Consultant"],
-      "Resources": {
-        "Educational Resources": [
-          {"title": "Forest Research Institute, Dehradun", "url": "https://www.icfre.org/"},
-          {"title": "Oregon State University's Forestry Programs", "url": "https://www.forestry.oregonstate.edu/"}
-        ],
-        "Online Courses": [
-          {"title": "edX's Sustainable Forest Management", "url": "https://www.edx.org/course/sustainable-forest-management"},
-          {"title": "Coursera's Forest Ecosystem Management", "url": "https://www.coursera.org/courses?query=forest%20ecosystem"}
-        ],
-        "Industry Blogs": [
-          {"title": "Forest News", "url": "https://forestsnews.cifor.org/"},
-          {"title": "World Forestry Blog", "url": "https://www.globalforestwatch.org/blog/"}
-        ],
-        "Professional Networks": [
-          {"title": "Society of American Foresters (SAF)", "url": "https://www.eforester.org/"},
-          {"title": "Indian Institute of Forest Management (IIFM)", "url": "http://iifm.ac.in/"}
-        ]
-      },
-      "Insights": "Forestry careers focus on managing forest ecosystems, combining fieldwork and research opportunities."
-    },
-    "Agricultural Engineering": {
-      "Opportunities and Roles": ["Agricultural Engineer", "Irrigation Engineer", "Farm Equipment Designer"],
-      "Resources": {
-        "Educational Resources": [
-          {"title": "Indian Agricultural Research Institute (IARI)", "url": "https://www.iari.res.in/"},
-          {"title": "Purdue University's Agricultural Engineering Programs", "url": "https://engineering.purdue.edu/ABE"}
-        ],
-        "Online Courses": [
-          {"title": "Coursera's Agricultural Engineering Fundamentals", "url": "https://www.coursera.org/courses?query=agricultural%20engineering"},
-          {"title": "edX's Precision Agriculture", "url": "https://www.edx.org/course/precision-agriculture"}
-        ],
-        "Industry Blogs": [
-          {"title": "Agri Engineering Today", "url": "https://isae.in/agricultural-engineering-today/"},
-          {"title": "Farmers Weekly", "url": "https://www.fwi.co.uk/"}
-        ],
-        "Professional Networks": [
-          {"title": "American Society of Agricultural and Biological Engineers (ASABE)", "url": "https://www.asabe.org/"},
-          {"title": "Indian Society of Agricultural Engineers (ISAE)", "url": "https://isae.in/"}
-        ]
-      },
-      "Insights": "Agricultural engineering advances farming practices through technology and innovation, focusing on improving efficiency and sustainability."
-    },
-    "Horticulture": {
-      "Opportunities and Roles": ["Horticulturist", "Landscape Designer", "Nursery Manager"],
-      "Resources": {
-        "Educational Resources": [
-          {"title": "Dr. YSR Horticultural University", "url": "https://drysrhu.ap.gov.in/"},
-          {"title": "University of Florida Horticulture Programs", "url": "https://hort.ifas.ufl.edu/"}
-        ],
-        "Online Courses": [
-          {"title": "edX's Horticulture Essentials", "url": "https://www.edx.org/course/horticulture-essentials"},
-          {"title": "Coursera's Plant Biology and Horticulture", "url": "https://www.coursera.org/courses?query=horticulture"}
-        ],
-        "Industry Blogs": [
-          {"title": "Gardening Know How", "url": "https://www.gardeningknowhow.com/"},
-          {"title": "Horticulture Week", "url": "https://www.hortweek.com/"}
-        ],
-        "Professional Networks": [
-          {"title": "American Society for Horticultural Science (ASHS)", "url": "https://ashs.org/"},
-          {"title": "Horticultural Society of India (HSI)", "url": "https://iahs.org.in/headquarters/"}
-        ]
-      },
-      "Insights": "Horticulture focuses on plant cultivation, offering careers in food production, landscaping, and ecological restoration."
-    }
-  },
-  "Communications and Media": {
-    "Broadcasting": {
-      "Opportunities and Roles": ["Broadcast Journalist", "Radio Producer", "News Anchor"],
-      "Resources": {
-        "Educational Resources": [
-          {"title": "Asian College of Journalism", "url": "https://www.asianmedia.org.in/"},
-          {"title": "Columbia Journalism School", "url": "https://journalism.columbia.edu/"}
-        ],
-        "Online Courses": [
-          {"title": "Coursera's Journalism Basics", "url": "https://www.coursera.org/courses?query=journalism"},
-          {"title": "edX's Broadcast Media Technology", "url": "https://www.edx.org/course/broadcast-media-technology"}
-        ],
-        "Industry Blogs": [
-          {"title": "Poynter Institute", "url": "https://www.poynter.org/"},
-          {"title": "Broadcast Engineering", "url": "https://www.broadcastengineering.com/"}
-        ],
-        "Professional Networks": [
-          {"title": "National Association of Broadcasters (NAB)", "url": "https://www.nab.org/"},
-          {"title": "Broadcast Journalists of India", "url": "https://en.wikipedia.org/wiki/List_of_Indian_journalists"}
-        ]
-      },
-      "Insights": "Broadcasting offers dynamic roles in radio, television, and online media, requiring creativity, technical skills, and the ability to work under pressure."
-    },
-    "Public Relations": {
-      "Opportunities and Roles": ["Public Relations Specialist", "Media Relations Manager", "Corporate Communications Director"],
-      "Resources": {
-        "Educational Resources": [
-          {"title": "Indian Institute of Mass Communication (IIMC)", "url": "https://www.iimc.gov.in/"},
-          {"title": "USC Annenberg School for Communication and Journalism", "url": "https://annenberg.usc.edu/"}
-        ],
-        "Online Courses": [
-          {"title": "Coursera's Public Relations for the 21st Century", "url": "https://www.coursera.org/courses?query=public%20relations"},
-          {"title": "edX's Corporate Communication", "url": "https://www.edx.org/course/corporate-communication"}
-        ],
-        "Industry Blogs": [
-          {"title": "PR Week", "url": "https://www.prweek.com/"},
-          {"title": "PR News", "url": "https://www.prnewsonline.com/"}
-        ],
-        "Professional Networks": [
-          {"title": "Public Relations Society of India (PRSI)", "url": "https://prsi.in/"},
-          {"title": "Public Relations Society of America (PRSA)", "url": "https://www.prsa.org/"}
-        ]
-      },
-      "Insights": "Public relations is crucial for managing a company's reputation and media presence, with opportunities in communication strategy, media relations, and crisis management."
-    },
-    "Social Media Management": {
-      "Opportunities and Roles": ["Social Media Manager", "Content Strategist", "Digital Marketing Specialist"],
-      "Resources": {
-        "Educational Resources": [
-          {"title": "Simplilearn's Digital Marketing Specialist Program", "url": "https://www.simplilearn.com/"},
-          {"title": "HubSpot Academy", "url": "https://academy.hubspot.com/"}
-        ],
-        "Online Courses": [
-          {"title": "Coursera's Social Media Marketing", "url": "https://www.coursera.org/courses?query=social%20media%20marketing"},
-          {"title": "edX's Digital Marketing", "url": "https://www.edx.org/course/digital-marketing"}
-        ],
-        "Industry Blogs": [
-          {"title": "Social Media Examiner", "url": "https://www.socialmediaexaminer.com/"},
-          {"title": "Buffer Blog", "url": "https://buffer.com/resources"}
-        ],
-        "Professional Networks": [
-          {"title": "Social Media Club", "url": "https://www.socialmediaclub.org/"},
-          {"title": "LinkedIn Groups: Social Media Marketing", "url": "https://www.linkedin.com/groups/2099285/"}
-        ]
-      },
-      "Insights": "Social media management is a rapidly growing field with roles in content creation, strategy, and analytics, offering opportunities for creativity and technical expertise."
-    },
-    "Film and Television": {
-      "Opportunities and Roles": ["Film Director", "Screenwriter", "Television Producer"],
-      "Resources": {
-        "Educational Resources": [
-          {"title": "Film and Television Institute of India (FTII)", "url": "https://www.ftii.ac.in/"},
-          {"title": "New York Film Academy", "url": "https://www.nyfa.edu/"}
-        ],
-        "Online Courses": [
-          {"title": "Coursera's Script Writing", "url": "https://www.coursera.org/courses?query=script%20writing"},
-          {"title": "edX's Filmmaking Essentials", "url": "https://www.edx.org/course/filmmaking-essentials"}
-        ],
-        "Industry Blogs": [
-          {"title": "IndieWire", "url": "https://www.indiewire.com/"},
-          {"title": "The Script Lab", "url": "https://thescriptlab.com/"}
-        ],
-        "Professional Networks": [
-          {"title": "Film Directors Guild of India", "url": "https://www.directorsiftda.com/"},
-          {"title": "Screenwriters Association (SWA)", "url": "https://www.swaindia.org/"}
-        ]
-      },
-      "Insights": "Film and television offer creative careers with opportunities in storytelling, production, and direction. The industry is competitive but provides the chance to influence culture and entertain audiences."
-    },
-    "Advertising": {
-      "Opportunities and Roles": ["Advertising Executive", "Copywriter", "Art Director"],
-      "Resources": {
-        "Educational Resources": [
-          {"title": "MICA Ahmedabad", "url": "https://www.mica.ac.in/"},
-          {"title": "The Creative Circus", "url": "https://creativecircus.edu/"}
-        ],
-        "Online Courses": [
-          {"title": "Coursera's Advertising Strategy", "url": "https://www.coursera.org/courses?query=advertising%20strategy"},
-          {"title": "edX's Creative Advertising", "url": "https://www.edx.org/course/creative-advertising"}
-        ],
-        "Industry Blogs": [
-          {"title": "Adweek", "url": "https://www.adweek.com/"},
-          {"title": "The Drum", "url": "https://www.thedrum.com/"}
-        ],
-        "Professional Networks": [
-          {"title": "Advertising Club of India", "url": "https://theadvertisingclub.net/"},
-          {"title": "American Advertising Federation (AAF)", "url": "https://www.aaf.org/"}
-        ]
-      },
-      "Insights": "Advertising blends creativity with strategy to influence consumer behavior. The field offers diverse roles in agencies, media, and corporate settings."
-    }
-  },
-  "Sports and Recreation": {
-    "Sports Management": {
-      "Opportunities and Roles": ["Sports Manager", "Event Coordinator", "Team Administrator"],
-      "Resources": {
-        "Educational Resources": [
-          {"title": "Tata Institute of Social Sciences (TISS) Sports Management Program", "url": "https://tiss.edu/"},
-          {"title": "University of Michigan's Sport Management Program", "url": "https://www.kines.umich.edu/"}
-        ],
-        "Online Courses": [
-          {"title": "Coursera's Sports Management", "url": "https://www.coursera.org/courses?query=sports%20management"},
-          {"title": "edX's Sports Analytics", "url": "https://www.edx.org/course/sports-analytics"}
-        ],
-        "Industry Blogs": [
-          {"title": "Sports Management Review", "url": "https://www.journals.elsevier.com/sport-management-review"},
-          {"title": "Sport Business", "url": "https://www.sportbusiness.com/"}
-        ],
-        "Professional Networks": [
-          {"title": "Sports Management Association of India (SMAI)", "url": "https://www.smai.org/"},
-          {"title": "North American Society for Sport Management (NASSM)", "url": "https://www.nassm.org/"}
-        ]
-      },
-      "Insights": "Sports management involves overseeing the business aspects of sports organizations and events, offering roles in team management, event coordination, and sports marketing."
-    },
-    "Coaching": {
-      "Opportunities and Roles": ["Sports Coach", "Fitness Trainer", "Performance Analyst"],
-      "Resources": {
-        "Educational Resources": [
-          {"title": "National Institute of Sports (NIS) Patiala", "url": "https://nsnis.org/"},
-          {"title": "The FA Level 1 Coaching Course", "url": "https://www.thefa.com/coaches/"}
-        ],
-        "Online Courses": [
-          {"title": "Coursera's Coaching in Sports", "url": "https://www.coursera.org/courses?query=coaching"},
-          {"title": "edX's Athletic Coaching", "url": "https://www.edx.org/course/athletic-coaching"}
-        ],
-        "Industry Blogs": [
-          {"title": "The Coaching Academy Blog", "url": "https://www.coachingacademy.com/blog/"},
-          {"title": "Coaching Edge", "url": "https://www.coachingedge.com/blog"}
-        ],
-        "Professional Networks": [
-          {"title": "International Council for Coaching Excellence (ICCE)", "url": "https://www.icce.ws/"},
-          {"title": "All India Football Federation (AIFF) Coaching", "url": "https://www.the-aiff.com/"}
-        ]
-      },
-      "Insights": "Coaching careers offer opportunities to mentor and develop athletes across various sports, ideal for those passionate about sports."
-    },
-    "Fitness Training": {
-      "Opportunities and Roles": ["Personal Trainer", "Group Fitness Instructor", "Strength and Conditioning Coach"],
-      "Resources": {
-        "Educational Resources": [
-          {"title": "National Academy of Sports Medicine (NASM)", "url": "https://www.nasm.org/"},
-          {"title": "American Council on Exercise (ACE)", "url": "https://www.acefitness.org/"}
-        ],
-        "Online Courses": [
-          {"title": "Coursera's Science of Exercise", "url": "https://www.coursera.org/courses?query=science%20of%20exercise"},
-          {"title": "edX's Nutrition and Physical Activity", "url": "https://www.edx.org/course/nutrition-and-physical-activity"}
-        ],
-        "Industry Blogs": [
-          {"title": "ACE Blog", "url": "https://www.acefitness.org/blog"},
-          {"title": "Fitness Blender Blog", "url": "https://www.fitnessblender.com/blog"}
-        ],
-        "Professional Networks": [
-          {"title": "Indian Fitness & Wellness Federation", "url": "http://www.ibbff.com/about"},
-          {"title": "International Sports Sciences Association (ISSA)", "url": "https://www.issaonline.com/"}
-        ]
-      },
-      "Insights": "Fitness training focuses on improving health and wellness, offering flexible work environments and opportunities for personal growth."
-    },
-    "Sports Medicine": {
-      "Opportunities and Roles": ["Sports Medicine Physician", "Physiotherapist", "Athletic Trainer"],
-      "Resources": {
-        "Educational Resources": [
-          {"title": "National Institute of Sports Medicine, India", "url": "http://nisindia.in/"},
-          {"title": "American College of Sports Medicine (ACSM)", "url": "https://www.acsm.org/"}
-        ],
-        "Online Courses": [
-          {"title": "Coursera's Sports Medicine Essentials", "url": "https://www.coursera.org/courses?query=sports%20medicine"},
-          {"title": "edX's Introduction to Sports Medicine", "url": "https://www.edx.org/course/introduction-to-sports-medicine"}
-        ],
-        "Industry Blogs": [
-          {"title": "BMJ Open Sport & Exercise Medicine", "url": "https://bmjopensem.bmj.com/"},
-          {"title": "Journal of Sports Medicine and Physical Fitness", "url": "https://www.minervamedica.it/en/journals/sports-med-physical-fitness/"}
-        ],
-        "Professional Networks": [
-          {"title": "Indian Association of Sports Medicine (IASM)", "url": "https://www.iasm.co.in/"},
-          {"title": "International Federation of Sports Medicine (FIMS)", "url": "https://www.fims.org/"}
-        ]
-      },
-      "Insights": "Sports medicine is an essential field for maintaining athlete health and performance, offering roles in clinical practice, research, and rehabilitation."
-    },
-    "Event Coordination": {
-      "Opportunities and Roles": ["Event Planner", "Sports Event Coordinator", "Venue Manager"],
-      "Resources": {
-        "Educational Resources": [
-          {"title": "Event Management Development Institute (EMDI)", "url": "https://www.emdiworld.com/"},
-          {"title": "George Washington University Event Management Program", "url": "https://www.gwu.edu/"}
-        ],
-        "Online Courses": [
-          {"title": "Coursera's Event Management", "url": "https://www.coursera.org/courses?query=event%20management"},
-          {"title": "edX's Managing Major Events", "url": "https://www.edx.org/course/managing-major-events"}
-        ],
-        "Industry Blogs": [
-          {"title": "Event Manager Blog", "url": "https://www.eventmanagerblog.com/"},
-          {"title": "BizBash", "url": "https://www.bizbash.com/"}
-        ],
-        "Professional Networks": [
-          {"title": "Event and Entertainment Management Association (EEMA)", "url": "https://www.eemaindia.com/"},
-          {"title": "Meeting Professionals International (MPI)", "url": "https://www.mpi.org/"}
-        ]
-      },
-      "Insights": "Event coordination involves planning and executing sports and recreational events, offering roles in project management, client relations, and logistical planning."
-    }
   }
 };
 
 export const CareerOptions = () => {
-  const [selectedCareer, setSelectedCareer] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [activeFilter, setActiveFilter] = useState<string>("");
+  const [customCareers, setCustomCareers] = useState<CustomCareer[]>([]);
+  const [categories, setCategories] = useState<CareerCategory[]>([]);
+  const carouselRef = useRef(null);
 
-  const handleCategoryClick = (category: string) => {
-    if (selectedCareer === category) {
-      setSelectedCareer(null);
+  // Default careers
+  const defaultCareers: Career[] = [
+    {
+      id: "software-developer",
+      title: "Software Developer",
+      teaser: "Design digital experiences",
+      icon: <Code size={30} />,
+      industry: "Technology",
+      color: "#D3E4FD",
+      salary: "₹5-25 LPA"
+    },
+    {
+      id: "fashion-designer",
+      title: "Fashion Designer",
+      teaser: "Create trends that inspire",
+      icon: <Palette size={30} />,
+      industry: "Design",
+      color: "#FFDEE2",
+      salary: "₹3-15 LPA"
+    },
+    {
+      id: "psychologist",
+      title: "Psychologist",
+      teaser: "Shape minds and futures",
+      icon: <Brain size={30} />,
+      industry: "Health and Medicine",
+      color: "#E5DEFF",
+      salary: "₹4-12 LPA"
+    },
+    {
+      id: "hr-manager",
+      title: "HR Manager",
+      teaser: "Build strong organizations",
+      icon: <Users size={30} />,
+      industry: "Human Resources",
+      color: "#FDE1D3",
+      salary: "₹6-18 LPA"
+    },
+    {
+      id: "teacher",
+      title: "Teacher",
+      teaser: "Inspire the next generation",
+      icon: <GraduationCap size={30} />,
+      industry: "Education and Teaching",
+      color: "#F2FCE2",
+      salary: "₹3-12 LPA"
+    },
+    {
+      id: "financial-analyst",
+      title: "Financial Analyst",
+      teaser: "Shape economic futures",
+      icon: <Briefcase size={30} />,
+      industry: "Finance and Accounting",
+      color: "#FEF7CD",
+      salary: "₹7-20 LPA"
+    }
+  ];
+
+  // Convert hardcoded careers to career format
+  const hardcodedCareersList: Career[] = [];
+  Object.entries(hardcodedCareers).forEach(([parentCategory, subcategories]) => {
+    Object.entries(subcategories).forEach(([subCategoryName, data]) => {
+      const industryMapping: { [key: string]: string } = {
+        "Technology": "Technology",
+        "Business": "Business", 
+        "Arts and Humanities": "Arts and Humanities",
+        "Health and Medicine": "Health and Medicine",
+        "Engineering": "Engineering",
+        "Education and Teaching": "Education and Teaching",
+        "Law and Legal Studies": "Law and Legal Studies",
+        "Finance and Accounting": "Finance and Accounting",
+        "Human Resources": "Human Resources",
+        "Sales and Marketing": "Sales and Marketing",
+        "Data Science and Analytics": "Data Science and Analytics",
+        "Entrepreneurship and Startups": "Entrepreneurship and Startups",
+        "Creative Arts": "Creative Arts",
+        "Government and Public Administration": "Government and Public Administration"
+      };
+      
+      const colorMapping: { [key: string]: string } = {
+        "Technology": "#D3E4FD",
+        "Business": "#FDE1D3",
+        "Arts and Humanities": "#E5DEFF",
+        "Health and Medicine": "#F2FCE2",
+        "Engineering": "#E8F5E8",
+        "Education and Teaching": "#FEF7CD",
+        "Law and Legal Studies": "#FFE4E1",
+        "Finance and Accounting": "#E0F2FE",
+        "Human Resources": "#F0F4FF",
+        "Sales and Marketing": "#FFF2E8",
+        "Data Science and Analytics": "#F0FDF4",
+        "Entrepreneurship and Startups": "#FEFCE8",
+        "Creative Arts": "#FAF5FF",
+        "Government and Public Administration": "#F8FAFC"
+      };
+      
+      hardcodedCareersList.push({
+        id: `hardcoded-${parentCategory.toLowerCase().replace(/\s+/g, '-')}-${subCategoryName.toLowerCase().replace(/\s+/g, '-')}`,
+        title: subCategoryName,
+        teaser: data["Opportunities and Roles"][0] || "Explore opportunities",
+        icon: <Briefcase size={30} />,
+        industry: industryMapping[parentCategory] || "Other",
+        color: colorMapping[parentCategory] || "#D3E4FD",
+        salary: "Competitive",
+        description: data.Insights
+      });
+    });
+  });
+
+  // Load custom careers and categories from localStorage with real-time updates
+  useEffect(() => {
+    const loadData = () => {
+      const storedCareers = localStorage.getItem("customCareers");
+      if (storedCareers) {
+        setCustomCareers(JSON.parse(storedCareers));
+      }
+
+      const storedCategories = localStorage.getItem("careerCategories");
+      if (storedCategories) {
+        setCategories(JSON.parse(storedCategories));
+      }
+    };
+
+    loadData();
+
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === "careerCategories" || e.key === "customCareers") {
+        loadData();
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    
+    const handleCustomUpdate = () => {
+      loadData();
+    };
+    
+    window.addEventListener("categoriesUpdated", handleCustomUpdate);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("categoriesUpdated", handleCustomUpdate);
+    };
+  }, []);
+
+  const excludedCategories = ["xyz", "adf", "Arts and Humanities"];
+  const categoriesWithoutParent = categories.filter(cat => 
+    (!cat.parentCategory || cat.parentCategory.trim() === "") &&
+    !excludedCategories.includes(cat.name)
+  );
+
+  const categoryToCareers = (categoryList: CareerCategory[]) => categoryList.map(category => ({
+    id: category.id,
+    title: category.name,
+    teaser: (category.opportunities && category.opportunities.length > 0) 
+      ? category.opportunities[0] 
+      : "Explore opportunities",
+    icon: <Briefcase size={30} />,
+    industry: "Technology",
+    color: "#D3E4FD",
+    salary: "Competitive",
+    categoryData: category
+  }));
+
+  const allCareers = [
+    ...defaultCareers,
+    ...customCareers.map(career => ({
+      ...career,
+      icon: <Briefcase size={30} />
+    })),
+    ...categoryToCareers(categoriesWithoutParent),
+    ...hardcodedCareersList
+  ];
+
+  const industries = Array.from(new Set(allCareers.map(career => career.industry)));
+  
+  const filteredCareers = allCareers.filter(career => {
+    return !activeFilter || career.industry === activeFilter;
+  });
+
+  // Determine if a career is custom or category
+  const isCustomCareer = (careerId: string) => {
+    return careerId.startsWith('custom-');
+  };
+
+  const isCategoryCareer = (careerId: string) => {
+    return careerId.startsWith('category-');
+  };
+
+  const isHardcodedCareer = (careerId: string) => {
+    return careerId.startsWith('hardcoded-');
+  };
+
+  const getCareerLink = (career: any) => {
+    if (isCustomCareer(career.id)) {
+      return `/careers/custom/${career.id}`;
+    } else if (isCategoryCareer(career.id)) {
+      return `/careers/category/${career.id}`;
+    } else if (isHardcodedCareer(career.id)) {
+      return `/careers/hardcoded/${career.id}`;
     } else {
-      setSelectedCareer(category);
-      setSelectedCategory(null);
+      return `/careers/${career.id}`;
     }
   };
 
-  const handleSubcategoryClick = (subcategory: string) => {
-    setSelectedCategory(subcategory);
-  };
-
-  const categoryColors = {
-    "Technology": "#D3E4FD",
-    "Healthcare": "#D5ECC2",
-    "Business": "#FFD8B1",
-    "Engineering": "#FFAAA7",
-    "Education and Teaching": "#B5EAD7",
-    "Law and Legal Studies": "#C7CEEA",
-    "Finance and Accounting": "#FEE1E8",
-    "Human Resources": "#F8E9A1",
-    "Sales and Marketing": "#FFC4D6",
-    "Data Science and Analytics": "#BFEFFF",
-    "Entrepreneurship and Startups": "#D6B0FF",
-    "Creative Arts": "#FFB7CE",
-    "Government and Public Administration": "#C2E9FB",
-    "Environmental and Agricultural Sciences": "#A0DAA9",
-    "Communications and Media": "#FFDFD3",
-    "Sports and Recreation": "#E2F0CB"
-  };
-
-  const formattedCareerPath = (career: string, subcategory: string) => {
-    // Replace spaces with hyphens and make lowercase for URL
-    const formattedCareer = career.toLowerCase().replace(/\s+/g, '-');
-    const formattedSubcategory = subcategory.toLowerCase().replace(/\s+/g, '-');
-    return `hardcoded-${formattedCareer}-${formattedSubcategory}`;
-  };
-
   return (
-    <section className="career-options-section">
-      <div className="container">
-        <div className="section-header">
-          <h2 className="section-title">Explore Career Options in India</h2>
-          <p className="section-subtitle">
-            Discover diverse career paths across various industries that match your interests and strengths
-          </p>
-        </div>
+    <section className="career-options-section section-spacing">
+      <div className="container mx-auto px-4">
+        <h2 className="section-title text-3xl md:text-4xl font-bold text-center mb-6">
+          Explore Career Options in India
+        </h2>
+        
+        <p className="text-center text-lg mb-10 max-w-2xl mx-auto">
+          Discover diverse career paths tailored for the Indian job market and find guidance to achieve your professional goals.
+        </p>
 
-        {/* Career Categories Carousel */}
-        <Carousel
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          className="w-full my-8"
-        >
-          <CarouselContent className="-ml-2 md:-ml-4">
-            {Object.keys(hardcodedCareers).map((career) => (
-              <CarouselItem key={career} className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-                <Button
-                  className="career-category-button w-full h-full py-6"
-                  style={{ backgroundColor: categoryColors[career as keyof typeof categoryColors] || "#f0f0f0" }}
-                  variant="outline"
-                  onClick={() => handleCategoryClick(career)}
-                >
-                  <span className="career-category-name">{career}</span>
-                </Button>
-              </CarouselItem>
+        <div className="original-careers-section">
+          <div className="filter-chips-container">
+            <button 
+              className={`filter-chip ${activeFilter === "" ? "active" : ""}`}
+              onClick={() => setActiveFilter("")}
+            >
+              All
+            </button>
+            {industries.map(industry => (
+              <button 
+                key={industry}
+                className={`filter-chip ${activeFilter === industry ? "active" : ""}`}
+                onClick={() => setActiveFilter(industry)}
+              >
+                {industry}
+              </button>
             ))}
-          </CarouselContent>
-          <div className="flex justify-center mt-4">
-            <CarouselPrevious className="static translate-y-0 mx-2" />
-            <CarouselNext className="static translate-y-0 mx-2" />
           </div>
-        </Carousel>
-
-        {selectedCareer && (
-          <div className="subcategories-container">
-            <h3 className="subcategory-title">{selectedCareer} Specializations</h3>
-            <div className="subcategories-grid">
-              {Object.keys(hardcodedCareers[selectedCareer as keyof typeof hardcodedCareers]).map((subcategory) => (
-                <Card 
-                  key={subcategory} 
-                  className="subcategory-card"
-                  style={{ 
-                    borderTop: `5px solid ${categoryColors[selectedCareer as keyof typeof categoryColors] || "#f0f0f0"}` 
-                  }}
-                >
-                  <CardHeader>
-                    <CardTitle>{subcategory}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="subcategory-description">
-                      {hardcodedCareers[selectedCareer as keyof typeof hardcodedCareers][subcategory].Insights || 
-                       "Explore this specialized career path."}
-                    </p>
-                    <Link 
-                      to={`/careers/${formattedCareerPath(selectedCareer, subcategory)}`} 
-                      className="subcategory-link"
-                    >
-                      <Button className="mt-4">
-                        Explore Career Path
-                        <ArrowRight size={16} className="ml-2" />
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+          
+          <div className="carousel-container">
+            <Carousel
+              ref={carouselRef}
+              className="w-full"
+              opts={{
+                align: "center",
+                loop: true,
+              }}
+            >
+              <CarouselContent>
+                <AnimatePresence>
+                  {filteredCareers.map((career) => (
+                    <CarouselItem key={career.id} className="md:basis-1/2 lg:basis-1/3">
+                      <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.4 }}
+                        className="career-card-container"
+                      >
+                        <div 
+                          className="career-card" 
+                          style={{ backgroundColor: career.color }}
+                        >
+                          <div className="career-icon-container">
+                            {career.icon}
+                          </div>
+                          <h3 className="career-title">{career.title}</h3>
+                          <p className="career-teaser">{career.teaser}</p>
+                          <div className="career-overlay">
+                            <div className="career-salary">{career.salary}</div>
+                            <Link to={getCareerLink(career)}>
+                              <Button variant="outline" className="view-details-btn">
+                                View Details
+                              </Button>
+                            </Link>
+                          </div>
+                        </div>
+                      </motion.div>
+                    </CarouselItem>
+                  ))}
+                </AnimatePresence>
+              </CarouselContent>
+              <CarouselPrevious className="career-nav-button prev" />
+              <CarouselNext className="career-nav-button next" />
+            </Carousel>
           </div>
-        )}
-
-        <div className="explore-more-container">
-          <h3>Not sure which path to take?</h3>
-          <Link to="/journey">
-            <Button className="explore-button">
-              Take Career Assessment
-              <ChevronRight size={16} className="ml-2" />
-            </Button>
-          </Link>
         </div>
       </div>
     </section>
   );
 };
 
-export default CareerOptions;
+export { hardcodedCareers };
