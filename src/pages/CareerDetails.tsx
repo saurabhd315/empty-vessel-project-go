@@ -45,6 +45,12 @@ const CareerDetails = () => {
           const andIndex = idParts.indexOf('and');
           parentCategory = idParts.slice(0, andIndex + 2).join(' ');
           subCategory = idParts.slice(andIndex + 2).join(' ');
+        } else if (idParts.includes('health') && idParts.includes('medicine')) {
+          // Handle "health-and-medicine" case
+          const healthIndex = idParts.indexOf('health');
+          const medicineIndex = idParts.indexOf('medicine');
+          parentCategory = idParts.slice(healthIndex, medicineIndex + 1).join(' ');
+          subCategory = idParts.slice(medicineIndex + 1).join(' ');
         } else {
           // Handle other cases like "technology-software-development"
           parentCategory = idParts[0];

@@ -653,6 +653,96 @@ const hardcodedCareers = {
       },
       "Insights": "Careers in history and cultural studies involve research, preservation, and education."
     }
+  },
+  "Health and Medicine": {
+    "Medicine": {
+      "Opportunities and Roles": ["Doctor", "Surgeon", "Medical Researcher"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Coursera's Medical Courses", "url": "https://www.coursera.org/search?query=medical%20courses&topic=Health&sortBy=BEST_MATCH"},
+          {"title": "Harvard Medical School's Online Learning", "url": "https://onlinelearning.hms.harvard.edu/"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Medical Terminology Course", "url": "https://www.udemy.com/course/medical-terminology-101/"},
+          {"title": "edX's Introduction to Medical Research", "url": "https://www.edx.org/course/introduction-to-clinical-research"}
+        ],
+        "Industry Blogs": [
+          {"title": "Medical News Today", "url": "https://www.medicalnewstoday.com/"},
+          {"title": "The Lancet", "url": "https://www.thelancet.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "American Medical Association", "url": "https://www.ama-assn.org/"},
+          {"title": "LinkedIn Medical Professionals Group", "url": "https://www.linkedin.com/groups/74296/"}
+        ]
+      },
+      "Insights": "Careers in medicine require extensive education and training, offering various specializations and high job stability."
+    },
+    "Nursing": {
+      "Opportunities and Roles": ["Registered Nurse", "Nurse Practitioner", "Clinical Nurse Specialist"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Nursing.org's Nursing Programs", "url": "https://www.nursing.org/"},
+          {"title": "Coursera's Nursing Specialization", "url": "https://www.coursera.org/search?query=nursing&topic=Health&sortBy=BEST_MATCH"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Nursing Essentials Course", "url": "https://www.udemy.com/course/nursing-essentials/"},
+          {"title": "edX's Nursing Professional Development", "url": "https://www.edx.org/learn/nursing"}
+        ],
+        "Industry Blogs": [
+          {"title": "Nurse.org", "url": "https://nurse.org/"},
+          {"title": "American Nurse Today", "url": "https://www.myamericannurse.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "American Nurses Association", "url": "https://www.nursingworld.org/"},
+          {"title": "LinkedIn Nursing Group", "url": "https://www.linkedin.com/groups/85582/"}
+        ]
+      },
+      "Insights": "Nursing offers diverse roles in patient care, with opportunities for specialization and advancement."
+    },
+    "Public Health": {
+      "Opportunities and Roles": ["Public Health Analyst", "Epidemiologist", "Health Educator"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Coursera's Public Health Specialization", "url": "https://www.coursera.org/search?query=public%20health"},
+          {"title": "edX's Public Health Programs", "url": "https://www.edx.org/learn/public-health"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Introduction to Public Health Course", "url": "https://www.udemy.com/course/introduction-to-public-health/"},
+          {"title": "LinkedIn Learning's Health & Wellness Courses", "url": "https://www.linkedin.com/learning/search?keywords=health%20and%20wellness"}
+        ],
+        "Industry Blogs": [
+          {"title": "Public Health Insights", "url": "https://thepublichealthinsight.com/"},
+          {"title": "The American Public Health Association", "url": "https://www.apha.org/"}
+        ],
+        "Professional Networks": [
+          {"title": "American Public Health Association", "url": "https://www.apha.org/"},
+          {"title": "LinkedIn Public Health Group", "url": "https://www.linkedin.com/groups/2305824/"}
+        ]
+      },
+      "Insights": "Public health focuses on improving community health and preventing disease."
+    },
+    "Medical Research": {
+      "Opportunities and Roles": ["Medical Researcher", "Clinical Research Coordinator", "Biomedical Scientist"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "PubMed", "url": "https://pubmed.ncbi.nlm.nih.gov/"},
+          {"title": "Coursera's Medical Research Courses", "url": "https://www.coursera.org/courses?query=medical%20research"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Medical Research Course", "url": "https://www.udemy.com/courses/search/?q=medical+research&src=sac&kw=medical+re"},
+          {"title": "LinkedIn Learning's Medical Research Courses", "url": "https://www.linkedin.com/learning/search?keywords=medical%20research"}
+        ],
+        "Industry Blogs": [
+          {"title": "Nature Reviews Drug Discovery", "url": "https://www.nature.com/nrd/"},
+          {"title": "Science Daily Medical Research", "url": "https://www.sciencedaily.com/news/health_medicine/medical_research/"}
+        ],
+        "Professional Networks": [
+          {"title": "American Association for the Advancement of Science", "url": "https://www.aaas.org/"},
+          {"title": "LinkedIn Medical Research Group", "url": "https://www.linkedin.com/groups/124401/"}
+        ]
+      },
+      "Insights": "Medical research involves studying diseases and developing treatments, advancing medical knowledge and improving health outcomes."
+    }
   }
 };
 
@@ -687,7 +777,7 @@ export const CareerOptions = () => {
       title: "Psychologist",
       teaser: "Shape minds and futures",
       icon: <Brain size={30} />,
-      industry: "Healthcare",
+      industry: "Health and Medicine",
       color: "#E5DEFF",
       salary: "₹4-12 LPA"
     },
@@ -727,13 +817,15 @@ export const CareerOptions = () => {
       const industryMapping: { [key: string]: string } = {
         "Technology": "Technology",
         "Business": "Business", 
-        "Arts and Humanities": "Arts"
+        "Arts and Humanities": "Arts",
+        "Health and Medicine": "Health and Medicine"
       };
       
       const colorMapping: { [key: string]: string } = {
         "Technology": "#D3E4FD",
         "Business": "#FDE1D3",
-        "Arts and Humanities": "#E5DEFF"
+        "Arts and Humanities": "#E5DEFF",
+        "Health and Medicine": "#F2FCE2"
       };
       
       hardcodedCareersList.push({
