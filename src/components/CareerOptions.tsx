@@ -1,3 +1,4 @@
+
 import { useRef, useState, useEffect } from "react";
 import {
   Code,
@@ -251,6 +252,106 @@ const hardcodedCareers = {
       ]
     },
     "Insights": "AI and machine learning are transforming industries with innovations in automation, data analysis, and problem-solving."
+  },
+  "Marketing": {
+    "Opportunities and Roles": [
+      "Marketing Manager",
+      "Digital Marketing Specialist",
+      "Brand Strategist"
+    ],
+    "Resources": {
+      "Educational Resources": [
+        {
+          "title": "HubSpot Academy's Marketing Courses",
+          "url": "https://academy.hubspot.com/"
+        },
+        {
+          "title": "Coursera's Digital Marketing Specialization",
+          "url": "https://www.coursera.org/specializations/digital-marketing"
+        }
+      ],
+      "Online Courses": [
+        {
+          "title": "Google's Digital Garage",
+          "url": "https://learndigital.withgoogle.com/digitalgarage"
+        },
+        {
+          "title": "Udemy's Complete Digital Marketing Course",
+          "url": "https://www.udemy.com/course/digital-marketing-course/"
+        }
+      ],
+      "Industry Blogs": [
+        {
+          "title": "Neil Patel",
+          "url": "https://neilpatel.com/blog/"
+        },
+        {
+          "title": "Marketing Land",
+          "url": "https://marketingland.com/"
+        }
+      ],
+      "Professional Networks": [
+        {
+          "title": "LinkedIn Marketing Solutions",
+          "url": "https://business.linkedin.com/marketing-solutions"
+        },
+        {
+          "title": "MarketingProfs",
+          "url": "https://www.marketingprofs.com/"
+        }
+      ]
+    },
+    "Insights": "Marketing professionals are in demand due to the growing emphasis on digital strategies and brand management."
+  },
+  "Finance": {
+    "Opportunities and Roles": [
+      "Financial Analyst",
+      "Investment Banker",
+      "Financial Planner"
+    ],
+    "Resources": {
+      "Educational Resources": [
+        {
+          "title": "CFA Institute's Financial Analyst Courses",
+          "url": "https://www.cfainstitute.org/"
+        },
+        {
+          "title": "Coursera's Financial Markets",
+          "url": "https://www.coursera.org/learn/financial-markets"
+        }
+      ],
+      "Online Courses": [
+        {
+          "title": "Udemy's Financial Analyst Course",
+          "url": "https://www.udemy.com/"
+        },
+        {
+          "title": "Khan Academy's Finance and Capital Markets",
+          "url": "https://www.khanacademy.org/economics-finance-domain/core-finance"
+        }
+      ],
+      "Industry Blogs": [
+        {
+          "title": "Bloomberg",
+          "url": "https://www.bloomberg.com/"
+        },
+        {
+          "title": "Financial Times",
+          "url": "https://www.ft.com/"
+        }
+      ],
+      "Professional Networks": [
+        {
+          "title": "CFA Society",
+          "url": "https://www.cfainstitute.org/"
+        },
+        {
+          "title": "Financial Planning Association",
+          "url": "https://www.onefpa.org/"
+        }
+      ]
+    },
+    "Insights": "The finance sector offers lucrative career opportunities with roles in analysis, investment, and financial planning."
   }
 };
 
@@ -324,8 +425,8 @@ export const CareerOptions = () => {
     title: key,
     teaser: data["Opportunities and Roles"][0] || "Explore opportunities",
     icon: <Code size={30} />,
-    industry: "Technology",
-    color: "#D3E4FD",
+    industry: ["Software Development", "Data Science", "Cybersecurity", "Artificial Intelligence"].includes(key) ? "Technology" : "Business",
+    color: ["Software Development", "Data Science", "Cybersecurity", "Artificial Intelligence"].includes(key) ? "#D3E4FD" : "#FDE1D3",
     salary: "Competitive",
     description: data.Insights
   }));
@@ -344,10 +445,8 @@ export const CareerOptions = () => {
       }
     };
 
-    // Initial load
     loadData();
 
-    // Listen for storage changes to update in real-time
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === "careerCategories" || e.key === "customCareers") {
         loadData();
@@ -356,7 +455,6 @@ export const CareerOptions = () => {
 
     window.addEventListener("storage", handleStorageChange);
     
-    // Also listen for custom events in case changes happen in the same window
     const handleCustomUpdate = () => {
       loadData();
     };
@@ -369,14 +467,12 @@ export const CareerOptions = () => {
     };
   }, []);
 
-  // Filter out unwanted categories and get only categories without parent
   const excludedCategories = ["xyz", "adf", "Arts and Humanities"];
   const categoriesWithoutParent = categories.filter(cat => 
     (!cat.parentCategory || cat.parentCategory.trim() === "") &&
     !excludedCategories.includes(cat.name)
   );
 
-  // Convert categories to career format for display
   const categoryToCareers = (categoryList: CareerCategory[]) => categoryList.map(category => ({
     id: category.id,
     title: category.name,
@@ -384,13 +480,12 @@ export const CareerOptions = () => {
       ? category.opportunities[0] 
       : "Explore opportunities",
     icon: <Briefcase size={30} />,
-    industry: "Technology", // Default to Technology for now
-    color: "#D3E4FD", // Default color
-    salary: "Competitive", // Default salary text
-    categoryData: category // Store full category data for detailed view
+    industry: "Technology",
+    color: "#D3E4FD",
+    salary: "Competitive",
+    categoryData: category
   }));
 
-  // Combine all careers (default + custom + categories without parent + hardcoded)
   const allCareers = [
     ...defaultCareers,
     ...customCareers.map(career => ({
@@ -401,10 +496,8 @@ export const CareerOptions = () => {
     ...hardcodedCareersList
   ];
 
-  // Get unique industries for filters
   const industries = Array.from(new Set(allCareers.map(career => career.industry)));
   
-  // Filter careers based on selected industry
   const filteredCareers = allCareers.filter(career => {
     return !activeFilter || career.industry === activeFilter;
   });
@@ -445,7 +538,6 @@ export const CareerOptions = () => {
           Discover diverse career paths tailored for the Indian job market and find guidance to achieve your professional goals.
         </p>
 
-        {/* Career Options Section */}
         <div className="original-careers-section">
           <div className="filter-chips-container">
             <button 
@@ -518,5 +610,4 @@ export const CareerOptions = () => {
   );
 };
 
-// Export hardcoded careers for use in CareerDetails
 export { hardcodedCareers };
