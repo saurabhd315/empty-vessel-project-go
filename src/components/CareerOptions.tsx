@@ -995,6 +995,74 @@ const hardcodedCareers = {
       },
       "Insights": "Computer Science offers vast opportunities in software development, data science, and cybersecurity."
     }
+  },
+  "Education and Teaching": {
+    "Teaching": {
+      "Opportunities and Roles": ["Teacher", "Education Coordinator", "Curriculum Developer"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Khan Academy", "url": "https://www.khanacademy.org/"},
+          {"title": "Coursera's Teaching Specializations", "url": "https://www.coursera.org/search?query=teaching"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Teaching Course", "url": "https://www.udemy.com/topic/teaching/"},
+          {"title": "LinkedIn Learning's Teaching Courses", "url": "https://www.linkedin.com/learning/topics/teaching"}
+        ],
+        "Industry Blogs": [
+          {"title": "Edutopia", "url": "https://www.edutopia.org/"},
+          {"title": "Teaching Tolerance", "url": "https://www.learningforjustice.org/"}
+        ],
+        "Professional Networks": [
+          {"title": "National Education Association", "url": "https://www.nea.org/"},
+          {"title": "LinkedIn Teaching Group", "url": "https://www.linkedin.com/groups/127842/"}
+        ]
+      },
+      "Insights": "Teaching involves educating students and developing curriculum with a focus on student development and learning."
+    },
+    "Educational Administration": {
+      "Opportunities and Roles": ["School Administrator", "Principal", "Education Consultant"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Educational Leadership Resources", "url": "https://www.educationworld.com/a_admin/admin/admin244.shtml"},
+          {"title": "Coursera's Educational Leadership Courses", "url": "https://www.coursera.org/search?query=educational%20leadership"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Educational Administration Course", "url": "https://www.udemy.com/courses/search/?q=education+administrator&src=sac&kw=education+ad"},
+          {"title": "LinkedIn Learning's Administration Courses", "url": "https://www.linkedin.com/learning/search?keywords=administration"}
+        ],
+        "Industry Blogs": [
+          {"title": "Education Week", "url": "https://www.edweek.org/"},
+          {"title": "Inside Higher Ed", "url": "https://www.insidehighered.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "Association for Supervision and Curriculum Development (ASCD)", "url": "http://www.ascd.org/"},
+          {"title": "LinkedIn Educational Administration Group", "url": "https://www.linkedin.com/groups/1830897/"}
+        ]
+      },
+      "Insights": "Educational administration focuses on managing educational institutions and programs, offering leadership roles."
+    },
+    "Instructional Design": {
+      "Opportunities and Roles": ["Instructional Designer", "Curriculum Developer", "Learning Experience Designer"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Association for Talent Development", "url": "https://www.td.org/"},
+          {"title": "Coursera's Instructional Design Courses", "url": "https://www.coursera.org/courses?query=instructional%20design"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Instructional Design Course", "url": "https://www.udemy.com/course/instructional-design-course/"},
+          {"title": "LinkedIn Learning's Instructional Design Courses", "url": "https://www.linkedin.com/learning/topics/instructional-design"}
+        ],
+        "Industry Blogs": [
+          {"title": "eLearning Industry", "url": "https://elearningindustry.com/"},
+          {"title": "Instructional Design Central", "url": "https://www.instructionaldesigncentral.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "Instructional Designers and eLearning Professionals", "url": "https://instructionaldesigners.org/"},
+          {"title": "LinkedIn Instructional Design Group", "url": "https://www.linkedin.com/groups/138475/"}
+        ]
+      },
+      "Insights": "Instructional design involves creating educational materials, focusing on effective teaching methods and learner engagement."
+    }
   }
 };
 
@@ -1047,7 +1115,7 @@ export const CareerOptions = () => {
       title: "Teacher",
       teaser: "Inspire the next generation",
       icon: <GraduationCap size={30} />,
-      industry: "Education",
+      industry: "Education and Teaching",
       color: "#F2FCE2",
       salary: "₹3-12 LPA"
     },
@@ -1071,7 +1139,8 @@ export const CareerOptions = () => {
         "Business": "Business", 
         "Arts and Humanities": "Arts",
         "Health and Medicine": "Health and Medicine",
-        "Engineering": "Engineering"
+        "Engineering": "Engineering",
+        "Education and Teaching": "Education and Teaching"
       };
       
       const colorMapping: { [key: string]: string } = {
@@ -1079,7 +1148,8 @@ export const CareerOptions = () => {
         "Business": "#FDE1D3",
         "Arts and Humanities": "#E5DEFF",
         "Health and Medicine": "#F2FCE2",
-        "Engineering": "#E8F5E8"
+        "Engineering": "#E8F5E8",
+        "Education and Teaching": "#F2FCE2"
       };
       
       hardcodedCareersList.push({
