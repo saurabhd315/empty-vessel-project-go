@@ -743,6 +743,258 @@ const hardcodedCareers = {
       },
       "Insights": "Medical research involves studying diseases and developing treatments, advancing medical knowledge and improving health outcomes."
     }
+  },
+  "Engineering": {
+    "Mechanical Engineering": {
+      "Opportunities and Roles": [
+        "Mechanical Engineer",
+        "Design Engineer",
+        "Manufacturing Engineer"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "MIT OpenCourseWare Mechanical Engineering",
+            "url": "https://ocw.mit.edu/courses/mechanical-engineering/"
+          },
+          {
+            "title": "Coursera's Mechanical Engineering Courses",
+            "url": "https://www.coursera.org/search?query=mechanical%20engineering"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Udemy's Mechanical Engineering Course",
+            "url": "https://www.udemy.com/course/mechanical-engineering/"
+          },
+          {
+            "title": "edX's Introduction to Mechanical Engineering",
+            "url": "https://www.edx.org/course/introduction-to-mechanical-engineering"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "Mechanical Engineering Magazine",
+            "url": "https://www.asme.org/publications/mechanical-engineering-magazine"
+          },
+          {
+            "title": "Engineering.com",
+            "url": "https://www.engineering.com/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "ASME",
+            "url": "https://www.asme.org/"
+          },
+          {
+            "title": "LinkedIn Mechanical Engineering Group",
+            "url": "https://www.linkedin.com/groups/86755/"
+          }
+        ]
+      },
+      "Insights": "Mechanical engineering is crucial in sectors like manufacturing, automotive, and aerospace."
+    },
+    "Civil Engineering": {
+      "Opportunities and Roles": [
+        "Civil Engineer",
+        "Structural Engineer",
+        "Urban Planner"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "American Society of Civil Engineers (ASCE)",
+            "url": "https://www.asce.org/"
+          },
+          {
+            "title": "Coursera's Civil Engineering Courses",
+            "url": "https://www.coursera.org/search?query=civil%20engineering"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Udemy's Civil Engineering Course",
+            "url": "https://www.udemy.com/course/civil-engineering/"
+          },
+          {
+            "title": "edX's Introduction to Civil Engineering",
+            "url": "https://www.edx.org/course/introduction-to-civil-engineering"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "Civil Engineering Magazine",
+            "url": "https://www.asce.org/publications/civil-engineering-magazine"
+          },
+          {
+            "title": "Civil Engineering Portal",
+            "url": "https://www.engineeringcivil.com/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "ASCE",
+            "url": "https://www.asce.org/"
+          },
+          {
+            "title": "LinkedIn Civil Engineering Group",
+            "url": "https://www.linkedin.com/groups/85881/"
+          }
+        ]
+      },
+      "Insights": "Civil engineering focuses on infrastructure development, offering stable career opportunities."
+    },
+    "Electrical Engineering": {
+      "Opportunities and Roles": [
+        "Electrical Engineer",
+        "Electronics Engineer",
+        "Power Systems Engineer"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "IEEE Educational Resources",
+            "url": "https://www.ieee.org/education/index.html"
+          },
+          {
+            "title": "Coursera's Electrical Engineering Specialization",
+            "url": "https://www.coursera.org/search?query=electrical%20engineering"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Udemy's Electrical Engineering Course",
+            "url": "https://www.udemy.com/course/electrical-engineering/"
+          },
+          {
+            "title": "edX's Introduction to Electrical Engineering",
+            "url": "https://www.edx.org/course/introduction-to-electrical-engineering"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "EDN Network",
+            "url": "https://www.edn.com/"
+          },
+          {
+            "title": "Electrical Engineering Times",
+            "url": "https://www.eetimes.com/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "IEEE",
+            "url": "https://www.ieee.org/"
+          },
+          {
+            "title": "LinkedIn Electrical Engineering Group",
+            "url": "https://www.linkedin.com/groups/37695/"
+          }
+        ]
+      },
+      "Insights": "Electrical engineering encompasses electrical systems and electronics, with career prospects in energy, telecommunications, and automation."
+    },
+    "Chemical Engineering": {
+      "Opportunities and Roles": [
+        "Chemical Engineer",
+        "Process Engineer",
+        "Biochemical Engineer"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "AIChE's Chemical Engineering Courses",
+            "url": "https://www.aiche.org/"
+          },
+          {
+            "title": "Coursera's Chemical Engineering Specialization",
+            "url": "https://www.coursera.org/search?query=chemical%20engineering"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Udemy's Chemical Engineering Course",
+            "url": "https://www.udemy.com/course/chemical-engineering/"
+          },
+          {
+            "title": "edX's Introduction to Chemical Engineering",
+            "url": "https://www.edx.org/course/introduction-to-chemical-engineering"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "Chemical Engineering Magazine",
+            "url": "https://www.chemengonline.com/"
+          },
+          {
+            "title": "Chemical & Engineering News",
+            "url": "https://cen.acs.org/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "AIChE",
+            "url": "https://www.aiche.org/"
+          },
+          {
+            "title": "LinkedIn Chemical Engineering Group",
+            "url": "https://www.linkedin.com/groups/84942/"
+          }
+        ]
+      },
+      "Insights": "Chemical engineering integrates chemistry with engineering principles, offering careers in pharmaceuticals, energy, and manufacturing."
+    },
+    "Computer Science": {
+      "Opportunities and Roles": [
+        "Software Developer",
+        "Data Scientist",
+        "Cybersecurity Analyst"
+      ],
+      "Resources": {
+        "Educational Resources": [
+          {
+            "title": "Coursera's Computer Science Courses",
+            "url": "https://www.coursera.org/browse/computer-science"
+          },
+          {
+            "title": "edX's Computer Science Programs",
+            "url": "https://www.edx.org/learn/computer-science"
+          }
+        ],
+        "Online Courses": [
+          {
+            "title": "Udemy's Web Development Bootcamp",
+            "url": "https://www.udemy.com/course/the-web-developer-bootcamp/"
+          },
+          {
+            "title": "LinkedIn Learning's Data Science Courses",
+            "url": "https://www.linkedin.com/learning/topics/data-science"
+          }
+        ],
+        "Industry Blogs": [
+          {
+            "title": "TechCrunch",
+            "url": "https://techcrunch.com/"
+          },
+          {
+            "title": "Wired",
+            "url": "https://www.wired.com/"
+          }
+        ],
+        "Professional Networks": [
+          {
+            "title": "GitHub",
+            "url": "https://github.com/"
+          },
+          {
+            "title": "LinkedIn Computer Science Group",
+            "url": "https://www.linkedin.com/groups/6547890/"
+          }
+        ]
+      },
+      "Insights": "Computer Science offers vast opportunities in software development, data science, and cybersecurity."
+    }
   }
 };
 
@@ -818,14 +1070,16 @@ export const CareerOptions = () => {
         "Technology": "Technology",
         "Business": "Business", 
         "Arts and Humanities": "Arts",
-        "Health and Medicine": "Health and Medicine"
+        "Health and Medicine": "Health and Medicine",
+        "Engineering": "Engineering"
       };
       
       const colorMapping: { [key: string]: string } = {
         "Technology": "#D3E4FD",
         "Business": "#FDE1D3",
         "Arts and Humanities": "#E5DEFF",
-        "Health and Medicine": "#F2FCE2"
+        "Health and Medicine": "#F2FCE2",
+        "Engineering": "#E8F5E8"
       };
       
       hardcodedCareersList.push({
