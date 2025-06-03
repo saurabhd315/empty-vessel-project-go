@@ -33,13 +33,34 @@ const CareerDetails = () => {
     const fetchCareerData = () => {
       // Check if it's a hardcoded career
       if (careerId?.startsWith('hardcoded-')) {
-        const careerKey = careerId.replace('hardcoded-', '').replace(/-/g, ' ')
-          .replace(/\b\w/g, l => l.toUpperCase());
+        // Extract parent and subcategory from the career ID
+        const idParts = careerId.replace('hardcoded-', '').split('-');
         
-        const foundHardcodedCareer = hardcodedCareers[careerKey as keyof typeof hardcodedCareers];
+        // Handle different ID formats
+        let parentCategory = '';
+        let subCategory = '';
+        
+        if (idParts.includes('and')) {
+          // Handle "arts-and-humanities" case
+          const andIndex = idParts.indexOf('and');
+          parentCategory = idParts.slice(0, andIndex + 2).join(' ');
+          subCategory = idParts.slice(andIndex + 2).join(' ');
+        } else {
+          // Handle other cases like "technology-software-development"
+          parentCategory = idParts[0];
+          subCategory = idParts.slice(1).join(' ');
+        }
+        
+        // Convert to proper case
+        parentCategory = parentCategory.replace(/\b\w/g, l => l.toUpperCase());
+        subCategory = subCategory.replace(/\b\w/g, l => l.toUpperCase());
+        
+        // Find the career data
+        const foundHardcodedCareer = hardcodedCareers[parentCategory as keyof typeof hardcodedCareers]?.[subCategory];
+        
         if (foundHardcodedCareer) {
           setCareerData({
-            title: careerKey,
+            title: subCategory,
             description: foundHardcodedCareer.Insights,
             opportunities: foundHardcodedCareer["Opportunities and Roles"],
             resources: foundHardcodedCareer.Resources,
