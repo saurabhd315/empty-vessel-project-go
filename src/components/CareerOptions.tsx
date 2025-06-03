@@ -1,3 +1,4 @@
+
 import { useRef, useState, useEffect } from "react";
 import {
   Code,
@@ -995,6 +996,570 @@ const hardcodedCareers = {
       },
       "Insights": "Computer Science offers vast opportunities in software development, data science, and cybersecurity."
     }
+  },
+  "Education and Teaching": {
+    "Teaching": {
+      "Opportunities and Roles": ["Teacher", "Education Coordinator", "Curriculum Developer"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Khan Academy", "url": "https://www.khanacademy.org/"},
+          {"title": "Coursera's Teaching Specializations", "url": "https://www.coursera.org/search?query=teaching"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Teaching Course", "url": "https://www.udemy.com/topic/teaching/"},
+          {"title": "LinkedIn Learning's Teaching Courses", "url": "https://www.linkedin.com/learning/topics/teaching"}
+        ],
+        "Industry Blogs": [
+          {"title": "Edutopia", "url": "https://www.edutopia.org/"},
+          {"title": "Teaching Tolerance", "url": "https://www.learningforjustice.org/"}
+        ],
+        "Professional Networks": [
+          {"title": "National Education Association", "url": "https://www.nea.org/"},
+          {"title": "LinkedIn Teaching Group", "url": "https://www.linkedin.com/groups/127842/"}
+        ]
+      },
+      "Insights": "Teaching involves educating students and developing curriculum with a focus on student development and learning."
+    },
+    "Educational Administration": {
+      "Opportunities and Roles": ["School Administrator", "Principal", "Education Consultant"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Educational Leadership Resources", "url": "https://www.educationworld.com/a_admin/admin/admin244.shtml"},
+          {"title": "Coursera's Educational Leadership Courses", "url": "https://www.coursera.org/search?query=educational%20leadership"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Educational Administration Course", "url": "https://www.udemy.com/courses/search/?q=education+administrator&src=sac&kw=education+ad"},
+          {"title": "LinkedIn Learning's Administration Courses", "url": "https://www.linkedin.com/learning/search?keywords=administration"}
+        ],
+        "Industry Blogs": [
+          {"title": "Education Week", "url": "https://www.edweek.org/"},
+          {"title": "Inside Higher Ed", "url": "https://www.insidehighered.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "Association for Supervision and Curriculum Development (ASCD)", "url": "http://www.ascd.org/"},
+          {"title": "LinkedIn Educational Administration Group", "url": "https://www.linkedin.com/groups/1830897/"}
+        ]
+      },
+      "Insights": "Educational administration focuses on managing educational institutions and programs, offering leadership roles."
+    },
+    "Instructional Design": {
+      "Opportunities and Roles": ["Instructional Designer", "Curriculum Developer", "Learning Experience Designer"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Association for Talent Development", "url": "https://www.td.org/"},
+          {"title": "Coursera's Instructional Design Courses", "url": "https://www.coursera.org/courses?query=instructional%20design"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Instructional Design Course", "url": "https://www.udemy.com/course/instructional-design-course/"},
+          {"title": "LinkedIn Learning's Instructional Design Courses", "url": "https://www.linkedin.com/learning/topics/instructional-design"}
+        ],
+        "Industry Blogs": [
+          {"title": "eLearning Industry", "url": "https://elearningindustry.com/"},
+          {"title": "Instructional Design Central", "url": "https://www.instructionaldesigncentral.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "Instructional Designers and eLearning Professionals", "url": "https://instructionaldesigners.org/"},
+          {"title": "LinkedIn Instructional Design Group", "url": "https://www.linkedin.com/groups/138475/"}
+        ]
+      },
+      "Insights": "Instructional design involves creating educational materials, focusing on effective teaching methods and learner engagement."
+    }
+  },
+  "Law and Legal Studies": {
+    "Legal Practice": {
+      "Opportunities and Roles": ["Lawyer", "Legal Advisor", "Paralegal"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Harvard Law School Online Courses", "url": "https://online.law.harvard.edu/"},
+          {"title": "Coursera's Legal Studies Specialization", "url": "https://www.coursera.org/search?query=legal%20studies"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Legal Practice Course", "url": "https://www.udemy.com/courses/search/?src=ukw&q=law+and+legal+practice"},
+          {"title": "LinkedIn Learning's Legal Studies Courses", "url": "https://www.linkedin.com/learning/search?keywords=legal%20courses"}
+        ],
+        "Industry Blogs": [
+          {"title": "Law.com", "url": "https://www.law.com/"},
+          {"title": "Legal 500", "url": "https://www.legal500.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "American Bar Association", "url": "https://www.americanbar.org/"},
+          {"title": "LinkedIn Legal Group", "url": "https://www.linkedin.com/groups/121728/"}
+        ]
+      },
+      "Insights": "Legal practice involves advising clients and representing them in legal matters, offering diverse roles in various legal settings."
+    },
+    "Criminal Justice": {
+      "Opportunities and Roles": ["Criminal Investigator", "Forensic Analyst", "Probation Officer"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Coursera's Criminal Justice Courses", "url": "https://www.coursera.org/search?query=criminal%20justice"},
+          {"title": "edX's Criminal Justice Programs", "url": "https://www.edx.org/search?q=criminal+justice"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Criminal Justice Course", "url": "https://www.udemy.com/courses/search/?q=criminal+justice&src=sac&kw=criminal+j"},
+          {"title": "LinkedIn Learning's Criminal Justice Courses", "url": "https://www.linkedin.com/learning/search?keywords=criminal%20justice"}
+        ],
+        "Industry Blogs": [
+          {"title": "Crime Report", "url": "https://thecrimereport.org/"},
+          {"title": "Forensic Magazine", "url": "https://www.forensicmag.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "American Society of Criminology", "url": "https://www.asc41.com/"},
+          {"title": "LinkedIn Criminal Justice Group", "url": "https://www.linkedin.com/groups/3710416/"}
+        ]
+      },
+      "Insights": "Criminal justice careers focus on law enforcement and legal processes, offering roles in investigation, forensics, and legal support."
+    },
+    "Corporate Law": {
+      "Opportunities and Roles": ["Corporate Lawyer", "Legal Advisor", "Compliance Officer"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Harvard Law School", "url": "https://www.law.harvard.edu/"},
+          {"title": "Coursera's Corporate Law Courses", "url": "https://www.coursera.org/search?query=corporate%20law"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Corporate Law Course", "url": "https://www.udemy.com/courses/search/?q=corporate+law&src=sac&kw=corpo"},
+          {"title": "LinkedIn Learning's Corporate Law Courses", "url": "https://www.linkedin.com/learning/search?keywords=corporate%20law"}
+        ],
+        "Industry Blogs": [
+          {"title": "Corporate Law Blog", "url": "https://www.thecorporatelawblog.com/"},
+          {"title": "Law360", "url": "https://www.law360.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "American Bar Association", "url": "https://www.americanbar.org/"},
+          {"title": "LinkedIn Corporate Law Group", "url": "https://www.linkedin.com/groups/33099/"}
+        ]
+      },
+      "Insights": "Corporate law involves advising businesses on legal matters, ensuring compliance, with roles in contract management, mergers, and compliance."
+    },
+    "Criminal Law": {
+      "Opportunities and Roles": ["Criminal Defense Attorney", "Prosecutor", "Forensic Analyst"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "National Association of Criminal Defense Lawyers", "url": "https://www.nacdl.org/"},
+          {"title": "Coursera's Criminal Law Courses", "url": "https://www.coursera.org/courses?query=criminal%20law"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Criminal Law Course", "url": "https://www.udemy.com/courses/search/?q=criminal+law&src=sac&kw=criminal"},
+          {"title": "LinkedIn Learning's Criminal Law Courses", "url": "https://www.linkedin.com/learning/search?keywords=criminal%20law"}
+        ],
+        "Industry Blogs": [
+          {"title": "Law & Order Blog", "url": "https://www.lawandorder.com/"},
+          {"title": "Criminal Law Forum", "url": "https://link.springer.com/journal/10609"}
+        ]
+      },
+      "Insights": "Criminal law involves defending and prosecuting criminal cases, with roles in legal advocacy and forensic analysis."
+    }
+  },
+  "Finance and Accounting": {
+    "Financial Analysis": {
+      "Opportunities and Roles": ["Financial Analyst", "Investment Banker", "Risk Manager"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "CFA Institute", "url": "https://www.cfainstitute.org/"},
+          {"title": "Coursera's Financial Analysis Courses", "url": "https://www.coursera.org/courses?query=financial%20analysis"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Financial Analysis Course", "url": "https://www.udemy.com/course/financial-analysis/"},
+          {"title": "LinkedIn Learning's Finance & Accounting Courses", "url": "https://www.linkedin.com/learning/search?keywords=Finance%20and%20Accounting"}
+        ],
+        "Industry Blogs": [
+          {"title": "Financial Times", "url": "https://www.ft.com/"},
+          {"title": "Investopedia", "url": "https://www.investopedia.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "CFA Institute Network", "url": "https://www.cfainstitute.org/en/membership/professional-networks"},
+          {"title": "LinkedIn Finance Group", "url": "https://www.linkedin.com/groups/91070/"}
+        ]
+      },
+      "Insights": "Financial analysis involves evaluating financial data to guide business decisions, offering roles in investment, risk management, and corporate finance."
+    },
+    "Accounting": {
+      "Opportunities and Roles": ["Accountant", "Auditor", "Tax Advisor"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "AICPA", "url": "https://www.aicpa.org/"},
+          {"title": "Coursera's Accounting Courses", "url": "https://www.coursera.org/courses?query=accounting"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Accounting Course", "url": "https://www.udemy.com/course/accounting/"},
+          {"title": "LinkedIn Learning's Accounting Courses", "url": "https://www.linkedin.com/learning/topics/accounting"}
+        ],
+        "Industry Blogs": [
+          {"title": "Accounting Today", "url": "https://www.accountingtoday.com/"},
+          {"title": "The Accounting Student", "url": "https://theaccountingstudent.co.uk/"}
+        ],
+        "Professional Networks": [
+          {"title": "American Institute of CPAs", "url": "https://www.aicpa.org/"},
+          {"title": "LinkedIn Accounting Group", "url": "https://www.linkedin.com/groups/2254/"}
+        ]
+      },
+      "Insights": "Accounting involves managing financial records and ensuring compliance, with a focus on accuracy, financial reporting, and regulatory adherence."
+    },
+    "Investment Banking": {
+      "Opportunities and Roles": ["Investment Banker", "Mergers and Acquisitions Specialist", "Portfolio Manager"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Coursera's Investment Banking Courses", "url": "https://www.coursera.org/courses?query=investment%20banking"},
+          {"title": "Investopedia's Investment Banking", "url": "https://www.investopedia.com/articles/professionals/022416/investment-banking-career-path-education-skills.asp"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Investment Banking Course", "url": "https://www.udemy.com/course/investment-banking/"},
+          {"title": "LinkedIn Learning's Investment Banking Courses", "url": "https://www.linkedin.com/learning/search?keywords=investment%20banking"}
+        ],
+        "Industry Blogs": [
+          {"title": "Wall Street Journal Finance", "url": "https://www.wsj.com/news/markets"},
+          {"title": "Business Insider Finance", "url": "https://www.businessinsider.com/finance"}
+        ],
+        "Professional Networks": [
+          {"title": "Global Association of Risk Professionals", "url": "https://www.garp.org/"},
+          {"title": "LinkedIn Investment Banking Group", "url": "https://www.linkedin.com/groups/105076/"}
+        ]
+      },
+      "Insights": "Investment banking focuses on financial transactions and capital raising, offering roles in mergers, acquisitions, and financial advisory."
+    }
+  },
+  "Human Resources": {
+    "HR Management": {
+      "Opportunities and Roles": ["HR Manager", "Recruitment Specialist", "Employee Relations Manager"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "SHRM", "url": "https://www.shrm.org/"},
+          {"title": "Coursera's HR Management Courses", "url": "https://www.coursera.org/courses?query=hr%20management"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's HR Management Course", "url": "https://www.udemy.com/course/hr-management/"},
+          {"title": "LinkedIn Learning's HR Courses", "url": "https://www.linkedin.com/learning/search?keywords=hr%20courses"}
+        ],
+        "Industry Blogs": [
+          {"title": "HR Daily Advisor", "url": "https://hrdailyadvisor.blr.com/"},
+          {"title": "Human Resources Today", "url": "https://www.humanresourcestoday.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "Society for Human Resource Management", "url": "https://www.shrm.org/"},
+          {"title": "LinkedIn HR Group", "url": "https://www.linkedin.com/groups/3766457/"}
+        ]
+      },
+      "Insights": "HR management focuses on recruiting, managing, and developing employees, offering roles across various HR functions."
+    },
+    "Talent Acquisition": {
+      "Opportunities and Roles": ["Talent Acquisition Specialist", "Recruitment Consultant", "Head of Talent Acquisition"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "LinkedIn Talent Solutions", "url": "https://business.linkedin.com/talent-solutions"},
+          {"title": "Coursera's Recruitment Courses", "url": "https://www.coursera.org/courses?query=recruitment"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Recruitment and Talent Acquisition Course", "url": "https://www.udemy.com/courses/search/?q=talent+acquisition&src=sac&kw=talent"},
+          {"title": "LinkedIn Learning's Talent Acquisition Courses", "url": "https://www.linkedin.com/learning/search?keywords=talent%20acquisition"}
+        ],
+        "Industry Blogs": [
+          {"title": "Recruiting Daily", "url": "https://recruitingdaily.com/"},
+          {"title": "HR Technologist", "url": "https://www.hrtechnologist.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "Recruitment & Talent Acquisition Group", "url": "https://www.linkedin.com/groups/74732/"},
+          {"title": "LinkedIn Talent Acquisition Group", "url": "https://www.linkedin.com/groups/8562132/"}
+        ]
+      },
+      "Insights": "Talent acquisition focuses on attracting and hiring top talent, requiring skills in sourcing, interviewing, and onboarding."
+    }
+  },
+  "Sales and Marketing": {
+    "Digital Marketing": {
+      "Opportunities and Roles": ["Digital Marketing Specialist", "SEO Expert", "Content Marketer"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "HubSpot Academy", "url": "https://academy.hubspot.com/"},
+          {"title": "Coursera's Digital Marketing Specialization", "url": "https://www.coursera.org/specializations/digital-marketing"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Digital Marketing Course", "url": "https://www.udemy.com/course/digital-marketing-course/"},
+          {"title": "LinkedIn Learning's Digital Marketing Courses", "url": "https://www.linkedin.com/learning/topics/digital-marketing"}
+        ],
+        "Industry Blogs": [
+          {"title": "Moz Blog", "url": "https://moz.com/blog"},
+          {"title": "Neil Patel Blog", "url": "https://neilpatel.com/blog/"}
+        ],
+        "Professional Networks": [
+          {"title": "Digital Marketing Community", "url": "https://www.digitalmarketingcommunity.com/"},
+          {"title": "LinkedIn Digital Marketing Group", "url": "https://www.linkedin.com/groups/4211637/"}
+        ]
+      },
+      "Insights": "Digital marketing involves promoting products and services online, leveraging digital platforms and data analytics."
+    },
+    "Sales Management": {
+      "Opportunities and Roles": ["Sales Manager", "Account Executive", "Business Development Manager"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Salesforce Training", "url": "https://www.salesforce.com/training/"},
+          {"title": "Coursera's Sales Management Courses", "url": "https://www.coursera.org/courses?query=sales%20management"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Sales Management Course", "url": "https://www.udemy.com/course/sales-management/"},
+          {"title": "LinkedIn Learning's Sales Management Courses", "url": "https://www.linkedin.com/learning/topics/sales-management"}
+        ],
+        "Industry Blogs": [
+          {"title": "Sales Hacker", "url": "https://www.saleshacker.com/"},
+          {"title": "Salesforce Blog", "url": "https://www.salesforce.com/blog/"}
+        ],
+        "Professional Networks": [
+          {"title": "Sales Management Association", "url": "https://salesmanagement.org/"},
+          {"title": "LinkedIn Sales Management Group", "url": "https://www.linkedin.com/groups/12345/"}
+        ]
+      },
+      "Insights": "Sales management focuses on overseeing and optimizing sales processes and teams, with a focus on growth and customer relationships."
+    }
+  },
+  "Data Science and Analytics": {
+    "Data Analysis": {
+      "Opportunities and Roles": ["Data Analyst", "Business Intelligence Analyst", "Data Scientist"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "DataCamp", "url": "https://www.datacamp.com/"},
+          {"title": "Coursera's Data Science Courses", "url": "https://www.coursera.org/courses?query=data%20science"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Data Science Course", "url": "https://www.udemy.com/course/data-science/"},
+          {"title": "LinkedIn Learning's Data Science Courses", "url": "https://www.linkedin.com/learning/topics/data-science"}
+        ],
+        "Industry Blogs": [
+          {"title": "Towards Data Science", "url": "https://towardsdatascience.com/"},
+          {"title": "KDnuggets", "url": "https://www.kdnuggets.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "Data Science Central", "url": "https://www.datasciencecentral.com/"},
+          {"title": "LinkedIn Data Science Group", "url": "https://www.linkedin.com/groups/6524852/"}
+        ]
+      },
+      "Insights": "Data analysis involves interpreting complex data to support business decisions, with roles in various industries focusing on predictive modeling."
+    },
+    "Machine Learning": {
+      "Opportunities and Roles": ["Machine Learning Engineer", "Data Scientist", "AI Specialist"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "DeepLearning.AI", "url": "https://www.deeplearning.ai/"},
+          {"title": "Coursera's Machine Learning Specialization", "url": "https://www.coursera.org/specializations/machine-learning"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Machine Learning Course", "url": "https://www.udemy.com/course/machine-learning/"},
+          {"title": "LinkedIn Learning's Machine Learning Courses", "url": "https://www.linkedin.com/learning/topics/machine-learning"}
+        ],
+        "Industry Blogs": [
+          {"title": "Machine Learning Mastery", "url": "https://machinelearningmastery.com/"},
+          {"title": "The AI Report", "url": "https://www.rackspace.com/solve/ai-ml-business-challenges"}
+        ],
+        "Professional Networks": [
+          {"title": "Machine Learning Group", "url": "https://www.linkedin.com/groups/45201/"},
+          {"title": "LinkedIn AI Group", "url": "https://www.linkedin.com/groups/4500025/"}
+        ]
+      },
+      "Insights": "Machine learning focuses on developing algorithms that allow computers to learn from data, requiring skills in programming, statistics, and data analysis."
+    }
+  },
+  "Entrepreneurship and Startups": {
+    "Startup Management": {
+      "Opportunities and Roles": ["Startup Founder", "Business Development Manager", "Growth Hacker"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Y Combinator's Startup School", "url": "https://www.startupschool.org/"},
+          {"title": "Coursera's Entrepreneurship Courses", "url": "https://www.coursera.org/courses?query=entrepreneurship"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Startup Management Course", "url": "https://www.udemy.com/courses/search/?q=startup+management&src=sac&kw=startup+man"},
+          {"title": "LinkedIn Learning's Entrepreneurship Courses", "url": "https://www.linkedin.com/learning/topics/entrepreneurship"}
+        ],
+        "Industry Blogs": [
+          {"title": "TechCrunch", "url": "https://techcrunch.com/"},
+          {"title": "Entrepreneur", "url": "https://www.entrepreneur.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "Startup Grind", "url": "https://www.startupgrind.com/"},
+          {"title": "LinkedIn Startups Group", "url": "https://www.linkedin.com/groups/1128817/"}
+        ]
+      },
+      "Insights": "Startup management involves launching and scaling new ventures, requiring an entrepreneurial mindset and adaptability."
+    },
+    "Business Development": {
+      "Opportunities and Roles": ["Business Development Manager", "Sales Strategist", "Market Research Analyst"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Harvard Business School Online", "url": "https://online.hbs.edu/"},
+          {"title": "Coursera's Business Development Courses", "url": "https://www.coursera.org/courses?query=business%20development"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Business Development Course", "url": "https://www.udemy.com/course/business-development/"},
+          {"title": "LinkedIn Learning's Business Development Courses", "url": "https://www.linkedin.com/learning/search?keywords=business%20development"}
+        ],
+        "Industry Blogs": [
+          {"title": "Forbes Business Development", "url": "https://www.forbes.com/business-development/"},
+          {"title": "Business Insider", "url": "https://www.businessinsider.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "Business Development Group", "url": "https://www.linkedin.com/groups/128812/"},
+          {"title": "LinkedIn Business Development Group", "url": "https://www.linkedin.com/groups/4245274/"}
+        ]
+      },
+      "Insights": "Business development focuses on creating growth opportunities, requiring skills in strategic planning and market analysis."
+    }
+  },
+  "Creative Arts": {
+    "Graphic Design": {
+      "Opportunities and Roles": ["Graphic Designer", "Visual Artist", "Brand Designer"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Adobe Creative Cloud Tutorials", "url": "https://helpx.adobe.com/creative-cloud/tutorials-explore.html"},
+          {"title": "Coursera's Graphic Design Specialization", "url": "https://www.coursera.org/specializations/graphic-design"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Graphic Design Course", "url": "https://www.udemy.com/course/graphic-design/"},
+          {"title": "LinkedIn Learning's Graphic Design Courses", "url": "https://www.linkedin.com/learning/topics/graphic-design"}
+        ],
+        "Industry Blogs": [
+          {"title": "Smashing Magazine", "url": "https://www.smashingmagazine.com/"},
+          {"title": "Design Shack", "url": "https://designshack.net/"}
+        ],
+        "Professional Networks": [
+          {"title": "AIGA", "url": "https://www.aiga.org/"},
+          {"title": "LinkedIn Graphic Design Group", "url": "https://www.linkedin.com/groups/1846695/"}
+        ]
+      },
+      "Insights": "Graphic design involves creating visual content, with roles in branding, advertising, and multimedia design."
+    },
+    "Fine Arts": {
+      "Opportunities and Roles": ["Fine Artist", "Art Curator", "Art Instructor"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "MoMA's Art Courses", "url": "https://www.moma.org/research-and-learning/courses"},
+          {"title": "Coursera's Fine Arts Courses", "url": "https://www.coursera.org/courses?query=fine%20arts"}
+        ],
+        "Online Courses": [
+          {"title": "Udemy's Fine Arts Course", "url": "https://www.udemy.com/courses/search/?q=fine+arts&src=sac&kw=fine"},
+          {"title": "LinkedIn Learning's Fine Arts Courses", "url": "https://www.linkedin.com/learning/search?keywords=fine%20arts%20"}
+        ],
+        "Industry Blogs": [
+          {"title": "ArtNet News", "url": "https://news.artnet.com/"},
+          {"title": "The Art Newspaper", "url": "https://www.theartnewspaper.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "College Art Association", "url": "https://www.collegeart.org/"},
+          {"title": "LinkedIn Fine Arts Group", "url": "https://www.linkedin.com/groups/1865922/"}
+        ]
+      },
+      "Insights": "Fine arts focus on creating and appreciating art forms, offering opportunities in personal expression and cultural impact."
+    }
+  },
+  "Government and Public Administration": {
+    "Policy Making": {
+      "Opportunities and Roles": ["Policy Analyst", "Legislative Assistant", "Researcher"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Harvard Kennedy School's Public Policy Courses", "url": "https://www.hks.harvard.edu/" },
+          {"title": "JNU's School of Public Policy", "url": "https://www.jnu.ac.in/schoolofpublicpolicy"}
+        ],
+        "Online Courses": [
+          {"title": "Coursera's Policy Design and Implementation", "url": "https://www.coursera.org/courses?query=policy%20design"},
+          {"title": "edX's Public Policy Essentials", "url": "https://www.edx.org/course/public-policy"}
+        ],
+        "Industry Blogs": [
+          {"title": "The Brookings Institution", "url": "https://www.brookings.edu/"},
+          {"title": "The Policy Times", "url": "https://policytimeschamber.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "LinkedIn Groups: Public Policy Professionals", "url": "https://www.linkedin.com/groups/4650532/"},
+          {"title": "American Society for Public Administration", "url": "https://www.aspanet.org/"}
+        ]
+      },
+      "Insights": "Policy making shapes government decisions and strategies, offering roles that influence public welfare and societal progress."
+    },
+    "Public Administration": {
+      "Opportunities and Roles": ["Public Administrator", "City Manager", "Municipal Clerk"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "Indian Institute of Public Administration (IIPA)", "url": "https://www.iipa.org.in/"},
+          {"title": "MPA Programs by University of London", "url": "https://www.lse.ac.uk/study-at-lse/Graduate/degree-programmes-2024/Master-of-Public-Administration"}
+        ],
+        "Online Courses": [
+          {"title": "Coursera's Public Administration for Public Sector Managers", "url": "https://www.coursera.org/courses?query=public%20administration"},
+          {"title": "edX's Governance for Nonprofits", "url": "https://www.edx.org/course/nonprofit-governance"}
+        ],
+        "Industry Blogs": [
+          {"title": "GovLoop", "url": "https://www.govloop.com/"},
+          {"title": "Public Administration Review", "url": "https://onlinelibrary.wiley.com/journal/15406210"}
+        ],
+        "Professional Networks": [
+          {"title": "International City/County Management Association (ICMA)", "url": "https://icma.org/"},
+          {"title": "National Academy of Public Administration", "url": "https://napawash.org/"}
+        ]
+      },
+      "Insights": "Public administration offers stable career paths in governance and community service, with growth opportunities in leadership positions."
+    },
+    "Civil Services": {
+      "Opportunities and Roles": ["IAS Officer", "IPS Officer", "IRS Officer"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "UPSC Official Resources", "url": "https://www.upsc.gov.in/"},
+          {"title": "Chanakya IAS Academy", "url": "https://www.chanakyaiasacademy.com/"}
+        ],
+        "Online Courses": [
+          {"title": "BYJU's IAS Prep Courses", "url": "https://byjus.com/upsc/"},
+          {"title": "Unacademy Civil Services Preparation", "url": "https://unacademy.com/goal/upsc-civil-services-examination-ias-preparation/KSCGY"}
+        ],
+        "Industry Blogs": [
+          {"title": "Insights on India", "url": "https://www.insightsonindia.com/"},
+          {"title": "ClearIAS", "url": "https://www.clearias.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "LinkedIn Groups: IAS Preparation", "url": "https://www.linkedin.com/groups/8947632/"},
+          {"title": "IAS Network", "url": "https://www.linkedin.com/groups/691852/"}
+        ]
+      },
+      "Insights": "Civil services offer an esteemed career path with significant influence on national policy and public welfare, requiring competitive examinations."
+    },
+    "Urban Planning": {
+      "Opportunities and Roles": ["Urban Planner", "City Planner", "Zoning Inspector"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "School of Planning and Architecture, Delhi", "url": "http://spa.ac.in/"},
+          {"title": "MIT Urban Studies and Planning", "url": "https://dusp.mit.edu/"}
+        ],
+        "Online Courses": [
+          {"title": "Coursera's Introduction to Urban Planning", "url": "https://www.coursera.org/courses?query=urban%20planning"},
+          {"title": "edX's Future Cities", "url": "https://www.edx.org/course/future-cities"}
+        ],
+        "Industry Blogs": [
+          {"title": "Planetizen", "url": "https://www.planetizen.com/"},
+          {"title": "The Urbanist", "url": "https://www.theurbanist.org/"}
+        ],
+        "Professional Networks": [
+          {"title": "American Planning Association (APA)", "url": "https://www.planning.org/"},
+          {"title": "Indian Society of Landscape Architects (ISOLA)", "url": "https://www.isola.org.in/"}
+        ]
+      },
+      "Insights": "Urban planning focuses on developing sustainable cities and communities, offering roles to improve quality of life through strategic planning."
+    },
+    "International Relations": {
+      "Opportunities and Roles": ["Diplomat", "International Relations Specialist", "Foreign Service Officer"],
+      "Resources": {
+        "Educational Resources": [
+          {"title": "JNU School of International Studies", "url": "https://www.jnu.ac.in/sis"},
+          {"title": "The Fletcher School at Tufts University", "url": "https://fletcher.tufts.edu/"}
+        ],
+        "Online Courses": [
+          {"title": "Coursera's International Relations Theory", "url": "https://www.coursera.org/courses?query=international%20relations"},
+          {"title": "edX's International Law", "url": "https://www.edx.org/course/international-law"}
+        ],
+        "Industry Blogs": [
+          {"title": "Council on Foreign Relations", "url": "https://www.cfr.org/"},
+          {"title": "Foreign Policy", "url": "https://foreignpolicy.com/"}
+        ],
+        "Professional Networks": [
+          {"title": "United Nations Association of India (UNAI)", "url": "https://unaindia.org/"},
+          {"title": "International Studies Association (ISA)", "url": "https://www.isanet.org/"}
+        ]
+      },
+      "Insights": "International relations professionals play a critical role in shaping global policies and fostering diplomatic relationships."
+    }
   }
 };
 
@@ -1038,7 +1603,7 @@ export const CareerOptions = () => {
       title: "HR Manager",
       teaser: "Build strong organizations",
       icon: <Users size={30} />,
-      industry: "Business",
+      industry: "Human Resources",
       color: "#FDE1D3",
       salary: "₹6-18 LPA"
     },
@@ -1047,7 +1612,7 @@ export const CareerOptions = () => {
       title: "Teacher",
       teaser: "Inspire the next generation",
       icon: <GraduationCap size={30} />,
-      industry: "Education",
+      industry: "Education and Teaching",
       color: "#F2FCE2",
       salary: "₹3-12 LPA"
     },
@@ -1056,7 +1621,7 @@ export const CareerOptions = () => {
       title: "Financial Analyst",
       teaser: "Shape economic futures",
       icon: <Briefcase size={30} />,
-      industry: "Finance",
+      industry: "Finance and Accounting",
       color: "#FEF7CD",
       salary: "₹7-20 LPA"
     }
@@ -1069,9 +1634,18 @@ export const CareerOptions = () => {
       const industryMapping: { [key: string]: string } = {
         "Technology": "Technology",
         "Business": "Business", 
-        "Arts and Humanities": "Arts",
+        "Arts and Humanities": "Arts and Humanities",
         "Health and Medicine": "Health and Medicine",
-        "Engineering": "Engineering"
+        "Engineering": "Engineering",
+        "Education and Teaching": "Education and Teaching",
+        "Law and Legal Studies": "Law and Legal Studies",
+        "Finance and Accounting": "Finance and Accounting",
+        "Human Resources": "Human Resources",
+        "Sales and Marketing": "Sales and Marketing",
+        "Data Science and Analytics": "Data Science and Analytics",
+        "Entrepreneurship and Startups": "Entrepreneurship and Startups",
+        "Creative Arts": "Creative Arts",
+        "Government and Public Administration": "Government and Public Administration"
       };
       
       const colorMapping: { [key: string]: string } = {
@@ -1079,7 +1653,16 @@ export const CareerOptions = () => {
         "Business": "#FDE1D3",
         "Arts and Humanities": "#E5DEFF",
         "Health and Medicine": "#F2FCE2",
-        "Engineering": "#E8F5E8"
+        "Engineering": "#E8F5E8",
+        "Education and Teaching": "#FEF7CD",
+        "Law and Legal Studies": "#FFE4E1",
+        "Finance and Accounting": "#E0F2FE",
+        "Human Resources": "#F0F4FF",
+        "Sales and Marketing": "#FFF2E8",
+        "Data Science and Analytics": "#F0FDF4",
+        "Entrepreneurship and Startups": "#FEFCE8",
+        "Creative Arts": "#FAF5FF",
+        "Government and Public Administration": "#F8FAFC"
       };
       
       hardcodedCareersList.push({
